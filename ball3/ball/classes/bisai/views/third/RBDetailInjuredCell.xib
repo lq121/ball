@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RBDetailInjuredCell" id="KGk-i7-Jjw" customClass="RBDetailInjuredCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jsB-xa-vo5">
+                        <rect key="frame" x="16" y="0.0" width="288" height="44"/>
+                        <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="touxiang" translatesAutoresizingMaskIntoConstraints="NO" id="eGN-LN-CnI">
+                        <rect key="frame" x="28" y="10" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="24" id="ein-cp-p4l"/>
+                            <constraint firstAttribute="height" constant="24" id="yJp-5q-ufl"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="卢比斯" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gf5-2S-hZl">
+                        <rect key="frame" x="56" y="13.5" width="43" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.19997376203536987" green="0.20001503825187683" blue="0.19997116923332214" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="中锋" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Dq-mu-SJ6">
+                        <rect key="frame" x="145.5" y="13.5" width="29" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.199973762" green="0.2000150383" blue="0.19997116919999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="膝盖节损伤" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ccn-ps-JWz">
+                        <rect key="frame" x="200.5" y="13.5" width="72" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.199973762" green="0.2000150383" blue="0.19997116919999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="jsB-xa-vo5" secondAttribute="trailing" constant="16" id="5ak-Vh-uBQ"/>
+                    <constraint firstItem="Ccn-ps-JWz" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="8se-wf-DVi"/>
+                    <constraint firstItem="gf5-2S-hZl" firstAttribute="leading" secondItem="eGN-LN-CnI" secondAttribute="trailing" constant="4" id="JTe-Vv-NYg"/>
+                    <constraint firstItem="eGN-LN-CnI" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Pad-dS-gf8"/>
+                    <constraint firstItem="jsB-xa-vo5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="RVu-bD-Min"/>
+                    <constraint firstItem="8Dq-mu-SJ6" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="WYb-SL-n5U"/>
+                    <constraint firstItem="eGN-LN-CnI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="28" id="XBT-0z-s9x"/>
+                    <constraint firstAttribute="bottom" secondItem="jsB-xa-vo5" secondAttribute="bottom" id="bdg-Wv-Wgk"/>
+                    <constraint firstItem="jsB-xa-vo5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="g2l-b9-FuL"/>
+                    <constraint firstItem="gf5-2S-hZl" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ut8-S4-f8Z"/>
+                    <constraint firstItem="8Dq-mu-SJ6" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="xKN-gX-vMo"/>
+                    <constraint firstItem="Ccn-ps-JWz" firstAttribute="leading" secondItem="8Dq-mu-SJ6" secondAttribute="trailing" constant="26" id="xQP-CL-cUD"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="bgView" destination="jsB-xa-vo5" id="vJx-5F-4rk"/>
+                <outlet property="nameLabel" destination="gf5-2S-hZl" id="1hA-Gq-8YR"/>
+                <outlet property="positionLabel" destination="8Dq-mu-SJ6" id="FiP-tF-DuW"/>
+                <outlet property="reasonLabel" destination="Ccn-ps-JWz" id="SOR-4a-A3q"/>
+                <outlet property="userHead" destination="eGN-LN-CnI" id="1vP-pw-pa4"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="87.723214285714278"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="touxiang" width="64" height="64"/>
+    </resources>
+</document>

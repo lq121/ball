@@ -1,0 +1,81 @@
+//
+//  RBPrefixHeader.pch
+//  ball
+//
+//  Created by admin on 2020/6/24.
+//  Copyright © 2020 LQ. All rights reserved.
+//
+
+#ifndef RBPrefixHeader_pch
+#define RBPrefixHeader_pch
+
+#import "MJRefresh.h"
+#import "UIView+PBExtesion.h"
+#import "MJExtension.h"
+#import "UIImageView+WebCache.h"
+
+#import "UIBarButtonItem+RBExtension.h"
+#import "UIColor+RBExtension.h"
+#import "NSString+RBExtension.h"
+#import "UIImage+RBExtension.h"
+#import "UIViewController+RBExtension.h"
+#import "MBProgressHUD+RBExtension.h"
+#import "UILabel+RBExtension.h"
+#import "UITableView+RBExtension.h"
+#import "UITextField+RBExtension.h"
+
+
+// 微信key
+#define APPID                 @"wx64d88ac16fbc792f"
+
+#define BASESHAREURL              @"http://test.youtoball.com:8080/"
+#define BASEWEBURL                @"https://www.youtoball.com/"
+#define BASEURL                   @"http://test.youtoball.com/app/"
+#define BASocket                  @"ws://test.youtoball.com/chat/chat"
+#define buglyID                   @"0716aa9e0a"
+
+//#define BASEWEBURL            @"https://www.youtoball.com/"
+//#define BASEURL               @"https://www.youtoball.com/app/"
+//#define BASocket              @"wss://www.youtoball.com/chat/chat"
+//#define buglyID               @"7a30550563"
+//#define BASESHAREURL          @"http://www.youtoball.com:8080/"
+
+#define IMAGETEAMBASEURL          @"http://cdn.sportnanoapi.com/football/team/"
+#define IMAGEPLAYERBASEURL        @"http://cdn.sportnanoapi.com/football/player/"
+
+
+/// 个推开发者网站中申请App时，注册的AppId、AppKey、AppSecret
+#define kGtAppId              @"RF3o3qZ4Jr9JrtIpc5A2g6"
+#define kGtAppKey             @"OZ5YlV6SlZ5ncJQ3Im6aM7"
+#define kGtAppSecret          @"OUKmB8VELn6vO5VNBGlov8"
+
+
+
+#define IS_IPAD               (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define RBScreenWidth         [UIScreen mainScreen].bounds.size.width
+#define RBScreenHeight        [UIScreen mainScreen].bounds.size.height
+#define RB_iphone             (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define RB_iPhoneX            RBScreenWidth >= 375.0f && RBScreenHeight >= 812.0f && RB_iphone
+
+/*状态栏高度*/
+#define RBStatusBarH          (CGFloat)(RB_iPhoneX ? (44.0) : (20.0))
+/*导航栏高度*/
+#define RBNavBarH             (44)
+/*状态栏和导航栏总高度*/
+#define RBNavBarAndStatusBarH (CGFloat)(RB_iPhoneX ? (88.0) : (64.0))
+/*TabBar高度*/
+#define RBTabBarH             (CGFloat)(RB_iPhoneX ? (49.0 + 34.0) : (49.0))
+/*顶部安全区域远离高度*/
+#define RBTopSafeH            (CGFloat)(RB_iPhoneX ? (44.0) : (0))
+/*底部安全区域远离高度*/
+#define RBBottomSafeH         (CGFloat)(RB_iPhoneX ? (34.0) : (0))
+/*iPhoneX的状态栏高度差值*/
+#define RBTopDifHeight        (CGFloat)(RB_iPhoneX ? (24.0) : (0))
+/*导航条和Tabbar总高度*/
+#define RBNavAndTabH          (RBNavBarAndStatusBarH + RBTabBarH)
+
+#define durationTime              0.35
+#define myDelayTime               1
+#define PAGESIZE                  10
+
+#endif /* RBPrefixHeader_pch */
