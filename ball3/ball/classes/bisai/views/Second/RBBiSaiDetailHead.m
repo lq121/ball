@@ -1,10 +1,11 @@
 #import "RBBiSaiDetailHead.h"
 #import "RBChekLogin.h"
 #import "UIButton+WebCache.h"
+#import <WebKit/WebKit.h>
 
 typedef void (^ClickBtnIndex)(int index);
 
-@interface RBBiSaiDetailHead ()
+@interface RBBiSaiDetailHead ()<WKUIDelegate, WKNavigationDelegate>
 @property (nonatomic, strong) UILabel *teamLabel;
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UILabel *biSaiTimeLabel;
@@ -26,6 +27,9 @@ typedef void (^ClickBtnIndex)(int index);
 @property (nonatomic, assign) int index;
 @property (nonatomic, copy) ClickBtnIndex clickBtnIndex;
 @property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, strong) UIButton *changeBtn;
+@property (nonatomic, strong) WKWebView *webView;
+@property (nonatomic, strong) UIView *shiPingDongHuaView;
 @end
 
 @implementation RBBiSaiDetailHead
@@ -43,6 +47,13 @@ typedef void (^ClickBtnIndex)(int index);
         UIView *bigView = [[UIView alloc]init];
         self.bigView = bigView;
         [self addSubview:bigView];
+
+        WKWebView *webView = [[WKWebView alloc]init];
+        webView.hidden = YES;
+        self.webView = webView;
+        [self addSubview:webView];
+        webView.UIDelegate = self;
+        webView.navigationDelegate = self;
 
         UIView *smallView = [[UIView alloc]init];
         self.smallView = smallView;
@@ -104,6 +115,12 @@ typedef void (^ClickBtnIndex)(int index);
         team2Label.textColor = [UIColor whiteColor];
         team2Label.font = [UIFont systemFontOfSize:14];
         [bigView addSubview:team2Label];
+
+        UIButton *changeBtn = [[UIButton alloc]init];
+        self.changeBtn = changeBtn;
+        [changeBtn setTitle:@"动画直播" forState:UIControlStateNormal];
+        [changeBtn addTarget:self action:@selector(clickChangeBtn) forControlEvents:UIControlEventTouchUpInside];
+        [bigView addSubview:changeBtn];
 
         UILabel *biSaiTimeLabel2 = [[UILabel alloc]init];
         self.biSaiTimeLabel2 = biSaiTimeLabel2;
@@ -193,6 +210,16 @@ typedef void (^ClickBtnIndex)(int index);
     return self;
 }
 
+- (void)clickChangeBtn {
+    if (self.biSaiModel == nil) {
+        return;
+    }
+    self.webView.hidden = NO;
+//    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://cuntugou.tpddns.cn:6001/detail?id=%d",self.biSaiModel.namiId]]]];
+//    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@" https://widget.namitiyu.com/leisu/mlive/m/detail.php?id=%d",self.biSaiModel.namiId]]]];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://sports.pptv.com/sportslive/pg_h5live?sectionid=175665&matchid=267665"]]];
+}
+
 - (void)clickIndex:(int)index {
     UIButton *btn = [self.selectView viewWithTag:200 + index];
     [self clickCheckBtn:btn];
@@ -249,6 +276,7 @@ typedef void (^ClickBtnIndex)(int index);
 - (void)layoutSubviews {
     [super layoutSubviews];
     self.BGView.frame = CGRectMake(0, -RBStatusBarH, RBScreenWidth, self.height  - 44 + RBStatusBarH);
+    self.webView.frame = self.BGView.frame;
     NSString *str = self.biSaiTimeLabel.text;
     if (self.biSaiModel.status == 2 || self.biSaiModel.status == 4) {
         if (![str containsString:@"'"]) {
@@ -276,6 +304,7 @@ typedef void (^ClickBtnIndex)(int index);
     self.scoreLabel.frame = CGRectMake((RBScreenWidth - 50) * 0.5, CGRectGetMaxY(self.timeLabel.frame) + 49, 50, 27);
     self.team1.frame = CGRectMake((RBScreenWidth * 0.5 - 25 - 60) * 0.5, CGRectGetMaxY(self.timeLabel.frame) + 28, 60, 60);
     self.team2.frame = CGRectMake((RBScreenWidth * 0.5 + 25 - 60) * 0.5 + RBScreenWidth * 0.5, CGRectGetMaxY(self.timeLabel.frame) + 28, 60, 60);
+    self.changeBtn.frame = CGRectMake((RBScreenWidth - 100) * 0.5, CGRectGetMaxY(self.team1.frame) + 20, 100, 20);
     self.team1Label.frame = CGRectMake(100, CGRectGetMaxY(self.team1.frame) + 4, 180, 20);
     self.team2Label.frame = CGRectMake(100, CGRectGetMaxY(self.team1.frame) + 4, 180, 20);
     self.team1Label.centerX = self.team1.centerX;
@@ -344,6 +373,7 @@ typedef void (^ClickBtnIndex)(int index);
 
 - (void)setBiSaiModel:(RBBiSaiModel *)biSaiModel {
     _biSaiModel = biSaiModel;
+
     if (biSaiModel == nil) {
         return;
     }
@@ -473,6 +503,74 @@ typedef void (^ClickBtnIndex)(int index);
 - (void)dealloc {
     [self.timer invalidate];
     self.timer = nil;
+}
+
+#pragma mark - WKNavigationDelegate
+// 页面开始加载时调用
+- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
+}
+
+// 当内容开始返回时调用
+- (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation {
+}
+
+// 页面加载完成之后调用
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    NSString *jsStr = @"javascript:(function(){\
+       var liveEle = document.getElementById('live');\
+       liveEle.removeChild(document.getElementsByClassName('container')[0].parentNode);\
+       liveEle.removeChild(document.getElementsByClassName('bottom-new')[0].parentNode);\
+       var liveContent=document.getElementsByClassName('live-content')[0];\
+       liveContent.removeChild(document.getElementsByClassName('fight ')[0]);\
+       liveContent.removeChild(document.getElementsByClassName('tj-content')[0]);\
+       var review=document.getElementsByClassName('review-btm');\
+       if(review !=null && review.length > 0){\
+       liveContent.removeChild(review[0]);}\
+       })();";
+    [webView evaluateJavaScript:jsStr completionHandler:^(id _Nullable object, NSError *_Nullable error) {
+        NSLog(@" - %@ -- %@ --- ", error, object);
+    }];
+}
+
+// 页面加载失败时调用
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation {
+}
+
+// 接收到服务器跳转请求之后调用
+- (void)webView:(WKWebView *)webView didReceiveServerRedirectForProvisionalNavigation:(WKNavigation *)navigation {
+}
+
+// 在收到响应后，决定是否跳转
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
+    //允许跳转
+    decisionHandler(WKNavigationResponsePolicyAllow);
+}
+
+// 在发送请求之前，决定是否跳转
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    //允许跳转
+    decisionHandler(WKNavigationActionPolicyAllow);
+}
+
+    #pragma mark - WKUIDelegate
+// 创建一个新的WebView
+- (WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures {
+    return [[WKWebView alloc]init];
+}
+
+// 输入框
+- (void)webView:(WKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(nullable NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString *__nullable result))completionHandler {
+    completionHandler(@"http");
+}
+
+// 确认框
+- (void)webView:(WKWebView *)webView runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL result))completionHandler {
+    completionHandler(YES);
+}
+
+// 警告框
+- (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler {
+    completionHandler();
 }
 
 @end

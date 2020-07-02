@@ -54,7 +54,7 @@
     self.selectedIndex = 2;
 
     __weak typeof(self) weakSelf = self;
-    self.timer1 = [NSTimer timerWithTimeInterval:60 target:weakSelf selector:@selector(timerRun) userInfo:nil repeats:YES];
+    self.timer1 = [NSTimer timerWithTimeInterval:10 target:weakSelf selector:@selector(timerRun) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:self.timer1 forMode:NSRunLoopCommonModes];
     self.timer2 = [NSTimer timerWithTimeInterval:10 * 60 target:weakSelf selector:@selector(getBiSaiData) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:self.timer2 forMode:NSRunLoopCommonModes];
@@ -69,9 +69,15 @@
 }
 
 - (void)getBiSaiData {
-    NSString *str = [NSString stringWithFormat:@"api/sports/football/match/list?date=%@", [NSString getStrWithDate:[NSDate date] andFormat:@"yyyyMMdd"]];
-    NSDictionary *dict = @{ @"data": str };
-    [RBNetworkTool PostDataWithUrlStr:@"try/go/gameproxy"  andParam:dict Success:^(NSDictionary *_Nonnull backData) {
+    NSString *str = [NSString getStrWithDate:[NSDate date] andFormat:@"yyyyMMdd"];
+    NSDictionary *dict = @{ @"date": str };
+    [RBNetworkTool PostDataWithUrlStr:@"try/go/getfootballmatchlistbydate"  andParam:dict Success:^(NSDictionary *_Nonnull backDataDic) {
+        if (backDataDic.allKeys.count == 0 || backDataDic == nil || [backDataDic isKindOfClass:[NSNull class]]) return;
+        NSData *jsonData = [backDataDic[@"ok"] dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *err;
+        NSDictionary *backData = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                 options:NSJSONReadingMutableContainers
+                                                                   error:&err];
         if (backData[@"err"] != nil) {
             [self getBiSaiData];
             return;
@@ -114,10 +120,14 @@
 
 - (void)timerRun {
     [UIViewController getCurrentVC];
-    NSString *str = @"api/sports/football/match/live2";
-    NSDictionary *dict = @{ @"data": str };
     NSMutableArray *scoreArr = [NSMutableArray array];
-    [RBNetworkTool PostDataWithUrlStr:@"try/go/gameproxy" andParam:dict Success:^(NSDictionary *_Nonnull backData) {
+    [RBNetworkTool PostDataWithUrlStr:@"try/go/getfootballlive" andParam:@{} Success:^(NSDictionary *_Nonnull backDataDic) {
+        if (backDataDic.allKeys.count == 0 || backDataDic == nil || [backDataDic isKindOfClass:[NSNull class]]) return;
+        NSData *jsonData = [backDataDic[@"ok"] dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *err;
+        NSDictionary *backData = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                 options:NSJSONReadingMutableContainers
+                                                                   error:&err];
         NSArray *array = (NSArray *)backData;
         NSMutableArray *changeArr = [NSMutableArray array];
         for (int i = 0; i < array.count; i++) {

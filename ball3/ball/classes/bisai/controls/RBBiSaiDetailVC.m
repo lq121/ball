@@ -126,6 +126,7 @@
     }
     self.view.backgroundColor = [UIColor colorWithSexadeString:@"#F8F8F8"];
     [self.view addSubview:self.scrollView];
+    [self getZhiBoUrl];
     self.liveTabVC = [[RBLiveTabVC alloc]init];
     self.chatVC = [[RBChatVC alloc]init];
     self.aiForecastVC = [[RBAIForecastVC alloc]init];
@@ -206,6 +207,15 @@
     return _scrollView;
 }
 
+- (void)getZhiBoUrl {
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setValue:@(self.biSaiModel.namiId) forKey:@"matchid"];
+    [RBNetworkTool PostDataWithUrlStr:@"try/go/getzhibo"  andParam:dict Success:^(NSDictionary *_Nonnull backData) {
+        NSLog(@"%@", backData);
+    } Fail:^(NSError *_Nonnull error) {
+    }];
+}
+
 - (void)getaiDataWithIndex:(int)index {
     // 获取预测数据
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -264,9 +274,14 @@
 
 // 获取球赛信息
 - (void)getBiSaiInfo {
-    NSString *str = [NSString stringWithFormat:@"api/sports/football/match/detail?id=%d", self.biSaiModel.namiId];
-    NSDictionary *dict = @{ @"data": str };
-    [RBNetworkTool PostDataWithUrlStr:@"try/go/gameproxy" andParam:dict Success:^(NSDictionary *_Nonnull backData) {
+    NSDictionary *dict = @{ @"matchid": @(self.biSaiModel.namiId) };
+    [RBNetworkTool PostDataWithUrlStr:@"try/go/getfootballdetail" andParam:dict Success:^(NSDictionary *_Nonnull backDataDic) {
+        if (backDataDic.allKeys.count == 0 || backDataDic == nil || [backDataDic isKindOfClass:[NSNull class]]) return;
+        NSData *jsonData = [backDataDic[@"ok"] dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *err;
+        NSDictionary *backData = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                 options:NSJSONReadingMutableContainers
+                                                                   error:&err];
         if (backData.allKeys.count != 0) {
             NSDictionary *info =  backData[@"info"];
             NSDictionary *home_team = backData[@"home_team"];

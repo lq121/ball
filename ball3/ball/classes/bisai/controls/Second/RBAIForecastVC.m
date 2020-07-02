@@ -115,9 +115,14 @@
     }
 
     // 获取即时指数
-    NSString *str3 = [NSString stringWithFormat:@"api/sports/football/odds/history?id=%d", self.biSaiModel.namiId];
-    NSDictionary *dict3 = @{ @"data": str3 };
-    [RBNetworkTool PostDataWithUrlStr:@"try/go/gameproxy" andParam:dict3 Success:^(NSDictionary *_Nonnull backData) {
+    NSDictionary *dict3 = @{ @"matchid": @(self.biSaiModel.namiId) };
+    [RBNetworkTool PostDataWithUrlStr:@"try/go/getfootballoddhistory" andParam:dict3 Success:^(NSDictionary *_Nonnull backDataDic) {
+        if (backDataDic.allKeys.count == 0 || backDataDic == nil || [backDataDic isKindOfClass:[NSNull class]]) return;
+        NSData *jsonData = [backDataDic[@"ok"] dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *err;
+        NSDictionary *backData = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                 options:NSJSONReadingMutableContainers
+                                                                   error:&err];
         for (int i = 0; i < compsArr.count; i++) {
             RBCompany *company = compsArr[i];
             NSString *key = [NSString stringWithFormat:@"%ld", company.ID];

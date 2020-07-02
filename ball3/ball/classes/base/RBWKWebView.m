@@ -17,7 +17,7 @@
     [MBProgressHUD showLoading:@"加载中…" toView:self.view];
 }
 
-    #pragma mark - WKNavigationDelegate
+#pragma mark - WKNavigationDelegate
 // 页面开始加载时调用
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
 }

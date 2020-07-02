@@ -81,7 +81,6 @@
             return;
         }
     }
-
     [[RBNetworkTool shareNetwork]netToolGetDataWithType:@"POST" andUrlStr:[NSString stringWithFormat:@"%@%@", BASEURL, urlStr]  andParam:mDict Success:^(NSDictionary *_Nonnull dict) {
         NSError *error;
         if (dict == nil) {

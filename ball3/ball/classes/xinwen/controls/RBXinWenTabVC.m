@@ -103,9 +103,15 @@
 }
 
 - (void)getBiSaiData {
-    NSString *str = [NSString stringWithFormat:@"api/sports/football/match/list?date=%@", [NSString getStrWithDate:[NSDate date] andFormat:@"yyyyMMdd"]];
-    NSDictionary *dict = @{ @"data": str };
-    [RBNetworkTool PostDataWithUrlStr:@"try/go/gameproxy"  andParam:dict Success:^(NSDictionary *_Nonnull backData) {
+    NSString *str = [NSString getStrWithDate:[NSDate date] andFormat:@"yyyyMMdd"];
+    NSDictionary *dict = @{ @"date": str };
+    [RBNetworkTool PostDataWithUrlStr:@"try/go/getfootballmatchlistbydate"  andParam:dict Success:^(NSDictionary *_Nonnull backDataDic) {
+        if (backDataDic.allKeys.count == 0 || backDataDic == nil || [backDataDic isKindOfClass:[NSNull class]]) return;
+        NSData *jsonData = [backDataDic[@"ok"] dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *err;
+        NSDictionary *backData = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                 options:NSJSONReadingMutableContainers
+                                                                   error:&err];
         if (backData[@"err"] != nil) {
             [self getBiSaiData];
             return;

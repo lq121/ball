@@ -122,9 +122,9 @@
             // 赛程
             NSArray *array = [[RBFMDBTool sharedFMDBTool] selectBiSaiModelWithTime:self.date andMinStatus:1 andMaxStatus:0];
             [self.scheduleDataArray addObjectsFromArray:array];
-           if (self.scheduleDataArray.count == 0) {
+            if (self.scheduleDataArray.count == 0) {
                 [self getBiSaiData];
-            }else{
+            } else {
                 [self setMatchArr];
             }
         } else if (self.biSaiType == 3) {
@@ -133,7 +133,7 @@
             [self.resultDataArray addObjectsFromArray:array];
             if (self.resultDataArray.count == 0) {
                 [self getBiSaiData];
-            }else{
+            } else {
                 [self setMatchArr];
             }
         } else if (self.biSaiType == 4) {
@@ -179,7 +179,6 @@
             }
             [self.tableView showDataCount:self.attentionHistoryDataArray.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183) andType:2];
         }
-        
     } else {
         [self getBiSaiData];
     }
@@ -291,10 +290,9 @@
                     dateFormatter.dateFormat = @"yyyyMMdd";
                     NSDate *now = [NSString stringToDate:[dateFormatter stringFromDate:[NSDate date]]];
                     NSComparisonResult result = [date compare:now];
-                    NSString *str = [NSString stringWithFormat:@"api/sports/football/match/list?date=%@", arry[0]];
-                    NSDictionary *dict = @{ @"data": str };
+                    NSDictionary *dict = @{ @"date": arry[0] };
                     // 获取
-                    [RBNetworkTool PostDataWithUrlStr:@"try/go/gameproxy"  andParam:dict Success:^(NSDictionary *_Nonnull backData) {
+                    [RBNetworkTool PostDataWithUrlStr:@"try/go/getfootballmatchlistbydate" andParam:dict Success:^(NSDictionary *_Nonnull backData) {
                         if (backData[@"err"] != nil) {
                             return;
                         }
@@ -363,12 +361,12 @@
 
 - (void)getBiSaiData {
     [MBProgressHUD showLoading:@"加载中" toView:self.view];
-    NSString *str = [NSString stringWithFormat:@"api/sports/football/match/list?date=%@", [NSString getStrWithDate:[NSDate date] andFormat:@"yyyyMMdd"]];
+    NSString *str =  [NSString getStrWithDate:[NSDate date] andFormat:@"yyyyMMdd"];
     if (self.date > 0) {
-        str = [NSString stringWithFormat:@"api/sports/football/match/list?date=%@", [NSString getStrWithDateInt:self.date andFormat:@"yyyyMMdd"]];
+        str = [NSString getStrWithDateInt:self.date andFormat:@"yyyyMMdd"];
     }
-    NSDictionary *dict = @{ @"data": str };
-    [RBNetworkTool PostDataWithUrlStr:@"try/go/gameproxy"  andParam:dict Success:^(NSDictionary *_Nonnull backData) {
+    NSDictionary *dict = @{ @"date": str };
+    [RBNetworkTool PostDataWithUrlStr:@"ttry/go/getfootballmatchlistbydate"  andParam:dict Success:^(NSDictionary *_Nonnull backData) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         if (backData[@"err"] != nil) {
             [self getBiSaiData];
@@ -515,11 +513,15 @@
         });
         return;
     }
-    NSString *str = @"api/sports/football/match/live2";
-    NSDictionary *dict = @{ @"data": str };
-    [RBNetworkTool PostDataWithUrlStr:@"try/go/gameproxy" andParam:dict Success:^(NSDictionary *_Nonnull backData) {
+    [RBNetworkTool PostDataWithUrlStr:@"try/go/getfootballlive" andParam:@{} Success:^(NSDictionary *_Nonnull backDataDic) {
         [self.tableView.mj_header endRefreshing];
         [MBProgressHUD hideHUDForView:self.tableView animated:YES];
+        if (backDataDic.allKeys.count == 0 || backDataDic == nil || [backDataDic isKindOfClass:[NSNull class]]) return;
+        NSData *jsonData = [backDataDic[@"ok"] dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *err;
+        NSDictionary *backData = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                 options:NSJSONReadingMutableContainers
+                                                                   error:&err];
         NSArray *array = (NSArray *)backData;
         NSMutableArray *changeArr = [NSMutableArray array];
         for (int i = 0; i < array.count; i++) {
