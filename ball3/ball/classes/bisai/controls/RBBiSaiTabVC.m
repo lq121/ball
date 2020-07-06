@@ -292,7 +292,14 @@
                     NSComparisonResult result = [date compare:now];
                     NSDictionary *dict = @{ @"date": arry[0] };
                     // 获取
-                    [RBNetworkTool PostDataWithUrlStr:@"try/go/getfootballmatchlistbydate" andParam:dict Success:^(NSDictionary *_Nonnull backData) {
+                    [RBNetworkTool PostDataWithUrlStr:@"try/go/getfootballmatchlistbydate" andParam:dict Success:^(NSDictionary *_Nonnull backDataDic) {
+                        if (backDataDic.allKeys.count == 0 || backDataDic == nil || [backDataDic isKindOfClass:[NSNull class]] || [[backDataDic allKeys] containsObject:@"message"] || [[backDataDic allKeys] containsObject:@"err"]) return;
+                        NSData *jsonData = [backDataDic[@"ok"] dataUsingEncoding:NSUTF8StringEncoding];
+                        NSError *err;
+                        NSDictionary *backData = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                                 options:NSJSONReadingMutableContainers
+                                                                                   error:&err];
+
                         if (backData[@"err"] != nil) {
                             return;
                         }
@@ -366,8 +373,14 @@
         str = [NSString getStrWithDateInt:self.date andFormat:@"yyyyMMdd"];
     }
     NSDictionary *dict = @{ @"date": str };
-    [RBNetworkTool PostDataWithUrlStr:@"ttry/go/getfootballmatchlistbydate"  andParam:dict Success:^(NSDictionary *_Nonnull backData) {
+    [RBNetworkTool PostDataWithUrlStr:@"try/go/getfootballmatchlistbydate"  andParam:dict Success:^(NSDictionary *_Nonnull backDataDic) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
+       if (backDataDic.allKeys.count == 0 || backDataDic == nil || [backDataDic isKindOfClass:[NSNull class]] || [[backDataDic allKeys] containsObject:@"message"] || [[backDataDic allKeys] containsObject:@"err"]) return;
+        NSData *jsonData = [backDataDic[@"ok"] dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *err;
+        NSDictionary *backData = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                 options:NSJSONReadingMutableContainers
+                                                                   error:&err];
         if (backData[@"err"] != nil) {
             [self getBiSaiData];
             return;

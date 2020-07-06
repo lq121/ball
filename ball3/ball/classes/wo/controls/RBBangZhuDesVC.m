@@ -53,7 +53,7 @@
 }
 
 - (void)clickOtherBtn {
-    if ( [RBChekLogin CheckLogin]) {
+    if ( [RBChekLogin NotLogin]) {
         return;
     }
     [self.navigationController pushViewController:[[RBLiuYanVC alloc]init] animated:YES];

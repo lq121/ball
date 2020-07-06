@@ -165,7 +165,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([RBChekLogin CheckLogin]) {
+    if ([RBChekLogin NotLogin]) {
         return;
     } else {
         RBBiSaiDetailVC *detailTabVC = [[RBBiSaiDetailVC alloc]init];

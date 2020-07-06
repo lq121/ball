@@ -120,7 +120,7 @@ typedef void (^LongTap)(RBHuaTiHuiFuModel *huaTiHuiFuModel);
 
 // 点击赞按钮
 - (void)clickZanBtn {
-    if ([RBChekLogin CheckLogin]) {
+    if ([RBChekLogin NotLogin]) {
         return;
     }
     if ([RBChekLogin checkWithTitile:@"等级需到达5级以上\n或者会员才可以参与互动" andtype:@"zanlv" andNeedCheck:YES]) {
@@ -166,7 +166,7 @@ typedef void (^LongTap)(RBHuaTiHuiFuModel *huaTiHuiFuModel);
 
 // 举报
 - (void)inform:(RBHuaTiHuiFuModel *)topicReolyModel {
-    if ([RBChekLogin CheckLogin]) {
+    if ([RBChekLogin NotLogin]) {
         return;
     } else {
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];

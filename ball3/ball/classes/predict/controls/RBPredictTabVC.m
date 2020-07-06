@@ -132,7 +132,7 @@
 
 - (void)clickpredictBtn {
     RBPredictModel *predictModel = [self.nearpredictArr firstObject];
-    if ([RBChekLogin CheckLogin]) {
+    if ([RBChekLogin NotLogin]) {
         return;
     } else {
         RBBiSaiDetailVC *detailTabVC = [[RBBiSaiDetailVC alloc]init];
@@ -273,7 +273,7 @@
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         RBNearCollectionView *collectionView = [[RBNearCollectionView alloc]initWithFrame:CGRectMake(10, 40, RBScreenWidth - 10, 97) collectionViewLayout:layout andmodels:self.nearpredictArr andClickItem:^(NSInteger index) {
-    if ([RBChekLogin CheckLogin]) {
+    if ([RBChekLogin NotLogin]) {
                 return;
             } else {
                 RBBiSaiDetailVC *detailTabVC = [[RBBiSaiDetailVC alloc]init];
@@ -366,7 +366,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([RBChekLogin CheckLogin]) {
+    if ([RBChekLogin NotLogin]) {
         return;
     }else {
         RBBiSaiDetailVC *detailTabVC = [[RBBiSaiDetailVC alloc]init];

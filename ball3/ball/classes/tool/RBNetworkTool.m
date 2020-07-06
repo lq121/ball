@@ -4,7 +4,7 @@
 #import "RBToast.h"
 #import "CGAppDisburseTool.h"
 
-@interface RBNetworkTool()
+@interface RBNetworkTool ()
 @property (strong, nonatomic) AFURLSessionManager *manager;
 @property (nonatomic, assign) BOOL hasRefresh;
 @property (strong, nonatomic) NSDictionary *jsonDic;
@@ -112,6 +112,9 @@
                             [[NSUserDefaults standardUserDefaults]setValue:nil forKey:@"seletmatchArr"];
                             [[NSUserDefaults standardUserDefaults]setValue:[NSNumber numberWithBool:NO] forKey:@"notEditPwd"];
                             [[NSUserDefaults standardUserDefaults]synchronize];
+                            if ([[UIViewController getCurrentVC] isKindOfClass:[RBLoginVC class]]) {
+                                return;
+                            }
                             RBLoginVC *loginVC = [[RBLoginVC alloc]init];
                             loginVC.fromVC = [UIViewController getCurrentVC];
                             [[UIViewController getCurrentVC].navigationController pushViewController:loginVC animated:YES];
@@ -131,6 +134,9 @@
                         [[NSUserDefaults standardUserDefaults]setValue:nil forKey:@"seletmatchArr"];
                         [[NSUserDefaults standardUserDefaults]setValue:[NSNumber numberWithBool:NO] forKey:@"notEditPwd"];
                         [[NSUserDefaults standardUserDefaults]synchronize];
+                        if ([[UIViewController getCurrentVC] isKindOfClass:[RBLoginVC class]]) {
+                            return;
+                        }
                         RBLoginVC *loginVC = [[RBLoginVC alloc]init];
                         loginVC.fromVC = [UIViewController getCurrentVC];
                         [[UIViewController getCurrentVC].navigationController pushViewController:loginVC animated:YES];
@@ -464,6 +470,9 @@
         case 324:
             [RBToast showWithTitle:@"您已经投过票"];
             break;
+        case 325:
+            [RBToast showWithTitle:@"没有ai预测数据"];
+            break;
         case 326:
             [RBToast showWithTitle:@"你已经买过预测结果"];
             break;
@@ -555,4 +564,5 @@
         result(nil, MoneyStatusError, error);
     }];
 }
+
 @end

@@ -209,7 +209,7 @@
 
 // 点击赞按钮
 - (void)clickZanBtn {
-    if ([RBChekLogin CheckLogin]) {
+    if ([RBChekLogin NotLogin]) {
         return;
     }else if([RBChekLogin checkWithTitile:@"等级需到达5级以上\n或者会员才可以参与互动" andtype:@"zanlv" andNeedCheck:YES]){
         return;
@@ -236,7 +236,7 @@
 }
 
 - (void)clickSendBtn {
-    if ([RBChekLogin CheckLogin]) {
+    if ([RBChekLogin NotLogin]) {
         return;
     }
     if (self.textField.text.length <= 0) {

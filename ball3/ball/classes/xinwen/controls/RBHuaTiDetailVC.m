@@ -132,7 +132,7 @@
 }
 
 - (void)clickSendBtn {
-    if ([RBChekLogin CheckLogin]) {
+    if ([RBChekLogin NotLogin]) {
         return;
     }
     if ([RBChekLogin checkWithTitile:@"等级需到达5级以上\n或者会员才可以参与互动" andtype:@"commentlv" andNeedCheck:YES]) {

@@ -141,7 +141,7 @@
 		842A4B9024AAF6CD0042FE0A /* RBAnalyzeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 842A4B4024AAF6CC0042FE0A /* RBAnalyzeVC.m */; };
 		842A4B9124AAF6CD0042FE0A /* RBHistoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 842A4B4424AAF6CC0042FE0A /* RBHistoryVC.m */; };
 		842A4B9224AAF6CD0042FE0A /* RBScheduleBiSaiVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 842A4B4624AAF6CC0042FE0A /* RBScheduleBiSaiVC.m */; };
-		842A4B9324AAF6CD0042FE0A /* RBGamesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 842A4B4824AAF6CC0042FE0A /* RBGamesVC.m */; };
+		842A4B9324AAF6CD0042FE0A /* RBBiSaisVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 842A4B4824AAF6CC0042FE0A /* RBBiSaisVC.m */; };
 		842A4B9424AAF6CD0042FE0A /* RBBiSaiTabVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 842A4B4B24AAF6CC0042FE0A /* RBBiSaiTabVC.m */; };
 		842A4B9524AAF6CD0042FE0A /* RBSelectedVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 842A4B4D24AAF6CC0042FE0A /* RBSelectedVC.m */; };
 		842A4B9624AAF6CD0042FE0A /* RBResultBiSaiVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 842A4B4E24AAF6CC0042FE0A /* RBResultBiSaiVC.m */; };
@@ -510,7 +510,7 @@
 		842A4B4524AAF6CC0042FE0A /* RBBiSaiTabVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBBiSaiTabVC.h; sourceTree = "<group>"; };
 		842A4B4624AAF6CC0042FE0A /* RBScheduleBiSaiVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBScheduleBiSaiVC.m; sourceTree = "<group>"; };
 		842A4B4724AAF6CC0042FE0A /* RBBiSaiDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBBiSaiDetailVC.h; sourceTree = "<group>"; };
-		842A4B4824AAF6CC0042FE0A /* RBGamesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBGamesVC.m; sourceTree = "<group>"; };
+		842A4B4824AAF6CC0042FE0A /* RBBiSaisVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBBiSaisVC.m; sourceTree = "<group>"; };
 		842A4B4924AAF6CC0042FE0A /* RBSearchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBSearchVC.h; sourceTree = "<group>"; };
 		842A4B4A24AAF6CC0042FE0A /* RBScheduleBiSaiVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBScheduleBiSaiVC.h; sourceTree = "<group>"; };
 		842A4B4B24AAF6CC0042FE0A /* RBBiSaiTabVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBBiSaiTabVC.m; sourceTree = "<group>"; };
@@ -932,10 +932,10 @@
 			children = (
 				842A4B4724AAF6CC0042FE0A /* RBBiSaiDetailVC.h */,
 				842A4B2724AAF6CC0042FE0A /* RBBiSaiDetailVC.m */,
+				842A4B2924AAF6CC0042FE0A /* RBBiSaisVC.h */,
 				842A4B4524AAF6CC0042FE0A /* RBBiSaiTabVC.h */,
 				842A4B4B24AAF6CC0042FE0A /* RBBiSaiTabVC.m */,
-				842A4B2924AAF6CC0042FE0A /* RBBiSaisVC.h */,
-				842A4B4824AAF6CC0042FE0A /* RBGamesVC.m */,
+				842A4B4824AAF6CC0042FE0A /* RBBiSaisVC.m */,
 				842A4B4C24AAF6CC0042FE0A /* RBHistoryVC.h */,
 				842A4B4424AAF6CC0042FE0A /* RBHistoryVC.m */,
 				842A4B4224AAF6CC0042FE0A /* RBResultBiSaiVC.h */,
@@ -1755,7 +1755,7 @@
 				842A4B7E24AAF6CD0042FE0A /* RBGiftView.m in Sources */,
 				8427602924A988D500A98536 /* RBHuaTiModel.m in Sources */,
 				8425094C24A2F2D0008C8F14 /* main.m in Sources */,
-				842A4B9324AAF6CD0042FE0A /* RBGamesVC.m in Sources */,
+				842A4B9324AAF6CD0042FE0A /* RBBiSaisVC.m in Sources */,
 				842760A424A9DDC600A98536 /* UITextField+RBExtension.m in Sources */,
 				842A4B7624AAF6CD0042FE0A /* RBAnalySixCell.m in Sources */,
 				842A4B8624AAF6CD0042FE0A /* RBCompensateTabVC.m in Sources */,

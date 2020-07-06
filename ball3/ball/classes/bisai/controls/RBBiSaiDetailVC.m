@@ -12,6 +12,7 @@
 #import "SocketRocketUtility.h"
 #import "RBBiSaiDetailHead.h"
 #import "RBChekLogin.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface RBBiSaiDetailVC ()<UIScrollViewDelegate>
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -36,7 +37,9 @@
     [super viewWillAppear:animated];
     self.scrollView.contentOffset = CGPointMake(self.index * RBScreenWidth, self.scrollView.contentOffset.y);
     self.navigationController.navigationBarHidden = YES;
+
     UIButton *backBtn = [[UIButton alloc]init];
+    backBtn.tag = 1111;
     self.backBtn = backBtn;
     [backBtn addTarget:self action:@selector(clickBackBtn) forControlEvents:UIControlEventTouchUpInside];
     [backBtn setImage:[UIImage imageNamed:@"back_white"] forState:UIControlStateNormal];
@@ -74,38 +77,6 @@
     return YES;
 }
 
-- (RBBiSaiDetailHead *)biSaiDetailHead {
-    if (_biSaiDetailHead == nil) {
-        __weak typeof(self) weakSelf = self;
-        CGFloat height = 0;
-
-        if (@available(iOS 10, *)) {
-            if (RB_iPhoneX) {
-                height = (228 + RBStatusBarH - 24);
-            } else {
-                height = (228 + RBStatusBarH);
-            }
-        } else {
-            height = (228 +  RBStatusBarH + 20);
-        }
-        _biSaiDetailHead = [[RBBiSaiDetailHead alloc]initWithFrame:CGRectMake(0, 0, RBScreenWidth, height) andIndex:self.index andClickBtn:^(int index) {
-            [weakSelf.chatVC.textField resignFirstResponder];
-            if (index != 0) {
-                weakSelf.index = index;
-            }
-            if (index == 1 || index == 4) {
-                [UIView animateWithDuration:0.25 animations:^{
-                    weakSelf.scrollView.contentOffset = CGPointMake(index * RBScreenWidth, -RBStatusBarH);
-                }];
-            } else {
-                weakSelf.scrollView.contentOffset = CGPointMake(index * RBScreenWidth,  weakSelf.scrollView.contentOffset.y);
-            }
-        }];
-        _biSaiDetailHead.biSaiModel = self.biSaiModel;
-    }
-    return _biSaiDetailHead;
-}
-
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     self.navigationController.navigationBarHidden = NO;
@@ -113,6 +84,9 @@
     [self.attentionBtn removeFromSuperview];
     [self.shareBtn removeFromSuperview];
     self.chatVC.chatToolBar.hidden = YES;
+    if ([SocketRocketUtility instance].socketReadyState != SR_CLOSED) {
+        [[SocketRocketUtility instance] SRWebSocketClose];
+    }
 }
 
 - (void)viewDidLoad {
@@ -126,6 +100,33 @@
     }
     self.view.backgroundColor = [UIColor colorWithSexadeString:@"#F8F8F8"];
     [self.view addSubview:self.scrollView];
+
+    CGFloat height = 0;
+    if (@available(iOS 10, *)) {
+        if (RB_iPhoneX) {
+            height = (228 + RBStatusBarH - 24);
+        } else {
+            height = (228 + RBStatusBarH);
+        }
+    } else {
+        height = (228 +  RBStatusBarH + 20);
+    }
+    __weak typeof(self) weakSelf = self;
+    RBBiSaiDetailHead *biSaiDetailHead = [[RBBiSaiDetailHead alloc]initWithFrame:CGRectMake(0, 0, RBScreenWidth, height) andIndex:self.index andClickBtn:^(int index) {
+        [weakSelf.chatVC.textField resignFirstResponder];
+        if (index != 0) {
+            weakSelf.index = index;
+        }
+        if (index == 1 || index == 4) {
+            [UIView animateWithDuration:0.25 animations:^{
+                weakSelf.scrollView.contentOffset = CGPointMake(index * RBScreenWidth, -RBStatusBarH);
+            }];
+        } else {
+            weakSelf.scrollView.contentOffset = CGPointMake(index * RBScreenWidth,  weakSelf.scrollView.contentOffset.y);
+        }
+    }];
+    biSaiDetailHead.biSaiModel = self.biSaiModel;
+    self.biSaiDetailHead = biSaiDetailHead;
     [self getZhiBoUrl];
     self.liveTabVC = [[RBLiveTabVC alloc]init];
     self.chatVC = [[RBChatVC alloc]init];
@@ -137,7 +138,6 @@
     self.liveTabVC.biSaiModel = self.biSaiModel;
     self.aiForecastVC.biSaiModel = self.biSaiModel;
     self.analyzeVC.biSaiModel = self.biSaiModel;
-    __weak typeof(self) weakSelf = self;
     self.analyzeVC.clickCell = ^{
         [weakSelf.biSaiDetailHead clickIndex:2];
         [weakSelf.aiForecastVC clickinde];
@@ -187,7 +187,6 @@
             self.liveTabVC.biSaiModel = self.biSaiModel;
             self.aiForecastVC.biSaiModel = self.biSaiModel;
             self.analyzeVC.biSaiModel = self.biSaiModel;
-            self.biSaiDetailHead.biSaiModel = self.biSaiModel;
         }
     }
 }
@@ -242,7 +241,7 @@
     [buy addObject:ok[@"Rbuy"]];
     [buy addObject:ok[@"Sbuy"]];
     [buy addObject:ok[@"Dbuy"]];
-    NSArray *titles = @[@"让球", @"胜平负", @"大小球"];
+    NSArray *titles = @[@"胜平负",@"让球",@"大小球"];
     NSArray *D = ok[@"D"];  // 大小球数据
     NSArray *R = ok[@"R"]; // 让球数据
     NSArray *S = ok[@"S"]; // 胜平负数据
@@ -251,9 +250,9 @@
     for (int i = 0; i < titles.count; i++) {
         // 查看是否有购买数据
         hasBuy += [buy[i]intValue];
-        if (i == 0 && ![R isKindOfClass:[NSNull class]] && R.count >= 3) {
+        if (i == 0 && ![S isKindOfClass:[NSNull class]] && S.count >= 3){
             hasData += 1;
-        } else if (i == 1 && ![S isKindOfClass:[NSNull class]] && S.count >= 3) {
+        } else  if (i == 1 && ![R isKindOfClass:[NSNull class]] && R.count >= 3) {
             hasData += 1;
         } else if (i == 2 && ![D isKindOfClass:[NSNull class]] && D.count >= 3) {
             hasData += 1;
@@ -296,12 +295,12 @@
             self.biSaiModel.visitingLogo = away_team[@"logo"];
             self.biSaiModel.visitingScore = [away_team[@"score"] intValue];
             self.biSaiModel.visitingTeamName = away_team[@"name_zh"];
+            self.biSaiDetailHead.biSaiModel = self.biSaiModel;
             self.chatVC.biSaiModel = self.biSaiModel;
             self.liveTabVC.biSaiModel = self.biSaiModel;
             self.liveTabVC.biSaiDetailHead = self.biSaiDetailHead;
             self.aiForecastVC.biSaiModel = self.biSaiModel;
             self.analyzeVC.biSaiModel = self.biSaiModel;
-            self.biSaiDetailHead.biSaiModel = self.biSaiModel;
             self.attentionBtn.hidden = (self.biSaiModel.status == 8);
             if (self.attentionBtn.hidden) {
                 self.shareBtn.x = RBScreenWidth - 56;
@@ -313,7 +312,7 @@
 
 /// 点击关注按钮
 - (void)clickAttentionBtn:(UIButton *)btn {
-    if ([RBChekLogin CheckLogin]) {
+    if ([RBChekLogin NotLogin]) {
         return;
     } else {
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -340,21 +339,26 @@
     }
 }
 
+
 /// 点击返回按钮
 - (void)clickBackBtn {
-    [self.backBtn removeFromSuperview];
-    [self.attentionBtn removeFromSuperview];
-    [self.shareBtn removeFromSuperview];
-    [[SocketRocketUtility instance] SRWebSocketClose];
-    UIView *chatToolBar = [[UIApplication sharedApplication].keyWindow viewWithTag:5001];
-    [chatToolBar removeFromSuperview];
-    [self.navigationController popViewControllerAnimated:YES];
-    [[NSNotificationCenter defaultCenter]removeObserver:self];
+    if(self.biSaiDetailHead.wkView != nil){
+        [self.biSaiDetailHead.wkView removeFromSuperview];
+    }else{
+        [self.backBtn removeFromSuperview];
+        [self.attentionBtn removeFromSuperview];
+        [self.shareBtn removeFromSuperview];
+        [[SocketRocketUtility instance] SRWebSocketClose];
+        UIView *chatToolBar = [[UIApplication sharedApplication].keyWindow viewWithTag:5001];
+        [chatToolBar removeFromSuperview];
+        [self.biSaiDetailHead.timer timeInterval];
+        [self.navigationController popViewControllerAnimated:YES];        
+    }
 }
 
 /// 点击分享按钮
 - (void)clickShareBtn:(UIButton *)btn {
-    if ([RBChekLogin CheckLogin]) {
+    if ([RBChekLogin NotLogin]) {
         return;
     } else {
         __block RBBiSaiDetailVC *weakSelf = self;
@@ -536,6 +540,10 @@
     UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return img;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
 @end

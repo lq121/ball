@@ -3,7 +3,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RBChekLogin : NSObject
-+ (BOOL)CheckLogin;
++ (BOOL)NotLogin;
 + (BOOL)checkWithTitile:(NSString *)title andtype:(NSString*)type andNeedCheck:(BOOL)need;
 @end
 

@@ -24,7 +24,7 @@
     [self getaiData];
 }
 
-- (void)setBiSaiModel:(RBBiSaiModel *)biSaiModel{
+- (void)setBiSaiModel:(RBBiSaiModel *)biSaiModel {
     _biSaiModel = biSaiModel;
     [self getaiData];
 }
@@ -38,11 +38,10 @@
 - (void)getaiData {
     // 获取预测数据
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    if(self.matchId == 0)
-        return;
+    if (self.matchId == 0) return;
     [dict setValue:@(self.matchId) forKey:@"matchid"];
     [RBNetworkTool PostDataWithUrlStr:@"apis/getmatchaidata" andParam:dict Success:^(NSDictionary *_Nonnull backData) {
-        if( [backData[@"err"] intValue] == 50011){
+        if ([backData[@"err"] intValue] == 50011) {
             // 比赛不存在
             [[RBFMDBTool sharedFMDBTool]deleteBiSaiModelWithId:self.biSaiModel.namiId];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"deleteBiSai" object:nil];
@@ -63,10 +62,10 @@
     [self.dataArr removeAllObjects];
     NSDictionary *ok = backData[@"ok"];
     NSMutableArray *buy = [NSMutableArray array]; // 购买信息
-    [buy addObject:ok[@"Rbuy"]];
     [buy addObject:ok[@"Sbuy"]];
+    [buy addObject:ok[@"Rbuy"]];
     [buy addObject:ok[@"Dbuy"]];
-    NSArray *titles = @[@"让球", @"胜平负", @"大小球"];
+    NSArray *titles = @[ @"胜平负", @"让球", @"大小球"];
     NSArray *D = ok[@"D"];  // 大小球数据
     NSArray *R = ok[@"R"]; // 让球数据
     NSArray *S = ok[@"S"]; // 胜平负数据
@@ -79,15 +78,15 @@
             model.showLine = YES; // 是否需要下划线
         }
         if (i == 0) {
-            model.noData = ([R isKindOfClass:[NSNull class]] || R.count == 0);
-        } else if (i == 1) {
             model.noData = ([S isKindOfClass:[NSNull class]]  || S.count == 0);
+        } else if (i == 1) {
+            model.noData = ([R isKindOfClass:[NSNull class]] || R.count == 0);
         } else {
             model.noData = ([D isKindOfClass:[NSNull class]]  ||  D.count == 0);
         }
-        if (i == 0 && ![R isKindOfClass:[NSNull class]] && R.count >= 3) {
+        if (i == 1 && ![R isKindOfClass:[NSNull class]] && R.count >= 3) {
             model.desTitle = [NSString stringWithFormat:@"%0.2f    %0.2f     %0.2f ", [R[0]floatValue], [R[1]floatValue], [R[2]floatValue]];
-        } else if (i == 1 && ![S isKindOfClass:[NSNull class]] && S.count >= 3) {
+        } else if (i == 0 && ![S isKindOfClass:[NSNull class]] && S.count >= 3) {
             model.desTitle = [NSString stringWithFormat:@"%0.2f    %0.2f     %0.2f ", [S[0]floatValue], [S[1]floatValue], [S[2]floatValue]];
         } else if (i == 2 && ![D isKindOfClass:[NSNull class]] && D.count >= 3) {
             model.desTitle = [NSString stringWithFormat:@"%0.2f    %0.2f     %0.2f ", [D[0]floatValue], [D[1]floatValue], [D[2]floatValue]];
@@ -97,9 +96,9 @@
             model.status = 1;
         } else {
             model.status = 2;
-            if (i == 0 && ![R isKindOfClass:[NSNull class]] && R.count >= 3) {
+            if (i == 1 && ![R isKindOfClass:[NSNull class]] && R.count >= 3) {
                 model.negative = ([R[0]floatValue] * 100) / (([R[0]floatValue] + [R[2]floatValue]) * 100) * 100;
-            } else if (i == 1 && ![S isKindOfClass:[NSNull class]] && S.count >= 3) {
+            } else if (i == 0 && ![S isKindOfClass:[NSNull class]] && S.count >= 3) {
                 CGFloat w0 = [S[0]floatValue];
                 CGFloat w1 = [S[1]floatValue];
                 CGFloat w2 = [S[2]floatValue];
@@ -127,10 +126,10 @@
             }
         }
         if (self.biSaiModel.status == 8) {
-            if (i == 0) {
+            if (i == 1) {
                 model.status = 3;
                 model.zhunqueType = [ok[@"Rret"] intValue];
-            } else if (i == 1) {
+            } else if (i == 0) {
                 model.status = 3;
                 model.zhunqueType = [ok[@"Sret"] intValue];
             } else if (i == 2) {
@@ -165,7 +164,5 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 116;
 }
-
-
 
 @end

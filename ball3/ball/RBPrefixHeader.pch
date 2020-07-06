@@ -24,6 +24,11 @@
 #import "UITableView+RBExtension.h"
 #import "UITextField+RBExtension.h"
 
+#ifdef DEBUG
+#define NSLog(...) NSLog(@"%s 第%d行 \n %@\n\n", __func__, __LINE__, [NSString stringWithFormat:__VA_ARGS__])
+#else
+#define NSLog(...)
+#endif
 
 // 微信key
 #define APPID                 @"wx64d88ac16fbc792f"

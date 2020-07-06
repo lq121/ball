@@ -84,7 +84,7 @@
 }
 
 - (void)clickYuceBtn {
-    if ([RBChekLogin CheckLogin]) {
+    if ([RBChekLogin NotLogin]) {
         return;
     }else {
         RBBiSaiDetailVC *detailTabVC = [[RBBiSaiDetailVC alloc]init];

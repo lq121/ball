@@ -1,7 +1,6 @@
 #import "RBBiSaiDetailHead.h"
 #import "RBChekLogin.h"
 #import "UIButton+WebCache.h"
-#import <WebKit/WebKit.h>
 
 typedef void (^ClickBtnIndex)(int index);
 
@@ -26,10 +25,10 @@ typedef void (^ClickBtnIndex)(int index);
 @property (nonatomic, strong) UIImageView *BGView;
 @property (nonatomic, assign) int index;
 @property (nonatomic, copy) ClickBtnIndex clickBtnIndex;
-@property (nonatomic, strong) NSTimer *timer;
-@property (nonatomic, strong) UIButton *changeBtn;
-@property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) UIView *shiPingDongHuaView;
+@property (nonatomic, strong) UIButton *shiPingBtn;
+@property (nonatomic, strong) UIButton *dongHuaBtn;
+@property (nonatomic, strong) UIView *line;
 @end
 
 @implementation RBBiSaiDetailHead
@@ -47,13 +46,6 @@ typedef void (^ClickBtnIndex)(int index);
         UIView *bigView = [[UIView alloc]init];
         self.bigView = bigView;
         [self addSubview:bigView];
-
-        WKWebView *webView = [[WKWebView alloc]init];
-        webView.hidden = YES;
-        self.webView = webView;
-        [self addSubview:webView];
-        webView.UIDelegate = self;
-        webView.navigationDelegate = self;
 
         UIView *smallView = [[UIView alloc]init];
         self.smallView = smallView;
@@ -116,11 +108,37 @@ typedef void (^ClickBtnIndex)(int index);
         team2Label.font = [UIFont systemFontOfSize:14];
         [bigView addSubview:team2Label];
 
-        UIButton *changeBtn = [[UIButton alloc]init];
-        self.changeBtn = changeBtn;
-        [changeBtn setTitle:@"动画直播" forState:UIControlStateNormal];
-        [changeBtn addTarget:self action:@selector(clickChangeBtn) forControlEvents:UIControlEventTouchUpInside];
-        [bigView addSubview:changeBtn];
+        UIView *shiPingDongHuaView = [[UIView alloc]init];
+        self.shiPingDongHuaView = shiPingDongHuaView;
+        shiPingDongHuaView.backgroundColor = [UIColor colorWithSexadeString:@"#333333" AndAlpha:0.3];
+        [bigView addSubview:shiPingDongHuaView];
+
+        UIButton *shiPingBtn = [[UIButton alloc]init];
+        self.shiPingBtn = shiPingBtn;
+        [shiPingBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        shiPingBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        [shiPingBtn setImage:[UIImage imageNamed:@"game-video"] forState:UIControlStateNormal];
+        [shiPingBtn setTitle:@"视频" forState:UIControlStateNormal];
+        shiPingBtn.contentMode = UIViewContentModeCenter;
+        shiPingBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 8);
+        [shiPingBtn addTarget:self action:@selector(clickshiPingBtn) forControlEvents:UIControlEventTouchUpInside];
+        [shiPingDongHuaView addSubview:shiPingBtn];
+
+        UIButton *dongHuaBtn = [[UIButton alloc]init];
+        self.dongHuaBtn = dongHuaBtn;
+        [dongHuaBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        dongHuaBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        [dongHuaBtn setImage:[UIImage imageNamed:@"game-cartoon"] forState:UIControlStateNormal];
+        [dongHuaBtn setTitle:@"动画" forState:UIControlStateNormal];
+        dongHuaBtn.contentMode = UIViewContentModeCenter;
+        dongHuaBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 8);
+        [dongHuaBtn addTarget:self action:@selector(clickdongHuaBtn) forControlEvents:UIControlEventTouchUpInside];
+        [shiPingDongHuaView addSubview:dongHuaBtn];
+
+        UIView *line = [[UIView alloc]init];
+        self.line = line;
+        line.backgroundColor = [UIColor colorWithSexadeString:@"#333333"];
+        [shiPingDongHuaView addSubview:line];
 
         UILabel *biSaiTimeLabel2 = [[UILabel alloc]init];
         self.biSaiTimeLabel2 = biSaiTimeLabel2;
@@ -203,21 +221,63 @@ typedef void (^ClickBtnIndex)(int index);
         self.indicateView.backgroundColor = [UIColor colorWithSexadeString:@"#36C8B9"];
         [selectView addSubview:self.indicateView];
         [self clickIndex:index];
-        __weak typeof(self) weakSelf = self;
-        self.timer = [NSTimer timerWithTimeInterval:1 target:weakSelf selector:@selector(timerRun) userInfo:nil repeats:YES];
-        [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     }
     return self;
 }
 
-- (void)clickChangeBtn {
+- (void)createWebView {
+    WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc]init];
+    configuration.allowsInlineMediaPlayback = true;
+    NSString *jScript = @"var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width'); document.getElementsByTagName('head')[0].appendChild(meta);";
+    WKUserScript *wkUScript = [[WKUserScript alloc] initWithSource:jScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
+    WKUserContentController *wkUController = [[WKUserContentController alloc] init];
+    [wkUController addUserScript:wkUScript];
+    configuration.userContentController = wkUController;
+    WKWebView *wkView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, RBScreenWidth, self.height-44) configuration:configuration];
+
+    wkView.scrollView.bounces = NO;
+    wkView.scrollView.scrollEnabled = NO;
+    wkView.hidden = YES;
+    wkView.UIDelegate = self;
+    wkView.navigationDelegate = self;
+    [self addSubview:wkView];
+    [wkView addObserver:self forKeyPath:@"scrollView.contentSize" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:@"wkContext"];
+      NSLog(@"-=-========%@",NSStringFromCGRect(wkView.frame));
+
+    wkView.multipleTouchEnabled = YES;
+   wkView.scrollView.scrollEnabled = NO;
+    //for ios version below 5.0
+    for (UIView * sub in wkView.subviews) {
+        if ([sub isKindOfClass:[UIScrollView class]]) {
+            [(UIScrollView *)sub setScrollEnabled:NO];
+        }
+    }
+    self.wkView = wkView;
+}
+
+- (void)clickshiPingBtn {
     if (self.biSaiModel == nil) {
         return;
     }
-    self.webView.hidden = NO;
-//    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://cuntugou.tpddns.cn:6001/detail?id=%d",self.biSaiModel.namiId]]]];
-//    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@" https://widget.namitiyu.com/leisu/mlive/m/detail.php?id=%d",self.biSaiModel.namiId]]]];
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://sports.pptv.com/sportslive/pg_h5live?sectionid=175665&matchid=267665"]]];
+    if (self.wkView == nil) {
+        [self createWebView];
+    }
+
+    self.wkView.hidden = NO;
+    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://sports.pptv.com/sportslive/pg_h5live?sectionid=175676&matchid=267676"] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:15];
+    [self.wkView loadRequest:req];
+}
+
+- (void)clickdongHuaBtn {
+    if (self.biSaiModel == nil) {
+        return;
+    }
+    if (self.wkView == nil) {
+        [self createWebView];
+    }
+    self.wkView.hidden = NO;
+    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://widget.namitiyu.com/leisu/mlive/m/detail.php?id=%d", self.biSaiModel.namiId]] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:15];
+    [self.wkView loadRequest:req];
 }
 
 - (void)clickIndex:(int)index {
@@ -269,14 +329,13 @@ typedef void (^ClickBtnIndex)(int index);
     }
     self.clickBtnIndex(index);
     if (index != 0 && index != 3) {
-        [RBChekLogin CheckLogin];
+        [RBChekLogin NotLogin];
     }
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
     self.BGView.frame = CGRectMake(0, -RBStatusBarH, RBScreenWidth, self.height  - 44 + RBStatusBarH);
-    self.webView.frame = self.BGView.frame;
     NSString *str = self.biSaiTimeLabel.text;
     if (self.biSaiModel.status == 2 || self.biSaiModel.status == 4) {
         if (![str containsString:@"'"]) {
@@ -304,13 +363,15 @@ typedef void (^ClickBtnIndex)(int index);
     self.scoreLabel.frame = CGRectMake((RBScreenWidth - 50) * 0.5, CGRectGetMaxY(self.timeLabel.frame) + 49, 50, 27);
     self.team1.frame = CGRectMake((RBScreenWidth * 0.5 - 25 - 60) * 0.5, CGRectGetMaxY(self.timeLabel.frame) + 28, 60, 60);
     self.team2.frame = CGRectMake((RBScreenWidth * 0.5 + 25 - 60) * 0.5 + RBScreenWidth * 0.5, CGRectGetMaxY(self.timeLabel.frame) + 28, 60, 60);
-    self.changeBtn.frame = CGRectMake((RBScreenWidth - 100) * 0.5, CGRectGetMaxY(self.team1.frame) + 20, 100, 20);
     self.team1Label.frame = CGRectMake(100, CGRectGetMaxY(self.team1.frame) + 4, 180, 20);
     self.team2Label.frame = CGRectMake(100, CGRectGetMaxY(self.team1.frame) + 4, 180, 20);
     self.team1Label.centerX = self.team1.centerX;
     self.team2Label.centerX = self.team2.centerX;
     self.bigView.frame = CGRectMake(0, RBStatusBarH, RBScreenWidth, self.height  - 44);
-
+    self.shiPingDongHuaView.frame = CGRectMake((RBScreenWidth - 150) * 0.5, CGRectGetMaxY(self.team1Label.frame) + 4, 150, 38);
+    self.line.frame = CGRectMake(150 * 0.5, 11, 1, 16);
+    self.shiPingBtn.frame = CGRectMake(0, 0, 150 * 0.5, 38);
+    self.dongHuaBtn.frame = CGRectMake(149 * 0.5, 0, 150 * 0.5, 38);
     self.smallView.frame = CGRectMake(0, self.height - RBNavBarAndStatusBarH * 2 + RBStatusBarH, RBScreenWidth, RBNavBarAndStatusBarH);
     if (RB_iPhoneX) {
         self.team12.frame = CGRectMake(66, RBNavBarAndStatusBarH - 40, 32, 32);
@@ -369,6 +430,9 @@ typedef void (^ClickBtnIndex)(int index);
         self.biSaiTimeLabel.width = size.width;
         self.biSaiTimeLabel2.width = size.width;
     }
+    __weak typeof(self) weakSelf = self;
+    weakSelf.timer = [NSTimer timerWithTimeInterval:1 target:weakSelf selector:@selector(timerRun) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:weakSelf.timer forMode:NSRunLoopCommonModes];
 }
 
 - (void)setBiSaiModel:(RBBiSaiModel *)biSaiModel {
@@ -377,6 +441,7 @@ typedef void (^ClickBtnIndex)(int index);
     if (biSaiModel == nil) {
         return;
     }
+
     self.biSaiTimeLabel.backgroundColor = [UIColor clearColor];
     if (biSaiModel.status <= 7 && biSaiModel.status >= 1 && self.index == 0) {
         // 比赛中进直播
@@ -501,8 +566,10 @@ typedef void (^ClickBtnIndex)(int index);
 }
 
 - (void)dealloc {
-    [self.timer invalidate];
-    self.timer = nil;
+    [self.wkView removeObserver:self forKeyPath:@"scrollView.contentSize" context:@"wkContext"];
+    [self.wkView removeFromSuperview];
+ 
+      
 }
 
 #pragma mark - WKNavigationDelegate
@@ -528,8 +595,16 @@ typedef void (^ClickBtnIndex)(int index);
        liveContent.removeChild(review[0]);}\
        })();";
     [webView evaluateJavaScript:jsStr completionHandler:^(id _Nullable object, NSError *_Nullable error) {
-        NSLog(@" - %@ -- %@ --- ", error, object);
     }];
+    __weak typeof(self) weakSelf = self;
+    [webView evaluateJavaScript:@"document.body.offsetHeight;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+           //获取页面高度，并重置webview的frame
+           float height = [result doubleValue];
+           CGRect frame = weakSelf.wkView.frame;
+        frame.size.height = self.height-44;
+           weakSelf.wkView.frame = frame;
+           [weakSelf.wkView sizeToFit];
+       }];
 }
 
 // 页面加载失败时调用
@@ -555,7 +630,7 @@ typedef void (^ClickBtnIndex)(int index);
     #pragma mark - WKUIDelegate
 // 创建一个新的WebView
 - (WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures {
-    return [[WKWebView alloc]init];
+    return nil;
 }
 
 // 输入框
@@ -571,6 +646,18 @@ typedef void (^ClickBtnIndex)(int index);
 // 警告框
 - (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler {
     completionHandler();
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+    if (!self.wkView.isLoading) {
+      if([keyPath isEqualToString:@"scrollView.contentSize"]){
+            CGFloat webViewContentHeight =  self.wkView.scrollView.contentSize.height;
+            CGRect frame = self.wkView.frame;
+            frame.size.height = webViewContentHeight;
+            self.wkView.frame = frame;
+            [self.wkView sizeToFit];
+        }
+    }
 }
 
 @end

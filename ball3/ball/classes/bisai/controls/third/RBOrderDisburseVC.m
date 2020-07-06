@@ -10,7 +10,7 @@
 @property (nonatomic, strong) UIButton *rechargeBtn;
 @property (nonatomic, strong) UIButton *chostBtn;
 @property (nonatomic, strong) UIButton *coinBtn;
-@property (nonatomic, strong) UIButton *buyBtn;
+@property (nonatomic, strong) UIButton *zhiFuBtn;
 @property (nonatomic, strong) UIButton *btn;
 @property (nonatomic, strong) UIButton *tipBtn;
 @end
@@ -215,15 +215,15 @@
     coinBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [BottomView addSubview:coinBtn];
 
-    UIButton *buyBtn = [[UIButton alloc]initWithFrame:CGRectMake(RBScreenWidth - 168 - 16, 20, 168, 48)];
-    [buyBtn addTarget:self action:@selector(buy) forControlEvents:UIControlEventTouchUpInside];
-    self.buyBtn = buyBtn;
-    [buyBtn setBackgroundImage:[UIImage imageNamed:@"btn mid sure"] forState:UIControlStateNormal];
-    [buyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [buyBtn setTitleColor:[UIColor colorWithSexadeString:@"#333333"] forState:UIControlStateDisabled];
-    [buyBtn setTitle:@"确认支付" forState:UIControlStateNormal];
-    buyBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
-    [BottomView addSubview:buyBtn];
+    UIButton *zhiFuBtn = [[UIButton alloc]initWithFrame:CGRectMake(RBScreenWidth - 168 - 16, 20, 168, 48)];
+    [zhiFuBtn addTarget:self action:@selector(zhiFu) forControlEvents:UIControlEventTouchUpInside];
+    self.zhiFuBtn = zhiFuBtn;
+    [zhiFuBtn setBackgroundImage:[UIImage imageNamed:@"btn mid sure"] forState:UIControlStateNormal];
+    [zhiFuBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [zhiFuBtn setTitleColor:[UIColor colorWithSexadeString:@"#333333"] forState:UIControlStateDisabled];
+    [zhiFuBtn setTitle:@"确认支付" forState:UIControlStateNormal];
+    zhiFuBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
+    [BottomView addSubview:zhiFuBtn];
     if (self.chostBtn == nil) {
         [self.coinBtn setTitle:[NSString stringWithFormat:@"¥%d", self.biSaipredictModel.coin] forState:UIControlStateNormal];
     } else {
@@ -281,7 +281,7 @@
     }
 }
 
-- (void)buy {
+- (void)zhiFu {
     if (self.btn.selected == NO) {
         [RBToast showWithTitle:@"请先阅读并同意协议和政策"];
         return;

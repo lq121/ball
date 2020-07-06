@@ -81,7 +81,7 @@
 }
 
 - (void)clickOtherBtn {
-    if ([RBChekLogin CheckLogin]) {
+    if ([RBChekLogin NotLogin]) {
         return;
     }
     [self.navigationController pushViewController:[[RBLiuYanVC alloc]init] animated:YES];
@@ -119,7 +119,7 @@
 }
 
 - (void)clickMinBtn:(UIButton *)btn {
-    if ([RBChekLogin CheckLogin]) {
+    if ([RBChekLogin NotLogin]) {
         return;
     }
     RBLiuYanVC *liuYanVC =  [[RBLiuYanVC alloc]init];

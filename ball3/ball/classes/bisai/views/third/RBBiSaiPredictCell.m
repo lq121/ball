@@ -28,8 +28,7 @@
 
 @implementation RBBiSaiPredictCell
 
-+ (instancetype)createCellByTableView:(UITableView *)tableView
-{
++ (instancetype)createCellByTableView:(UITableView *)tableView{
     static NSString *indentifier = @"RBBiSaiPredictCell";
     RBBiSaiPredictCell *cell = (RBBiSaiPredictCell *)[tableView dequeueReusableCellWithIdentifier:indentifier];
     if (cell == nil) {
@@ -182,9 +181,9 @@
 
 - (void)clickBuyBtn {
     if ([self.biSaiPredictModel.titleName isEqualToString:@"让球"]) {
-        self.clickBtn(1);
-    } else if ([self.biSaiPredictModel.titleName isEqualToString:@"胜平负"]) {
         self.clickBtn(2);
+    } else if ([self.biSaiPredictModel.titleName isEqualToString:@"胜平负"]) {
+        self.clickBtn(1);
     } else if ([self.biSaiPredictModel.titleName isEqualToString:@"大小球"]) {
         self.clickBtn(3);
     }

@@ -106,7 +106,7 @@
     NSString *str = [NSString getStrWithDate:[NSDate date] andFormat:@"yyyyMMdd"];
     NSDictionary *dict = @{ @"date": str };
     [RBNetworkTool PostDataWithUrlStr:@"try/go/getfootballmatchlistbydate"  andParam:dict Success:^(NSDictionary *_Nonnull backDataDic) {
-        if (backDataDic.allKeys.count == 0 || backDataDic == nil || [backDataDic isKindOfClass:[NSNull class]]) return;
+         if (backDataDic.allKeys.count == 0 || backDataDic == nil || [backDataDic isKindOfClass:[NSNull class]] || [[backDataDic allKeys] containsObject:@"message"] || [[backDataDic allKeys] containsObject:@"err"]) return;
         NSData *jsonData = [backDataDic[@"ok"] dataUsingEncoding:NSUTF8StringEncoding];
         NSError *err;
         NSDictionary *backData = [NSJSONSerialization JSONObjectWithData:jsonData

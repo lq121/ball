@@ -202,7 +202,7 @@
 
 - (void)clickRenWuBtn {
     UIViewController *currentVC = [UIViewController getCurrentVC];
-    if ([RBChekLogin CheckLogin]) {
+    if ([RBChekLogin NotLogin]) {
         return;
     } else {
         RBRenWuVC *renWuVC = [[RBRenWuVC alloc]init];
@@ -305,7 +305,7 @@
 }
 
 - (void)clickCheckBtn:(UIButton *)btn {
-    if ([RBChekLogin CheckLogin]) {
+    if ([RBChekLogin NotLogin]) {
         return;
     }
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];

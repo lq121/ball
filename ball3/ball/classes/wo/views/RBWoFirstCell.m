@@ -4,6 +4,7 @@
 #import "RBXiaoXiVC.h"
 #import "RBOptionHuaTiVC.h"
 #import "RBChongZhiVC.h"
+#import "RBMyPredictVC.h"
 
 @interface RBWoFirstCell ()
 @property (nonatomic, strong)  RBCommButton *xiaoXiBtn;
@@ -30,31 +31,40 @@
         view.layer.masksToBounds = true;
         view.layer.cornerRadius = 2;
         [self.contentView addSubview:view];
-        CGFloat margin = (RBScreenWidth - 24 - 64 - 150) * 0.5;
-       RBCommButton *xiaoXiBtn = [[RBCommButton alloc] initWithImage:@"message" andHeighImage:@"message" andFrame:CGRectMake(32, 11, 50, 67) andTitle:@"消息" andTarget:self andAction:@selector(clickMessageBtn)];
+        CGFloat margin = (RBScreenWidth - 24 - 38 - 200)/3;
+        RBCommButton *xiaoXiBtn = [[RBCommButton alloc] initWithImage:@"message" andHeighImage:@"message" andFrame:CGRectMake(19, 11, 50, 67) andTitle:@"消息" andTarget:self andAction:@selector(clickMessageBtn)];
         self.xiaoXiBtn = xiaoXiBtn;
         [view addSubview:xiaoXiBtn];
 
         RBCommButton *walletBtn = [[RBCommButton alloc] initWithImage:@"wallet" andHeighImage:@"wallet" andFrame:CGRectMake(CGRectGetMaxX(xiaoXiBtn.frame) + margin, 11, 50, 67) andTitle:@"钱包" andTarget:self andAction:@selector(clickWalletBtn)];
         [view addSubview:walletBtn];
+        RBCommButton *orderBtn = [[RBCommButton alloc] initWithImage:@"dingdan" andHeighImage:@"dingdan" andFrame:CGRectMake(CGRectGetMaxX(walletBtn.frame) + margin, 11, 50, 67) andTitle:@"订单" andTarget:self andAction:@selector(clickOrderBtn)];
+        [view addSubview:orderBtn];
 
-        RBCommButton *huaTiBtn = [[RBCommButton alloc] initWithImage:@"huati" andHeighImage:@"huati" andFrame:CGRectMake(CGRectGetMaxX(walletBtn.frame) + margin, 11, 50, 67) andTitle:@"互动" andTarget:self andAction:@selector(clickHuatiBtn)];
+        RBCommButton *huaTiBtn = [[RBCommButton alloc] initWithImage:@"huati" andHeighImage:@"huati" andFrame:CGRectMake(CGRectGetMaxX(orderBtn.frame) + margin, 11, 50, 67) andTitle:@"互动" andTarget:self andAction:@selector(clickHuatiBtn)];
         self.huaTiBtn = huaTiBtn;
         [view addSubview:huaTiBtn];
     }
     return self;
 }
 
--(void)setShowHuaTiTip:(BOOL)showHuaTiTip{
+- (void)setShowHuaTiTip:(BOOL)showHuaTiTip {
     _showHuaTiTip = showHuaTiTip;
     self.huaTiBtn.showTip = showHuaTiTip;
 }
 
-- (void)setShowXiaoXiTip:(BOOL)showXiaoXiTip{
+- (void)setShowXiaoXiTip:(BOOL)showXiaoXiTip {
     _showXiaoXiTip = showXiaoXiTip;
     self.xiaoXiBtn.showTip = showXiaoXiTip;
 }
 
+- (void)clickOrderBtn {
+    if ([RBChekLogin NotLogin]) {
+        return;
+    }
+   RBMyPredictVC *myPredictVC = [[RBMyPredictVC alloc]init];
+    [[UIViewController getCurrentVC].navigationController pushViewController:myPredictVC animated:YES];
+}
 
 - (void)clickMessageBtn {
     UIViewController *currentVC = [UIViewController getCurrentVC];
@@ -71,7 +81,7 @@
 }
 
 - (void)clickWalletBtn {
-    if ( [RBChekLogin CheckLogin]) {
+    if ([RBChekLogin NotLogin]) {
         return;
     }
     RBChongZhiVC *chongZhiVC = [[RBChongZhiVC alloc]init];

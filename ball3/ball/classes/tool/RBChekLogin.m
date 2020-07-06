@@ -4,7 +4,7 @@
 #import "RBDengJiVC.h"
 
 @implementation RBChekLogin
-+ (BOOL)CheckLogin {
++ (BOOL)NotLogin {
     NSString *uid = [[NSUserDefaults standardUserDefaults]objectForKey:@"userid"];
     if (uid == nil || [uid isEqualToString:@""]) {
         RBLoginVC *loginVC = [[RBLoginVC alloc]init];

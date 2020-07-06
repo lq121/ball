@@ -275,7 +275,7 @@
 
 /// 点击点赞按钮
 - (void)clickUpBtn:(UIButton *)btn {
-    if ([RBChekLogin CheckLogin]) {
+    if ([RBChekLogin NotLogin]) {
         return;
     }
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -305,7 +305,7 @@
 
 /// 点击分享按钮
 - (void)clickShareBtn:(UIButton *)btn {
-    if ([RBChekLogin CheckLogin]) {
+    if ([RBChekLogin NotLogin]) {
         return;
     } else {
         __weak typeof(self) weakSelf = self;
@@ -417,7 +417,7 @@
 }
 
 - (void)clickSendBtn {
-    if ([RBChekLogin CheckLogin]) {
+    if ([RBChekLogin NotLogin]) {
         return;
     }
     if (self.textField.text.length <= 0) {
