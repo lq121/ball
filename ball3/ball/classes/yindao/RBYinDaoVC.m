@@ -241,8 +241,8 @@
     UIView *cover = [[UIView alloc]initWithFrame:CGRectMake(0, 0, RBScreenWidth, RBScreenHeight)];
     cover.backgroundColor = [UIColor colorWithSexadeString:@"#000000" AndAlpha:0.7];
     [tipView addSubview:cover];
-    UIImageView *icon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"qidong logo"]];
-    icon.frame = CGRectMake((RBScreenWidth - 100) * 0.5, RBNavBarAndStatusBarH + 174, 100, 100);
+    UIImageView *icon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"zhiyin"]];
+    icon.frame = CGRectMake((RBScreenWidth - 88) * 0.5, RBNavBarAndStatusBarH + 174, 88, 88);
     [tipView addSubview:icon];
 
     UILabel *detailLab1 = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(icon.frame) + 20, RBScreenWidth, 33)];

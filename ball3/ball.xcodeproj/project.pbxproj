@@ -181,7 +181,6 @@
 		842A4BD824AB38FE0042FE0A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 842A4BD724AB38FE0042FE0A /* CFNetwork.framework */; };
 		842A4BDA24AB39040042FE0A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 842A4BD924AB39040042FE0A /* AVFoundation.framework */; };
 		842A4BDD24AB39770042FE0A /* GTSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 842A4BDC24AB39770042FE0A /* GTSDK.framework */; };
-		842A4BE124AB3A210042FE0A /* FirstVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 842A4BE024AB3A210042FE0A /* FirstVC.m */; };
 		842A4BE424AB3A3F0042FE0A /* RBYinDaoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 842A4BE324AB3A3F0042FE0A /* RBYinDaoVC.m */; };
 		8430CD4224A82DD100A6F9FC /* RBNetworkTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8430CD4124A82DD100A6F9FC /* RBNetworkTool.m */; };
 		8430CD4924A830AD00A6F9FC /* RBLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8430CD4824A830AD00A6F9FC /* RBLoginVC.m */; };
@@ -570,8 +569,6 @@
 		842A4BD724AB38FE0042FE0A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		842A4BD924AB39040042FE0A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		842A4BDC24AB39770042FE0A /* GTSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GTSDK.framework; sourceTree = "<group>"; };
-		842A4BDF24AB3A200042FE0A /* FirstVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstVC.h; sourceTree = "<group>"; };
-		842A4BE024AB3A210042FE0A /* FirstVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstVC.m; sourceTree = "<group>"; };
 		842A4BE224AB3A3F0042FE0A /* RBYinDaoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBYinDaoVC.h; sourceTree = "<group>"; };
 		842A4BE324AB3A3F0042FE0A /* RBYinDaoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RBYinDaoVC.m; sourceTree = "<group>"; };
 		842A4BE524AB40E60042FE0A /* ball.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ball.entitlements; sourceTree = "<group>"; };
@@ -1044,8 +1041,6 @@
 		842A4BDE24AB3A120042FE0A /* yindao */ = {
 			isa = PBXGroup;
 			children = (
-				842A4BDF24AB3A200042FE0A /* FirstVC.h */,
-				842A4BE024AB3A210042FE0A /* FirstVC.m */,
 				842A4BE224AB3A3F0042FE0A /* RBYinDaoVC.h */,
 				842A4BE324AB3A3F0042FE0A /* RBYinDaoVC.m */,
 			);
@@ -1841,7 +1836,6 @@
 				84C7445A24A33F7B00278AF6 /* RBShiPingVC.m in Sources */,
 				842A4B8A24AAF6CD0042FE0A /* RBIntelligenceVC.m in Sources */,
 				8427603E24A9969900A98536 /* RBAllHuaTiTabVC.m in Sources */,
-				842A4BE124AB3A210042FE0A /* FirstVC.m in Sources */,
 				842760B024A9EB8800A98536 /* RBWoHead.m in Sources */,
 				842A4BA324AB07E80042FE0A /* RBVipTipView.m in Sources */,
 				842A4A1B24AACB470042FE0A /* RBShiMingSuccessVC.m in Sources */,
