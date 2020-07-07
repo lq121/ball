@@ -36,7 +36,7 @@
 }
 
 - (UIView *)chatToolBar {
-    if (_chatToolBar == nil) {
+    if (!_chatToolBar) {
         UIView *chatToolBar = [[UIView alloc]initWithFrame:CGRectMake(0, RBScreenHeight - RBBottomSafeH - 49, RBScreenWidth, 49 + RBBottomSafeH)];
         chatToolBar.tag = 5001;
         chatToolBar.hidden = YES;
@@ -120,11 +120,12 @@
 - (void)connectSocket {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict setValue:[NSString stringWithFormat:@"%d", self.biSaiModel.namiId] forKey:@"matchId"];
+    __weak typeof(self) weakSelf = self;
     [RBNetworkTool PostDataWithUrlStr:@"apis/getchattoken" andParam:dict Success:^(NSDictionary *_Nonnull backData) {
         if (backData[@"err"] != nil || backData[@"ok"] == nil) {
             return;
         }
-        self.chattoken = backData[@"ok"];
+        weakSelf.chattoken = backData[@"ok"];
         // 断开原来的socket
         if ([SocketRocketUtility instance].socketReadyState != SR_CLOSED) {
             [[SocketRocketUtility instance] SRWebSocketClose];
@@ -205,7 +206,6 @@
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
         NSString *str = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
         [[SocketRocketUtility instance] sendData:str];
-
         return;
     }
     if ([dic[@"hid"] isEqualToString:@"rspjoinzhibo"]) {

@@ -43,11 +43,14 @@
     } else if (liveModel.type == 3) {
         // 黄牌
         [self.btn setImage:[UIImage imageNamed:@"yellow card 1"] forState:UIControlStateNormal];
+    } else if (liveModel.type == 9) {
+        // 黄牌
+        [self.btn setImage:[UIImage imageNamed:@"change"] forState:UIControlStateNormal];
     } else if (liveModel.type == 4) {
         // 红牌
         [self.btn setImage:[UIImage imageNamed:@"red card 1"] forState:UIControlStateNormal];
-    } else if (liveModel.type == 10) {
-        // 裁判
+    } else if (liveModel.type == 10 || liveModel.type == 11 || liveModel.type == 12) {
+        // 比赛开始结束
         [self.btn setImage:[UIImage imageNamed:@"whistle"] forState:UIControlStateNormal];
     } else if (liveModel.type == 22 || liveModel.type == 16) {
         // 失球

@@ -15,6 +15,7 @@
 		8425095A24A2FF76008C8F14 /* RBBaseTabVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8425095924A2FF76008C8F14 /* RBBaseTabVC.m */; };
 		8425095D24A30040008C8F14 /* RBTabBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8425095C24A30040008C8F14 /* RBTabBarVC.m */; };
 		8425096024A301A6008C8F14 /* RBNavigationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8425095F24A301A6008C8F14 /* RBNavigationVC.m */; };
+		8425FF3124B44F31003255DD /* lanchImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 8425FF3024B44F31003255DD /* lanchImg.png */; };
 		8427601124A9774100A98536 /* RBShiPingCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8427601024A9774100A98536 /* RBShiPingCollectionVC.m */; };
 		8427601424A9776F00A98536 /* RBShiPingFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8427601324A9776F00A98536 /* RBShiPingFlowLayout.m */; };
 		8427601724A977AC00A98536 /* RBHengShiPingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8427601624A977AC00A98536 /* RBHengShiPingVC.m */; };
@@ -231,7 +232,6 @@
 		8430CDE024A8973F00A6F9FC /* RBProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 8430CDDF24A8973F00A6F9FC /* RBProgress.m */; };
 		8430CDE324A89E0400A6F9FC /* UITableView+RBExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 8430CDE224A89E0400A6F9FC /* UITableView+RBExtension.m */; };
 		8430CDE624A8A21700A6F9FC /* RBShiPingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8430CDE524A8A21700A6F9FC /* RBShiPingModel.m */; };
-		8459261924AC6BD6006374AB /* lanchIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8459261824AC6BD6006374AB /* lanchIcon.png */; };
 		84C7442D24A320B800278AF6 /* UIBarButtonItem+RBExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7442C24A320B800278AF6 /* UIBarButtonItem+RBExtension.m */; };
 		84C7443124A3220900278AF6 /* UIColor+RBExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7443024A3220900278AF6 /* UIColor+RBExtension.m */; };
 		84C7443424A327F100278AF6 /* RBTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7443324A327F100278AF6 /* RBTabBar.m */; };
@@ -262,6 +262,7 @@
 		8425095C24A30040008C8F14 /* RBTabBarVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RBTabBarVC.m; sourceTree = "<group>"; };
 		8425095E24A301A6008C8F14 /* RBNavigationVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBNavigationVC.h; sourceTree = "<group>"; };
 		8425095F24A301A6008C8F14 /* RBNavigationVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RBNavigationVC.m; sourceTree = "<group>"; };
+		8425FF3024B44F31003255DD /* lanchImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lanchImg.png; sourceTree = "<group>"; };
 		8427600F24A9774100A98536 /* RBShiPingCollectionVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBShiPingCollectionVC.h; sourceTree = "<group>"; };
 		8427601024A9774100A98536 /* RBShiPingCollectionVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RBShiPingCollectionVC.m; sourceTree = "<group>"; };
 		8427601224A9776F00A98536 /* RBShiPingFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBShiPingFlowLayout.h; sourceTree = "<group>"; };
@@ -674,7 +675,6 @@
 		8430CDE224A89E0400A6F9FC /* UITableView+RBExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableView+RBExtension.m"; sourceTree = "<group>"; };
 		8430CDE424A8A21700A6F9FC /* RBShiPingModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBShiPingModel.h; sourceTree = "<group>"; };
 		8430CDE524A8A21700A6F9FC /* RBShiPingModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RBShiPingModel.m; sourceTree = "<group>"; };
-		8459261824AC6BD6006374AB /* lanchIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lanchIcon.png; sourceTree = "<group>"; };
 		84C7442B24A320B800278AF6 /* UIBarButtonItem+RBExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+RBExtension.h"; sourceTree = "<group>"; };
 		84C7442C24A320B800278AF6 /* UIBarButtonItem+RBExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+RBExtension.m"; sourceTree = "<group>"; };
 		84C7442E24A3214F00278AF6 /* RBPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBPrefixHeader.pch; sourceTree = "<group>"; };
@@ -750,15 +750,15 @@
 		8425093824A2F2CC008C8F14 /* ball */ = {
 			isa = PBXGroup;
 			children = (
+				8425095624A2FDD3008C8F14 /* classes */,
 				8425093924A2F2CC008C8F14 /* AppDelegate.h */,
 				8425093A24A2F2CC008C8F14 /* AppDelegate.m */,
 				8425094524A2F2D0008C8F14 /* Assets.xcassets */,
 				842A4BE524AB40E60042FE0A /* ball.entitlements */,
-				8425095624A2FDD3008C8F14 /* classes */,
+				8425FF3024B44F31003255DD /* lanchImg.png */,
 				8425094A24A2F2D0008C8F14 /* Info.plist */,
 				842A4BB324AB31BB0042FE0A /* jq.mp3 */,
 				8425095324A2F675008C8F14 /* lanchBG.png */,
-				8459261824AC6BD6006374AB /* lanchIcon.png */,
 				8425094724A2F2D0008C8F14 /* LaunchScreen.storyboard */,
 				8425094B24A2F2D0008C8F14 /* main.m */,
 				84C7442E24A3214F00278AF6 /* RBPrefixHeader.pch */,
@@ -1620,7 +1620,7 @@
 				842A4B7424AAF6CD0042FE0A /* RBPlateCell.xib in Resources */,
 				842A4B7324AAF6CD0042FE0A /* RBDetailInjuredCell.xib in Resources */,
 				8425094924A2F2D0008C8F14 /* LaunchScreen.storyboard in Resources */,
-				8459261924AC6BD6006374AB /* lanchIcon.png in Resources */,
+				8425FF3124B44F31003255DD /* lanchImg.png in Resources */,
 				8425094624A2F2D0008C8F14 /* Assets.xcassets in Resources */,
 				842A4B6624AAF6CD0042FE0A /* RBResultCell.xib in Resources */,
 				842A4B6C24AAF6CD0042FE0A /* RBDetailDataCell.xib in Resources */,

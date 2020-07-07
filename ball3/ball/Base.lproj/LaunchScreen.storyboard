@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,7 +22,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lanchBG.png" translatesAutoresizingMaskIntoConstraints="NO" id="hra-Oc-aOZ">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lanchIcon.png" translatesAutoresizingMaskIntoConstraints="NO" id="hWa-B7-5ge">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lanchImg.png" translatesAutoresizingMaskIntoConstraints="NO" id="hWa-B7-5ge">
                                 <rect key="frame" x="155" y="396" width="104.5" height="104.5"/>
                             </imageView>
                         </subviews>
@@ -45,6 +46,6 @@
     </scenes>
     <resources>
         <image name="lanchBG.png" width="1536" height="2048"/>
-        <image name="lanchIcon.png" width="260" height="260"/>
+        <image name="lanchImg.png" width="298" height="296"/>
     </resources>
 </document>

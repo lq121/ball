@@ -3,7 +3,7 @@
 #import "UIButton+WebCache.h"
 
 typedef void (^ClickBtnIndex)(int index);
-
+typedef void (^ChangeHeight)(int height);
 @interface RBBiSaiDetailHead ()<WKUIDelegate, WKNavigationDelegate>
 @property (nonatomic, strong) UILabel *teamLabel;
 @property (nonatomic, strong) UILabel *timeLabel;
@@ -25,6 +25,7 @@ typedef void (^ClickBtnIndex)(int index);
 @property (nonatomic, strong) UIImageView *BGView;
 @property (nonatomic, assign) int index;
 @property (nonatomic, copy) ClickBtnIndex clickBtnIndex;
+@property (nonatomic, copy) ChangeHeight changeHeight;
 @property (nonatomic, strong) UIView *shiPingDongHuaView;
 @property (nonatomic, strong) UIButton *shiPingBtn;
 @property (nonatomic, strong) UIButton *dongHuaBtn;
@@ -33,9 +34,10 @@ typedef void (^ClickBtnIndex)(int index);
 
 @implementation RBBiSaiDetailHead
 
-- (instancetype)initWithFrame:(CGRect)frame andIndex:(int)index andClickBtn:(void (^)(int index))clickIndex {
+- (instancetype)initWithFrame:(CGRect)frame andIndex:(int)index andClickBtn:(void (^)(int index))clickIndex andChangeHeight:(void (^)(int height))changeHeight {
     if (self = [super initWithFrame:frame]) {
         self.clickBtnIndex = clickIndex;
+        self.changeHeight = changeHeight;
         self.index = index;
 
         UIImageView *BGView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"game bg"]];
@@ -233,7 +235,7 @@ typedef void (^ClickBtnIndex)(int index);
     WKUserContentController *wkUController = [[WKUserContentController alloc] init];
     [wkUController addUserScript:wkUScript];
     configuration.userContentController = wkUController;
-    WKWebView *wkView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, RBScreenWidth, self.height-44) configuration:configuration];
+    WKWebView *wkView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, RBScreenWidth, self.height - 44 - RBStatusBarH) configuration:configuration];
 
     wkView.scrollView.bounces = NO;
     wkView.scrollView.scrollEnabled = NO;
@@ -241,13 +243,11 @@ typedef void (^ClickBtnIndex)(int index);
     wkView.UIDelegate = self;
     wkView.navigationDelegate = self;
     [self addSubview:wkView];
-    [wkView addObserver:self forKeyPath:@"scrollView.contentSize" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:@"wkContext"];
-      NSLog(@"-=-========%@",NSStringFromCGRect(wkView.frame));
-
+    [wkView addObserver:self forKeyPath:@"scrollView.contentSize" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:@"wkContext"];
     wkView.multipleTouchEnabled = YES;
-   wkView.scrollView.scrollEnabled = NO;
+    wkView.scrollView.scrollEnabled = NO;
     //for ios version below 5.0
-    for (UIView * sub in wkView.subviews) {
+    for (UIView *sub in wkView.subviews) {
         if ([sub isKindOfClass:[UIScrollView class]]) {
             [(UIScrollView *)sub setScrollEnabled:NO];
         }
@@ -437,7 +437,6 @@ typedef void (^ClickBtnIndex)(int index);
 
 - (void)setBiSaiModel:(RBBiSaiModel *)biSaiModel {
     _biSaiModel = biSaiModel;
-
     if (biSaiModel == nil) {
         return;
     }
@@ -568,8 +567,6 @@ typedef void (^ClickBtnIndex)(int index);
 - (void)dealloc {
     [self.wkView removeObserver:self forKeyPath:@"scrollView.contentSize" context:@"wkContext"];
     [self.wkView removeFromSuperview];
- 
-      
 }
 
 #pragma mark - WKNavigationDelegate
@@ -597,14 +594,17 @@ typedef void (^ClickBtnIndex)(int index);
     [webView evaluateJavaScript:jsStr completionHandler:^(id _Nullable object, NSError *_Nullable error) {
     }];
     __weak typeof(self) weakSelf = self;
-    [webView evaluateJavaScript:@"document.body.offsetHeight;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-           //获取页面高度，并重置webview的frame
-           float height = [result doubleValue];
-           CGRect frame = weakSelf.wkView.frame;
-        frame.size.height = self.height-44;
-           weakSelf.wkView.frame = frame;
-           [weakSelf.wkView sizeToFit];
-       }];
+    [webView evaluateJavaScript:@"document.body.offsetHeight;" completionHandler:^(id _Nullable result, NSError *_Nullable error) {
+        //获取页面高度，并重置webview的frame
+        float height = [result doubleValue];
+        NSLog(@"-=-======-->>>%f",height);
+        CGRect frame = weakSelf.wkView.frame;
+        frame.size.height = height;
+        weakSelf.height = height + 44 + RBStatusBarH;
+        self.changeHeight(height);
+        weakSelf.wkView.frame = frame;
+        [weakSelf.wkView sizeToFit];
+    }];
 }
 
 // 页面加载失败时调用
@@ -648,10 +648,11 @@ typedef void (^ClickBtnIndex)(int index);
     completionHandler();
 }
 
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if (!self.wkView.isLoading) {
-      if([keyPath isEqualToString:@"scrollView.contentSize"]){
+        if ([keyPath isEqualToString:@"scrollView.contentSize"]) {
             CGFloat webViewContentHeight =  self.wkView.scrollView.contentSize.height;
+            NSLog(@"-----%f",webViewContentHeight);
             CGRect frame = self.wkView.frame;
             frame.size.height = webViewContentHeight;
             self.wkView.frame = frame;
@@ -659,5 +660,8 @@ typedef void (^ClickBtnIndex)(int index);
         }
     }
 }
+
+
+
 
 @end

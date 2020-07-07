@@ -207,9 +207,10 @@
         jsonData = [backData[@"ok"] dataUsingEncoding:NSUTF8StringEncoding];
         [self.liveArr removeAllObjects];
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&err];
+        NSLog(@"%@",dic);
         NSArray *statArr = [RBStatsModel mj_objectArrayWithKeyValuesArray:dic[@"stats"]];
         RBStatsModel *jiaoModel, *yellowModel, *redModel;
-        NSArray *types = @[@(21), @(22), @(8), @(23), @(24), @(25)];
+        NSArray *types = @[@(21), @(22), @(8),@(9), @(23), @(24), @(25)];
         for (int j = 0; j < statArr.count; j++) {
             RBStatsModel *model = statArr[j];
             if (model.type == 2) {

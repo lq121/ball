@@ -9,7 +9,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"lastOne"]];
+    UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"zhiyin"]];
     imageView.frame = CGRectMake(0, 0, RBScreenWidth, RBScreenHeight);
     [self.view addSubview:imageView];
 

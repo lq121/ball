@@ -100,7 +100,6 @@
     }
     self.view.backgroundColor = [UIColor colorWithSexadeString:@"#F8F8F8"];
     [self.view addSubview:self.scrollView];
-
     CGFloat height = 0;
     if (@available(iOS 10, *)) {
         if (RB_iPhoneX) {
@@ -124,7 +123,13 @@
         } else {
             weakSelf.scrollView.contentOffset = CGPointMake(index * RBScreenWidth,  weakSelf.scrollView.contentOffset.y);
         }
+    } andChangeHeight:^(int webH) {
+        weakSelf.biSaiDetailHead.height = webH +  RBStatusBarH;
+        weakSelf.analyzeVC.biSaiDetailHead = weakSelf.biSaiDetailHead;
+        weakSelf.liveTabVC.biSaiDetailHead = weakSelf.biSaiDetailHead;
+
     }];
+
     biSaiDetailHead.biSaiModel = self.biSaiModel;
     self.biSaiDetailHead = biSaiDetailHead;
     [self getZhiBoUrl];
@@ -241,7 +246,7 @@
     [buy addObject:ok[@"Rbuy"]];
     [buy addObject:ok[@"Sbuy"]];
     [buy addObject:ok[@"Dbuy"]];
-    NSArray *titles = @[@"胜平负",@"让球",@"大小球"];
+    NSArray *titles = @[@"胜平负", @"让球", @"大小球"];
     NSArray *D = ok[@"D"];  // 大小球数据
     NSArray *R = ok[@"R"]; // 让球数据
     NSArray *S = ok[@"S"]; // 胜平负数据
@@ -250,9 +255,9 @@
     for (int i = 0; i < titles.count; i++) {
         // 查看是否有购买数据
         hasBuy += [buy[i]intValue];
-        if (i == 0 && ![S isKindOfClass:[NSNull class]] && S.count >= 3){
+        if (i == 0 && ![S isKindOfClass:[NSNull class]] && S.count >= 3) {
             hasData += 1;
-        } else  if (i == 1 && ![R isKindOfClass:[NSNull class]] && R.count >= 3) {
+        } else if (i == 1 && ![R isKindOfClass:[NSNull class]] && R.count >= 3) {
             hasData += 1;
         } else if (i == 2 && ![D isKindOfClass:[NSNull class]] && D.count >= 3) {
             hasData += 1;
@@ -339,20 +344,34 @@
     }
 }
 
-
 /// 点击返回按钮
 - (void)clickBackBtn {
-    if(self.biSaiDetailHead.wkView != nil){
+    if (self.biSaiDetailHead.wkView != nil) {
         [self.biSaiDetailHead.wkView removeFromSuperview];
-    }else{
+         CGFloat height = 0;
+        if (@available(iOS 10, *)) {
+               if (RB_iPhoneX) {
+                   height = (228 + RBStatusBarH - 24);
+               } else {
+                   height = (228 + RBStatusBarH);
+               }
+           } else {
+               height = (228 +  RBStatusBarH + 20);
+           }
+        self.biSaiDetailHead.height = height;
+        self.analyzeVC.biSaiDetailHead = self.biSaiDetailHead;
+        self.liveTabVC.biSaiDetailHead = self.biSaiDetailHead;
+    } else {
         [self.backBtn removeFromSuperview];
         [self.attentionBtn removeFromSuperview];
         [self.shareBtn removeFromSuperview];
-        [[SocketRocketUtility instance] SRWebSocketClose];
+        if ([SocketRocketUtility instance].socketReadyState != SR_CLOSED) {
+            [[SocketRocketUtility instance] SRWebSocketClose];
+        }
         UIView *chatToolBar = [[UIApplication sharedApplication].keyWindow viewWithTag:5001];
         [chatToolBar removeFromSuperview];
         [self.biSaiDetailHead.timer timeInterval];
-        [self.navigationController popViewControllerAnimated:YES];        
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 

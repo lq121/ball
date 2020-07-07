@@ -12,7 +12,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"我购买的";
+    self.title = @"我购买的比赛";
     self.view.backgroundColor = [UIColor colorWithSexadeString:@"#F8F8F8"];
     NSArray *titles = @[@"未赛", @"已赛"];
 

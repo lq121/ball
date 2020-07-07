@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) WKWebView *wkView; // 防止wkwebView不会被移除用若引用
 @property (nonatomic, strong) NSTimer *timer;
 
-- (instancetype)initWithFrame:(CGRect)frame andIndex:(int)index andClickBtn:(void (^)(int index))clickIndex;
+- (instancetype)initWithFrame:(CGRect)frame andIndex:(int)index andClickBtn:(void (^)(int index))clickIndex andChangeHeight:(void(^)(int height))changeHeight;
 -(void)clickIndex:(int)index;
 @end
 
