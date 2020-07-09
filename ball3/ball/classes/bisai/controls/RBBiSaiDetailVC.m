@@ -105,7 +105,7 @@
         if (RB_iPhoneX) {
             height = (228 + RBStatusBarH - 24);
         } else {
-            height = (228 + RBStatusBarH);
+            height = (228 + RBStatusBarH+ 20);
         }
     } else {
         height = (228 +  RBStatusBarH + 20);
@@ -384,7 +384,7 @@
             if (RB_iPhoneX) {
                 height = (228 + RBStatusBarH - 24);
             } else {
-                height = (228 + RBStatusBarH);
+                height = (228 + RBStatusBarH+ 20);
             }
         } else {
             height = (228 +  RBStatusBarH + 20);

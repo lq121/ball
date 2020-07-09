@@ -25,7 +25,6 @@
 }
 
 - (void)setAiDataModel:(RBAiDataModel *)aiDataModel {
-    NSLog(@"调用setAiDataModel方法");
     _aiDataModel = aiDataModel;
     self.backgroundColor = aiDataModel.bgColor;
     self.BGView.backgroundColor = aiDataModel.bgColor;

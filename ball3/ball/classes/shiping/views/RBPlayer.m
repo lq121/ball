@@ -222,7 +222,17 @@ static CGFloat const playBtnSideLength = 60.0f;
 
     [UIView animateWithDuration:0.3 animations:^{
         self.transform = CGAffineTransformMakeRotation(0);
-        CGRect temp = CGRectMake(0, 0, self.playerOriginalFrame.size.width, self.playerOriginalFrame.size.height);
+        CGRect temp;
+        if (!self.bindTableView) {
+            if (RB_iPhoneX) {
+                temp= CGRectMake(0, 0, self.playerOriginalFrame.size.width, self.playerOriginalFrame.size.height);
+            }else{
+                 temp= CGRectMake(0, -RBStatusBarH, self.playerOriginalFrame.size.width, self.playerOriginalFrame.size.height);
+            }
+        }else{
+           temp= CGRectMake(0, 0, self.playerOriginalFrame.size.width, self.playerOriginalFrame.size.height);
+        }
+         
         self.playerOriginalFrame = temp;
         self.frame =  self.playerOriginalFrame;
         self.bottomBar.frame = CGRectMake(0, self.playerOriginalFrame.size.height - bottomBaHeight, self.self.playerOriginalFrame.size.width, bottomBaHeight);

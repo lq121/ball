@@ -237,7 +237,13 @@ typedef void (^ChangeHeight)(int height);
     WKUserContentController *wkUController = [[WKUserContentController alloc] init];
     [wkUController addUserScript:wkUScript];
     configuration.userContentController = wkUController;
-    WKWebView *wkView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, RBScreenWidth, self.height - 44 - RBStatusBarH) configuration:configuration];
+    WKWebView *wkView;
+    if (RB_iPhoneX) {
+        wkView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, RBScreenWidth, self.height - 44 - RBStatusBarH) configuration:configuration];
+    }else{
+      wkView = [[WKWebView alloc]initWithFrame:CGRectMake(0, -RBStatusBarH, RBScreenWidth, self.height - 44 - RBStatusBarH) configuration:configuration];
+    }
+    
     wkView.scrollView.bounces = NO;
     wkView.scrollView.scrollEnabled = NO;
     wkView.hidden = YES;
@@ -256,6 +262,7 @@ typedef void (^ChangeHeight)(int height);
 }
 
 - (void)clickshiPingBtn {
+    self.shipingUrl = @"https://vdept.bdstatic.com/6d7172683379544b4770384a77413958/6d43453368616133/51acc7fc74407bd456dc173af5fb34bfab2ce876f614a66b49d3ba70f1f11d3b13e6dd317aca5a074bf65d0fbd38a3d8.mp4?auth_key=1594288124-0-0-b885925eaff03f7788434ec6b66d55c7";
     if (self.shipingUrl == nil || self.shipingUrl.length == 0) {
         [RBToast showWithTitle:@"暂无视频"];
         return;
@@ -266,7 +273,11 @@ typedef void (^ChangeHeight)(int height);
     }
     self.player = [[RBPlayer alloc]init];
     [self.player setShiPingUrl:self.shipingUrl andType:3];
-    self.player.frame = CGRectMake(0, -RBStatusBarH, RBScreenWidth, self.height);
+    if(RB_iPhoneX){
+         self.player.frame = CGRectMake(0, -RBStatusBarH, RBScreenWidth, self.height);
+    }else {
+         self.player.frame = CGRectMake(0, -2*RBStatusBarH, RBScreenWidth, self.height);
+    }
     [self addSubview:self.player];
 }
 
@@ -371,7 +382,9 @@ typedef void (^ChangeHeight)(int height);
     self.team1Label.centerX = self.team1.centerX;
     self.team2Label.centerX = self.team2.centerX;
     self.bigView.frame = CGRectMake(0, RBStatusBarH, RBScreenWidth, self.height  - 44);
-    self.shiPingDongHuaView.frame = CGRectMake((RBScreenWidth - 150) * 0.5, CGRectGetMaxY(self.team1Label.frame) + 4, 150, 38);
+       self.shiPingDongHuaView.frame = CGRectMake((RBScreenWidth - 150) * 0.5, CGRectGetMaxY(self.team1Label.frame) + 4, 150, 38);
+    
+    
     self.line.frame = CGRectMake(150 * 0.5, 11, 1, 16);
     self.shiPingBtn.frame = CGRectMake(0, 0, 150 * 0.5, 38);
     self.dongHuaBtn.frame = CGRectMake(149 * 0.5, 0, 150 * 0.5, 38);

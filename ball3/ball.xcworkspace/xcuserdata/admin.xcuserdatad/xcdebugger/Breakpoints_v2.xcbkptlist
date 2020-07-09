@@ -131,5 +131,53 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AA462987-E540-4B51-AD0D-327E00A774CB"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ball/classes/shiping/views/RBPlayer.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "441"
+            endingLineNumber = "441"
+            landmarkName = "-smallWindowPlay"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "AA462987-E540-4B51-AD0D-327E00A774CB - c9095302825b55"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[RBPlayer smallWindowPlay]"
+                  moduleName = "&#x5c0f;&#x5e94;&#x4f53;&#x80b2;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/admin/Desktop/balls/ball3/ball/classes/shiping/views/RBPlayer.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "441"
+                  endingLineNumber = "441"
+                  offsetFromSymbolStart = "816">
+               </Location>
+               <Location
+                  uuid = "AA462987-E540-4B51-AD0D-327E00A774CB - 1af373baec3348c8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__27-[RBPlayer smallWindowPlay]_block_invoke"
+                  moduleName = "&#x5c0f;&#x5e94;&#x4f53;&#x80b2;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/admin/Desktop/balls/ball3/ball/classes/shiping/views/RBPlayer.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "442"
+                  endingLineNumber = "442"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
