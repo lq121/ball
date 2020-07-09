@@ -262,7 +262,6 @@ typedef void (^ChangeHeight)(int height);
 }
 
 - (void)clickshiPingBtn {
-    self.shipingUrl = @"https://vdept.bdstatic.com/6d7172683379544b4770384a77413958/6d43453368616133/51acc7fc74407bd456dc173af5fb34bfab2ce876f614a66b49d3ba70f1f11d3b13e6dd317aca5a074bf65d0fbd38a3d8.mp4?auth_key=1594288124-0-0-b885925eaff03f7788434ec6b66d55c7";
     if (self.shipingUrl == nil || self.shipingUrl.length == 0) {
         [RBToast showWithTitle:@"暂无视频"];
         return;
