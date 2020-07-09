@@ -38,6 +38,7 @@
     RBPlateCell *cell = [RBPlateCell createCellByTableView:tableView];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     RBAiDataModel *aiDataModel = self.dataArr[indexPath.row];
+    aiDataModel.type = 2;
     if (indexPath.row % 2 == 0) {
         aiDataModel.bgColor = [UIColor whiteColor];
     } else {

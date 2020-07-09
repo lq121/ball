@@ -248,8 +248,6 @@
             self.resultLab.text = @"错";
             self.predictView.backgroundColor = [UIColor colorWithSexadeString:@"#BEBEBE"];
         }
-            
-        
     }
 }
 

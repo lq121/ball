@@ -70,11 +70,11 @@
         if (self.currentP == 0) {
             [self.dataArray removeAllObjects];
             [self.numPredictDataArray removeAllObjects];
-            [self.numPredictDataArray addObject:@(0)];
+            [self.numPredictDataArray addObject:@(1)];
         }
         for (int i = 0; i < array.count; i++) {
             RBPredictModel *model = array[i];
-            if (self.dataArray.count > 1) {
+            if (self.dataArray.count >= 1) {
                 RBPredictModel *lastModel = [self.dataArray lastObject];
                 if ([self isSameDay:lastModel.startt Time2:model.startt]) {
             // 同一天
@@ -90,7 +90,6 @@
             [self.dataArray addObject:model];
         }
         [self.tableView showDataCount:self.dataArray.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183)];
-
         [self.tableView reloadData];
     } Fail:^(NSError *_Nonnull error) {
         [self.tableView.mj_footer endRefreshing];
@@ -113,7 +112,11 @@
     if (indexPath.section == 0) {
         nearPredictCell.predictModel = self.dataArray[indexPath.row];
     } else {
-        nearPredictCell.predictModel = self.dataArray[indexPath.row + [self.numPredictDataArray[indexPath.section - 1]intValue]];
+        int index = 0;
+        for (int i = 0; i < indexPath.section; i++) {
+            index += [self.numPredictDataArray[i] intValue];
+        }
+        nearPredictCell.predictModel = self.dataArray[indexPath.row + index];
     }
 
     return nearPredictCell;
@@ -173,7 +176,11 @@
         if (indexPath.section == 0) {
             detailTabVC.biSaiModel = [self predictModelTobiSaiModel:self.dataArray[indexPath.row]];
         } else {
-            detailTabVC.biSaiModel = [self predictModelTobiSaiModel:self.dataArray[indexPath.row + [self.numPredictDataArray[indexPath.section - 1]intValue]]];
+            int index = 0;
+            for (int i = 0; i < indexPath.section; i++) {
+                index += [self.numPredictDataArray[i] intValue];
+            }
+            detailTabVC.biSaiModel = [self predictModelTobiSaiModel:self.dataArray[indexPath.row + index]];
         }
 
         [self.navigationController pushViewController:detailTabVC animated:YES];

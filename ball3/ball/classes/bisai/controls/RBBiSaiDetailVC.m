@@ -127,7 +127,18 @@
         weakSelf.biSaiDetailHead.height = webH +  RBStatusBarH;
         weakSelf.analyzeVC.biSaiDetailHead = weakSelf.biSaiDetailHead;
         weakSelf.liveTabVC.biSaiDetailHead = weakSelf.biSaiDetailHead;
-
+        for (int i = 0; i < weakSelf.childViewControllers.count; i++) {
+            UIViewController *childVC = weakSelf.childViewControllers[i];
+            UIView *child = childVC.view;
+            if (i == 0 || i == 3) {
+                // 可以滑动
+                child.y = 0;
+                child.height =  RBScreenHeight - RBStatusBarH;
+            } else {
+                child.y = weakSelf.biSaiDetailHead.height;
+                child.height =  RBScreenHeight - (weakSelf.biSaiDetailHead.height);
+            }
+        }
     }];
 
     biSaiDetailHead.biSaiModel = self.biSaiModel;
@@ -214,8 +225,13 @@
 - (void)getZhiBoUrl {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict setValue:@(self.biSaiModel.namiId) forKey:@"matchid"];
-    [RBNetworkTool PostDataWithUrlStr:@"try/go/getzhibo"  andParam:dict Success:^(NSDictionary *_Nonnull backData) {
-        NSLog(@"%@", backData);
+    __block RBBiSaiDetailVC *weakSelf = self;
+    [RBNetworkTool PostDataWithUrlStr:@"try/go/getgamezhibo"  andParam:dict Success:^(NSDictionary *_Nonnull backData) {
+        if ([backData.allKeys containsObject:@"ok"]) {
+            NSArray *ok = backData[@"ok"];
+            NSString *url = ok[0][1];
+            weakSelf.biSaiDetailHead.shipingUrl = url;
+        }
     } Fail:^(NSError *_Nonnull error) {
     }];
 }
@@ -266,9 +282,22 @@
     self.hasBuy = hasBuy;
     self.hasData = hasData;
     if (index == 1) {
-        [self shareWithType:@"Session" andDes:[NSString stringWithFormat:@"智能预测-%@队 VS %@队【小应体育 APP】", self.biSaiModel.hostTeamName, self.biSaiModel.visitingTeamName] andUrlStr:[NSString stringWithFormat:@"%@game/%d", BASESHAREURL, self.biSaiModel.namiId] andImage:@"share logo"];
+        if (self.biSaiModel.status >= 2 && self.biSaiModel.status <= 4) {
+             [self shareWithType:@"Session" andDes:[NSString stringWithFormat:@"相信数据的力量-全方位预测%@队 VS %@队", self.biSaiModel.hostTeamName, self.biSaiModel.visitingTeamName] andUrlStr:[NSString stringWithFormat:@"%@game/%d", BASESHAREURL, self.biSaiModel.namiId] andImage:@"share logo"];
+        }else if (self.biSaiModel.status == 8){
+             [self shareWithType:@"Session" andDes:[NSString stringWithFormat:@"%@队 VS %@队", self.biSaiModel.hostTeamName, self.biSaiModel.visitingTeamName] andUrlStr:[NSString stringWithFormat:@"%@game/%d", BASESHAREURL, self.biSaiModel.namiId] andImage:@"share logo"];
+        }else {
+             [self shareWithType:@"Session" andDes:[NSString stringWithFormat:@"%@队 VS %@队 赛后全方位分析", self.biSaiModel.hostTeamName, self.biSaiModel.visitingTeamName] andUrlStr:[NSString stringWithFormat:@"%@game/%d", BASESHAREURL, self.biSaiModel.namiId] andImage:@"share logo"];
+        }
+       
     } else if (index == 2) {
-        [self shareWithType:@"Timeline" andDes:[NSString stringWithFormat:@"智能预测-%@队 VS %@队【小应体育 APP】", self.biSaiModel.hostTeamName, self.biSaiModel.visitingTeamName] andUrlStr:[NSString stringWithFormat:@"%@game/%d", BASESHAREURL, self.biSaiModel.namiId] andImage:@"share logo"];
+        if (self.biSaiModel.status >= 2 && self.biSaiModel.status <= 4) {
+                    [self shareWithType:@"Timeline" andDes:[NSString stringWithFormat:@"相信数据的力量-全方位预测%@队 VS %@队", self.biSaiModel.hostTeamName, self.biSaiModel.visitingTeamName] andUrlStr:[NSString stringWithFormat:@"%@game/%d", BASESHAREURL, self.biSaiModel.namiId] andImage:@"share logo"];
+               }else if (self.biSaiModel.status == 8){
+                    [self shareWithType:@"Timeline" andDes:[NSString stringWithFormat:@"%@队 VS %@队", self.biSaiModel.hostTeamName, self.biSaiModel.visitingTeamName] andUrlStr:[NSString stringWithFormat:@"%@game/%d", BASESHAREURL, self.biSaiModel.namiId] andImage:@"share logo"];
+               }else {
+                    [self shareWithType:@"Timeline" andDes:[NSString stringWithFormat:@"%@队 VS %@队 赛后全方位分析", self.biSaiModel.hostTeamName, self.biSaiModel.visitingTeamName] andUrlStr:[NSString stringWithFormat:@"%@game/%d", BASESHAREURL, self.biSaiModel.namiId] andImage:@"share logo"];
+               }
     } else {
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
         pasteboard.string = [NSString stringWithFormat:@"%@game/%d", BASESHAREURL, self.biSaiModel.namiId];
@@ -346,21 +375,35 @@
 
 /// 点击返回按钮
 - (void)clickBackBtn {
-    if (self.biSaiDetailHead.wkView != nil) {
+    if (self.biSaiDetailHead.player != nil || self.biSaiDetailHead.wkView != nil) {
+        [self.biSaiDetailHead.player destroyPlayer];
+        self.biSaiDetailHead.player = nil;
         [self.biSaiDetailHead.wkView removeFromSuperview];
-         CGFloat height = 0;
+        CGFloat height = 0;
         if (@available(iOS 10, *)) {
-               if (RB_iPhoneX) {
-                   height = (228 + RBStatusBarH - 24);
-               } else {
-                   height = (228 + RBStatusBarH);
-               }
-           } else {
-               height = (228 +  RBStatusBarH + 20);
-           }
+            if (RB_iPhoneX) {
+                height = (228 + RBStatusBarH - 24);
+            } else {
+                height = (228 + RBStatusBarH);
+            }
+        } else {
+            height = (228 +  RBStatusBarH + 20);
+        }
         self.biSaiDetailHead.height = height;
         self.analyzeVC.biSaiDetailHead = self.biSaiDetailHead;
         self.liveTabVC.biSaiDetailHead = self.biSaiDetailHead;
+        for (int i = 0; i < self.childViewControllers.count; i++) {
+            UIViewController *childVC = self.childViewControllers[i];
+            UIView *child = childVC.view;
+            if (i == 0 || i == 3) {
+                // 可以滑动
+                child.y = 0;
+                child.height =  RBScreenHeight - RBStatusBarH;
+            } else {
+                child.y = self.biSaiDetailHead.height;
+                child.height =  RBScreenHeight - (self.biSaiDetailHead.height);
+            }
+        }
     } else {
         [self.backBtn removeFromSuperview];
         [self.attentionBtn removeFromSuperview];
@@ -408,7 +451,7 @@
     if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {
         [[NSNotificationCenter defaultCenter]postNotificationName:@"needShow" object:[NSNumber numberWithBool:YES]];
         //根据比赛的状态以及是否是预测界面，预测界面是否有数据
-        if (self.index == 2 && self.aiForecastVC.checkBtn.tag == 200) {
+        if (self.index == 2 && self.aiForecastVC.checkBtn.tag == 200 && [type isEqualToString:@"Timeline"]) {
             // 进入到了预测页面，判断是否有数据
             if (self.biSaiModel.status == 8) {
                 // 比赛结束
@@ -435,11 +478,7 @@
     message.mediaObject = ext;
     SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
     req.bText = NO;
-    if ([type isEqualToString:@"Session"]) {
-        req.scene = WXSceneSession;
-    } else {
-        req.scene = WXSceneTimeline;
-    }
+    req.scene = WXSceneTimeline;
     req.message = message;
     [WXApi sendReq:req completion:^(BOOL success) {
     }];
@@ -448,10 +487,13 @@
 - (void)sharMsgWithType:(NSString *)type andDes:(NSString *)des andUrlStr:(NSString *)url andImage:(NSString *)image {
     WXMediaMessage *message = [WXMediaMessage message];
     message.title = des;
-    if (self.biSaiModel.status == 8) {
-        message.description = @"你的ai智能预测专家";
-    } else {
-        message.description = @"谁会赢呢，快来看看";
+    if (self.biSaiModel.status >= 2 && self.biSaiModel.status <= 4) {
+        // 比赛中
+        message.description = @"对了么，中了没，take easy，比赛还在进行中，球是圆的，逆转就在一瞬间";
+    } else if(self.biSaiModel.status == 8){
+        message.description = @"事后诸葛亮，赛后看一看。数据捋一捋，下场接着上";
+    }else{
+       message.description = @"比赛前的热度，呼吸加快了速度。啤酒龙虾一起跳舞，不来一起敲响下战鼓";
     }
     [message setThumbImage:[UIImage imageNamed:@"share logo"]];
     WXWebpageObject *webpageObject = [WXWebpageObject object];
@@ -551,7 +593,6 @@
 }
 
 #pragma mark - 获取屏幕截图
-
 - (UIImage *)getNormalImage {
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(RBScreenWidth, RBScreenHeight), NO, [UIScreen mainScreen].scale);
     CGContextRef context = UIGraphicsGetCurrentContext();

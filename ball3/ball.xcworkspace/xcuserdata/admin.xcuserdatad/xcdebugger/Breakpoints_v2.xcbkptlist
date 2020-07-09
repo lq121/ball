@@ -41,9 +41,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "570"
-            endingLineNumber = "570"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "7">
+            endingLineNumber = "570">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -114,6 +112,22 @@
             startingLineNumber = "197"
             endingLineNumber = "197"
             landmarkName = "-dealloc"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1D415B30-0F81-4F08-86A0-9CB4C1D1D620"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ball/classes/tool/RBNetworkTool.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "362"
+            endingLineNumber = "362"
+            landmarkName = "+uploadImageWithImage:andDict:andSuccess:Fail:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

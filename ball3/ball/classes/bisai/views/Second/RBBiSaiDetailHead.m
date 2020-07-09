@@ -1,6 +1,7 @@
 #import "RBBiSaiDetailHead.h"
 #import "RBChekLogin.h"
 #import "UIButton+WebCache.h"
+#import "RBToast.h"
 
 typedef void (^ClickBtnIndex)(int index);
 typedef void (^ChangeHeight)(int height);
@@ -30,6 +31,7 @@ typedef void (^ChangeHeight)(int height);
 @property (nonatomic, strong) UIButton *shiPingBtn;
 @property (nonatomic, strong) UIButton *dongHuaBtn;
 @property (nonatomic, strong) UIView *line;
+
 @end
 
 @implementation RBBiSaiDetailHead
@@ -236,7 +238,6 @@ typedef void (^ChangeHeight)(int height);
     [wkUController addUserScript:wkUScript];
     configuration.userContentController = wkUController;
     WKWebView *wkView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, RBScreenWidth, self.height - 44 - RBStatusBarH) configuration:configuration];
-
     wkView.scrollView.bounces = NO;
     wkView.scrollView.scrollEnabled = NO;
     wkView.hidden = YES;
@@ -246,7 +247,6 @@ typedef void (^ChangeHeight)(int height);
     [wkView addObserver:self forKeyPath:@"scrollView.contentSize" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:@"wkContext"];
     wkView.multipleTouchEnabled = YES;
     wkView.scrollView.scrollEnabled = NO;
-    //for ios version below 5.0
     for (UIView *sub in wkView.subviews) {
         if ([sub isKindOfClass:[UIScrollView class]]) {
             [(UIScrollView *)sub setScrollEnabled:NO];
@@ -256,27 +256,30 @@ typedef void (^ChangeHeight)(int height);
 }
 
 - (void)clickshiPingBtn {
-    if (self.biSaiModel == nil) {
+    if (self.shipingUrl == nil || self.shipingUrl.length == 0) {
+        [RBToast showWithTitle:@"暂无视频"];
         return;
     }
-    if (self.wkView == nil) {
-        [self createWebView];
+    if (self.player != nil) {
+        [self.player destroyPlayer];
+        self.player = nil;
     }
-
-    self.wkView.hidden = NO;
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://sports.pptv.com/sportslive/pg_h5live?sectionid=175676&matchid=267676"] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:15];
-    [self.wkView loadRequest:req];
+    self.player = [[RBPlayer alloc]init];
+    [self.player setShiPingUrl:self.shipingUrl andType:3];
+    self.player.frame = CGRectMake(0, -RBStatusBarH, RBScreenWidth, self.height);
+    [self addSubview:self.player];
 }
 
 - (void)clickdongHuaBtn {
     if (self.biSaiModel == nil) {
+        [RBToast showWithTitle:@"暂无动画"];
         return;
     }
     if (self.wkView == nil) {
         [self createWebView];
     }
     self.wkView.hidden = NO;
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://widget.namitiyu.com/leisu/mlive/m/detail.php?id=%d", self.biSaiModel.namiId]] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:15];
+    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://123.207.85.242:3001/avatar/static/donghua/detail.html?id=%d",self.biSaiModel.namiId]] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:15];
     [self.wkView loadRequest:req];
 }
 
@@ -425,14 +428,13 @@ typedef void (^ChangeHeight)(int height);
             str = [NSString stringWithFormat:@"%@'", str];
         }
         CGSize size = [str getLineSizeWithFontSize:12];
+        self.biSaiTimeLabel.textAlignment = NSTextAlignmentLeft;
+        self.biSaiTimeLabel2.textAlignment = NSTextAlignmentLeft;
         self.biSaiTimeLabel.x = (RBScreenWidth - size.width) * 0.5;
         self.biSaiTimeLabel2.x = (RBScreenWidth - size.width) * 0.5;
         self.biSaiTimeLabel.width = size.width;
         self.biSaiTimeLabel2.width = size.width;
     }
-    __weak typeof(self) weakSelf = self;
-    weakSelf.timer = [NSTimer timerWithTimeInterval:1 target:weakSelf selector:@selector(timerRun) userInfo:nil repeats:YES];
-    [[NSRunLoop currentRunLoop] addTimer:weakSelf.timer forMode:NSRunLoopCommonModes];
 }
 
 - (void)setBiSaiModel:(RBBiSaiModel *)biSaiModel {
@@ -440,7 +442,11 @@ typedef void (^ChangeHeight)(int height);
     if (biSaiModel == nil) {
         return;
     }
-
+    if (!self.timer) {
+        __weak typeof(self) weakSelf = self;
+        weakSelf.timer = [NSTimer timerWithTimeInterval:1 target:weakSelf selector:@selector(timerRun) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:weakSelf.timer forMode:NSRunLoopCommonModes];
+    }
     self.biSaiTimeLabel.backgroundColor = [UIColor clearColor];
     if (biSaiModel.status <= 7 && biSaiModel.status >= 1 && self.index == 0) {
         // 比赛中进直播
@@ -511,11 +517,19 @@ typedef void (^ChangeHeight)(int height);
     NSString *str = [[NSString alloc]init];
     if (self.biSaiModel.status == 3) {
         str =  @"中";
+        self.biSaiTimeLabel.textAlignment = NSTextAlignmentCenter;
+        self.biSaiTimeLabel2.textAlignment = NSTextAlignmentCenter;
     } else if (self.biSaiModel.status == 8) {
         str =  @"完";
+        self.biSaiTimeLabel.textAlignment = NSTextAlignmentCenter;
+        self.biSaiTimeLabel2.textAlignment = NSTextAlignmentCenter;
     } else if (self.biSaiModel.status == 1) {
         str =  @"未";
+        self.biSaiTimeLabel.textAlignment = NSTextAlignmentCenter;
+        self.biSaiTimeLabel2.textAlignment = NSTextAlignmentCenter;
     } else if (self.biSaiModel.status == 2 || self.biSaiModel.status == 4) {
+        self.biSaiTimeLabel.textAlignment = NSTextAlignmentLeft;
+        self.biSaiTimeLabel2.textAlignment = NSTextAlignmentLeft;
         if (self.biSaiModel.status   == 2) {
             str = [NSString stringWithFormat:@"上半场 %@", [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:self.biSaiModel.TeeTime]];
         }
@@ -543,6 +557,8 @@ typedef void (^ChangeHeight)(int height);
             str = [NSString stringWithFormat:@"%@'", str];
         }
     } else if (self.biSaiModel.status == 0 || self.biSaiModel.status > 8) {
+        self.biSaiTimeLabel.textAlignment = NSTextAlignmentCenter;
+        self.biSaiTimeLabel2.textAlignment = NSTextAlignmentCenter;
         str = @"延迟";
         str = @"延迟";
     }
@@ -565,6 +581,8 @@ typedef void (^ChangeHeight)(int height);
 }
 
 - (void)dealloc {
+    [self.player destroyPlayer];
+    self.player = nil;
     [self.wkView removeObserver:self forKeyPath:@"scrollView.contentSize" context:@"wkContext"];
     [self.wkView removeFromSuperview];
 }
@@ -572,6 +590,8 @@ typedef void (^ChangeHeight)(int height);
 #pragma mark - WKNavigationDelegate
 // 页面开始加载时调用
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
+    [self.player destroyPlayer];
+    self.player = nil;
 }
 
 // 当内容开始返回时调用
@@ -597,7 +617,6 @@ typedef void (^ChangeHeight)(int height);
     [webView evaluateJavaScript:@"document.body.offsetHeight;" completionHandler:^(id _Nullable result, NSError *_Nullable error) {
         //获取页面高度，并重置webview的frame
         float height = [result doubleValue];
-        NSLog(@"-=-======-->>>%f",height);
         CGRect frame = weakSelf.wkView.frame;
         frame.size.height = height;
         weakSelf.height = height + 44 + RBStatusBarH;
@@ -652,7 +671,6 @@ typedef void (^ChangeHeight)(int height);
     if (!self.wkView.isLoading) {
         if ([keyPath isEqualToString:@"scrollView.contentSize"]) {
             CGFloat webViewContentHeight =  self.wkView.scrollView.contentSize.height;
-            NSLog(@"-----%f",webViewContentHeight);
             CGRect frame = self.wkView.frame;
             frame.size.height = webViewContentHeight;
             self.wkView.frame = frame;
@@ -660,8 +678,5 @@ typedef void (^ChangeHeight)(int height);
         }
     }
 }
-
-
-
 
 @end

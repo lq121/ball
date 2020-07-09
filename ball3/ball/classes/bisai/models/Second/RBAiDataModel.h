@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) double secondVisiterBall;
 // 背景颜色
 @property(nonatomic,strong)UIColor *bgColor;
+@property(nonatomic,assign)int type;
 @end
 
 NS_ASSUME_NONNULL_END

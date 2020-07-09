@@ -45,9 +45,14 @@
     }
 
     if (self.biSaiModel.hasIntelligence != NO) {
-        NSString *str = [NSString stringWithFormat:@"api/sports/football/match/intelligence?id=%d", self.biSaiModel.namiId];
-        NSDictionary *dict = @{ @"data": str };
-        [RBNetworkTool PostDataWithUrlStr:@"try/go/gameproxy"  andParam:dict Success:^(NSDictionary *_Nonnull backData) {
+        NSDictionary *dict = @{ @"matchid": @(self.biSaiModel.namiId)};
+        [RBNetworkTool PostDataWithUrlStr:@"try/go/getfootballintelligence"  andParam:dict Success:^(NSDictionary *_Nonnull backDataDic) {
+            if (backDataDic.allKeys.count == 0 || backDataDic == nil || [backDataDic isKindOfClass:[NSNull class]]) return;
+            NSData *jsonData = [backDataDic[@"ok"] dataUsingEncoding:NSUTF8StringEncoding];
+            NSError *err;
+            NSDictionary *backData = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                     options:NSJSONReadingMutableContainers
+                                                                       error:&err];
             NSDictionary *info = backData[@"info"];
             NSDictionary *bad = info[@"bad"];
             NSDictionary *good = info[@"good"];

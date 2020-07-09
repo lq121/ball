@@ -323,12 +323,32 @@
 
 - (NSMutableArray *)selectBiSaiModelWithTime:(int)time andMinStatus:(int)minStatus andMaxStatus:(int)maxStatus {
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDate *now = [NSDate dateWithTimeIntervalSince1970:time];
-    NSDateComponents *components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:now];
-    NSDate *startDate = [calendar dateFromComponents:components];
-    NSDate *endDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:startDate options:0];
-    int last = (int)[startDate  timeIntervalSince1970];
-    int next = (int)[endDate  timeIntervalSince1970];
+    NSDate *selectTime = [NSDate dateWithTimeIntervalSince1970:time];// 选择的时间
+
+    int last = 0, next = 0;
+    if (maxStatus == 0) {
+        // 赛程,赛果
+        NSDateComponents *components1 = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:selectTime];
+        NSDate *startDate = [calendar dateFromComponents:components1];
+        NSDate *endDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:startDate options:0];
+        last = (int)[startDate  timeIntervalSince1970];
+        next = (int)[endDate  timeIntervalSince1970];
+    } else {
+        // 全部,进行中
+        // 判断当前时间是否是凌晨3点前
+        NSDate *nowTime = [NSDate date];  // 当前时间
+        NSDateComponents *components2 = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:nowTime];
+        NSDate *startDate = [calendar dateFromComponents:components2];
+        NSDate *comDate = [calendar dateByAddingUnit:NSCalendarUnitHour value:3 toDate:startDate options:0];
+        NSComparisonResult result = [nowTime compare:comDate];
+        NSDate *beginState = startDate;
+        if (result == NSOrderedSame || result == NSOrderedAscending) {
+            beginState = [calendar dateByAddingUnit:NSCalendarUnitDay value:-1 toDate:startDate options:0];
+        }
+        NSDate *endDate = [calendar dateByAddingUnit:NSCalendarUnitDay value:1 toDate:startDate options:0];
+        last = (int)[startDate  timeIntervalSince1970];
+        next = (int)[endDate  timeIntervalSince1970];
+    }
 
     FMResultSet *resultSet;
     if (maxStatus == 0) {
@@ -445,4 +465,3 @@
 }
 
 @end
-

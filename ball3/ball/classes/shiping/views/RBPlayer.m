@@ -59,6 +59,7 @@ static CGFloat const playBtnSideLength = 60.0f;
 
 -(void)setShiPingUrl:(NSString *)shipingUrl andType:(int)type{
     _shipingUrl = shipingUrl;
+    NSLog(@"播放地址%@<<------>",shipingUrl);
     self.type = type;
     [self.layer addSublayer:self.playerLayer];
     [self insertSubview:self.activityIndicatorView belowSubview:self.playOrPauseBtn];
@@ -94,7 +95,6 @@ static CGFloat const playBtnSideLength = 60.0f;
 }
 
 - (void)playerScrollIsSupportSmallWindowPlay:(BOOL)support {
-    NSAssert(self.bindTableView != nil, @"必须绑定对应的tableview！！！");
     self.currentPlayCellRect = [self.bindTableView rectForRowAtIndexPath:self.currentIndexPath];
     self.currentIndexPath = self.currentIndexPath;
 
@@ -136,9 +136,7 @@ static CGFloat const playBtnSideLength = 60.0f;
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-
     self.playerLayer.frame = self.bounds;
-
     if (!self.isOriginalFrame) {
         self.playerOriginalFrame = self.frame;
         self.playSuprView = self.superview;
@@ -167,6 +165,12 @@ static CGFloat const playBtnSideLength = 60.0f;
     if (!self.isFullScreen) {
         [self orientationLeftFullScreen];
     } else {
+        UIButton *backBtn = [[UIApplication sharedApplication].keyWindow viewWithTag:1111];
+        UIButton *shareBtn = [[UIApplication sharedApplication].keyWindow viewWithTag:888];
+        UIButton *attentionBtn = [[UIApplication sharedApplication].keyWindow viewWithTag:777];
+        [[UIApplication sharedApplication].keyWindow bringSubviewToFront:backBtn];
+        [[UIApplication sharedApplication].keyWindow bringSubviewToFront:shareBtn];
+        [[UIApplication sharedApplication].keyWindow bringSubviewToFront:attentionBtn];
         [self smallScreen];
     }
 }
@@ -479,7 +483,6 @@ static CGFloat const playBtnSideLength = 60.0f;
     return _player;
 }
 
-//initialize AVPlayerItem
 - (AVPlayerItem *)getAVPlayItem {
     NSAssert(self.shipingUrl != nil, @"必须先传入视频url！！！");
 
@@ -531,7 +534,7 @@ static CGFloat const playBtnSideLength = 60.0f;
         [_bottomBar addSubview:fullScreenBtn];
         self.zoomScreenBtn = fullScreenBtn;
         CGFloat width = 0;
-        if (self.type == 1) {
+        if (self.type == 1|| self.type==3) {
             width = 40.0;
         }
         NSLayoutConstraint *btnWidth = [NSLayoutConstraint constraintWithItem:fullScreenBtn attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0f constant:width];
@@ -579,6 +582,11 @@ static CGFloat const playBtnSideLength = 60.0f;
         NSLayoutConstraint *sliderTop = [NSLayoutConstraint constraintWithItem:slider attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_bottomBar attribute:NSLayoutAttributeTop multiplier:1.0f constant:0];
         NSLayoutConstraint *sliderBottom = [NSLayoutConstraint constraintWithItem:slider attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_bottomBar attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0];
         [_bottomBar addConstraints:@[sliderLeft, sliderRight, sliderTop, sliderBottom]];
+        if(self.type == 3){
+            slider.hidden = YES;
+            label1.hidden = YES;
+            label2.hidden = YES;
+        }
 
         [self updateConstraintsIfNeeded];
     }

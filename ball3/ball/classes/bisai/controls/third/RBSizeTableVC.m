@@ -38,6 +38,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RBPlateCell *cell = [RBPlateCell createCellByTableView:tableView];
     RBAiDataModel * aiDataModel = self.dataArr[indexPath.row];
+    aiDataModel.type = 1;
     if(indexPath.row %2 == 0){
         aiDataModel.bgColor = [UIColor whiteColor];
     }else{
