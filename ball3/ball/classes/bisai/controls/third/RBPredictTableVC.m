@@ -4,6 +4,7 @@
 #import "RBNetworkTool.h"
 #import "RBOrderDisburseVC.h"
 #import "RBFMDBTool.h"
+#import "RBFloatOption.h"
 
 @interface RBPredictTableVC ()
 @property (strong, nonatomic) NSMutableArray *dataArr;
@@ -85,11 +86,49 @@
             model.noData = ([D isKindOfClass:[NSNull class]]  ||  D.count == 0);
         }
         if (i == 1 && ![R isKindOfClass:[NSNull class]] && R.count >= 3) {
-            model.desTitle = [NSString stringWithFormat:@"%0.2f    %0.2f     %0.2f ", [R[0]floatValue], [R[1]floatValue], [R[2]floatValue]];
+            CGFloat disCount = [R[1]floatValue];
+            if ([RBFloatOption judgeDivisibleWithFirstNumber:disCount andSecondNumber:0.5]) {
+                if ([RBFloatOption judgeDivisibleWithFirstNumber:disCount andSecondNumber:1]) {
+                    if (disCount > 0) {
+                        model.desTitle = [NSString stringWithFormat:@"主让 %0.0f", disCount];
+                    } else if (disCount == 0) {
+                        model.desTitle = [NSString stringWithFormat:@"%0.0f", disCount];
+                    } else {
+                        model.desTitle = [NSString stringWithFormat:@"客让 %0.0f", -disCount];
+                    }
+                } else {
+                    if (disCount > 0) {
+                        model.desTitle = [NSString stringWithFormat:@"主让 %0.1f", disCount];
+                    } else if (disCount == 0) {
+                        model.desTitle = [NSString stringWithFormat:@"%0.1f", disCount];
+                    } else {
+                        model.desTitle = [NSString stringWithFormat:@"客让 %0.1f", -disCount];
+                    }
+                }
+            } else {
+                CGFloat bigDisCount;
+                NSString *str = @"";
+                if (disCount > 0) {
+                    str = [str stringByAppendingString:@"主让 "];
+                    bigDisCount = disCount;
+                } else {
+                    str = [str stringByAppendingString:@"客让 "];
+                    bigDisCount = -disCount;
+                }
+                if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                    model.desTitle = [NSString stringWithFormat:@"%@%0.0f/%0.0f", str, bigDisCount - 0.25, bigDisCount + 0.25];
+                } else if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && ![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                    model.desTitle = [NSString stringWithFormat:@"%@%0.0f/%0.1f", str, bigDisCount - 0.25, bigDisCount + 0.25];
+                } else if (![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                    model.desTitle = [NSString stringWithFormat:@"%@%0.1f/%0.0f", str, bigDisCount - 0.25, bigDisCount + 0.25];
+                } else {
+                    model.desTitle = [NSString stringWithFormat:@"%@%0.1f/%0.1f", str, bigDisCount - 0.25, bigDisCount + 0.25];
+                }
+            }
         } else if (i == 0 && ![S isKindOfClass:[NSNull class]] && S.count >= 3) {
-            model.desTitle = [NSString stringWithFormat:@"%0.2f    %0.2f     %0.2f ", [S[0]floatValue], [S[1]floatValue], [S[2]floatValue]];
+            model.desTitle = @"";
         } else if (i == 2 && ![D isKindOfClass:[NSNull class]] && D.count >= 3) {
-            model.desTitle = [NSString stringWithFormat:@"%0.2f    %0.2f     %0.2f ", [D[0]floatValue], [D[1]floatValue], [D[2]floatValue]];
+            model.desTitle = [NSString stringWithFormat:@"%@球", [NSString formatFloat:[D[1]floatValue]]];
         }
 
         if ([buy[i] intValue] == 0 && self.biSaiModel.status != 8) { // 是否有购买或者已完赛

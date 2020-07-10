@@ -153,11 +153,13 @@
             if (self.allDataArray.count > 0) {
                 self.tableView.tableFooterView = self.footView;
             }
+            [self getgamezhibolist];
         } else if (self.biSaiType == 1) {
             if (self.beginingDataArray.count > 0) {
                 self.tableView.tableFooterView = self.footView;
             }
             [self.tableView showDataCount:self.beginingDataArray.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
+            [self getgamezhibolist];
         } else if (self.biSaiType == 2) {
             if (self.scheduleDataArray.count > 0) {
                 self.tableView.tableFooterView = self.footView;
@@ -187,7 +189,7 @@
 -(void)getgamezhibolist{
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [RBNetworkTool PostDataWithUrlStr:@"try/go/getgamezhibolist"  andParam:dict Success:^(NSDictionary *_Nonnull backData) {
-        NSLog(@"%@",dict);
+        NSLog(@"%@",backData);
     }Fail:^(NSError * _Nonnull error) {
         
     }];
@@ -512,19 +514,19 @@
         self.timer = [NSTimer timerWithTimeInterval:1 target:weakSelf selector:@selector(timerRun) userInfo:nil repeats:YES];
         [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     }
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeBiSaiModels:) name:@"changeBiSaiModels" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(gengxinBiSaiModels:) name:@"gengxinBiSaiModels" object:nil];
+    
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadData)];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deleteBiSai) name:@"deleteBiSai" object:nil];
-    [self getgamezhibolist];
 }
 
 - (void)deleteBiSai {
     [self getLocalBiSaiData];
 }
 
-- (void)changeBiSaiModels:(NSNotification *)noti {
-    NSArray *changeBiSaiModels = noti.object;
-    [self changeModelsWithArray:changeBiSaiModels];
+- (void)gengxinBiSaiModels:(NSNotification *)noti {
+    NSArray *gengxinBiSaiModels = noti.object;
+    [self changeModelsWithArray:gengxinBiSaiModels];
 }
 
 - (void)loadData {
@@ -576,11 +578,11 @@
     }];
 }
 
-- (void)changeModelsWithArray:(NSArray *)changeBiSaiModels {
+- (void)changeModelsWithArray:(NSArray *)gengxinBiSaiModels {
     if (self.biSaiType == 0) {
         for (int i = 0; i < self.allDataArray.count; i++) {
             RBBiSaiModel *model = self.allDataArray[i];
-            for (RBBiSaiModel *biSaiModel in changeBiSaiModels) {
+            for (RBBiSaiModel *biSaiModel in gengxinBiSaiModels) {
                 if (biSaiModel.status == 8 && model.namiId == biSaiModel.namiId) {
                     [self.allDataArray removeObject:model];
                     break;
@@ -599,7 +601,7 @@
     } else if (self.biSaiType == 1) {
         for (int i = 0; i < self.beginingDataArray.count; i++) {
             RBBiSaiModel *model = self.beginingDataArray[i];
-            for (RBBiSaiModel *biSaiModel in changeBiSaiModels) {
+            for (RBBiSaiModel *biSaiModel in gengxinBiSaiModels) {
                 if (biSaiModel.status >= 8 && model.namiId == biSaiModel.namiId) {
                     [self.beginingDataArray removeObject:model];
                     break;
@@ -613,7 +615,7 @@
     } else if (self.biSaiType == 2) {
         for (int i = 0; i < self.scheduleDataArray.count; i++) {
             RBBiSaiModel *model = self.scheduleDataArray[i];
-            for (RBBiSaiModel *biSaiModel in changeBiSaiModels) {
+            for (RBBiSaiModel *biSaiModel in gengxinBiSaiModels) {
                 if (biSaiModel.status >= 8 && model.namiId == biSaiModel.namiId) {
                     [self.scheduleDataArray removeObject:model];
                     break;
@@ -629,7 +631,7 @@
             NSArray *array = self.attentionDataArray[i];
             for (int j = 1; j < array.count; j++) {
                 RBBiSaiModel *model = array[j];
-                for (RBBiSaiModel *biSaiModel in changeBiSaiModels) {
+                for (RBBiSaiModel *biSaiModel in gengxinBiSaiModels) {
                     if (model.namiId == biSaiModel.namiId) {
                         self.attentionDataArray[i][j] = biSaiModel;
                         break;

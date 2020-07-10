@@ -3,6 +3,7 @@
 #import "UIButton+WebCache.h"
 #import "RBToast.h"
 
+
 typedef void (^ClickBtnIndex)(int index);
 typedef void (^ChangeHeight)(int height);
 @interface RBBiSaiDetailHead ()<WKUIDelegate, WKNavigationDelegate>
@@ -240,10 +241,10 @@ typedef void (^ChangeHeight)(int height);
     WKWebView *wkView;
     if (RB_iPhoneX) {
         wkView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, RBScreenWidth, self.height - 44 - RBStatusBarH) configuration:configuration];
-    }else{
-      wkView = [[WKWebView alloc]initWithFrame:CGRectMake(0, -RBStatusBarH, RBScreenWidth, self.height - 44 - RBStatusBarH) configuration:configuration];
+    } else {
+        wkView = [[WKWebView alloc]initWithFrame:CGRectMake(0, -RBStatusBarH, RBScreenWidth, self.height - 44 - RBStatusBarH) configuration:configuration];
     }
-    
+
     wkView.scrollView.bounces = NO;
     wkView.scrollView.scrollEnabled = NO;
     wkView.hidden = YES;
@@ -272,10 +273,10 @@ typedef void (^ChangeHeight)(int height);
     }
     self.player = [[RBPlayer alloc]init];
     [self.player setShiPingUrl:self.shipingUrl andType:3];
-    if(RB_iPhoneX){
-         self.player.frame = CGRectMake(0, -RBStatusBarH, RBScreenWidth, self.height);
-    }else {
-         self.player.frame = CGRectMake(0, -2*RBStatusBarH, RBScreenWidth, self.height);
+    if (RB_iPhoneX) {
+        self.player.frame = CGRectMake(0, -RBStatusBarH, RBScreenWidth, self.height);
+    } else {
+        self.player.frame = CGRectMake(0, -2 * RBStatusBarH, RBScreenWidth, self.height);
     }
     [self addSubview:self.player];
 }
@@ -289,7 +290,8 @@ typedef void (^ChangeHeight)(int height);
         [self createWebView];
     }
     self.wkView.hidden = NO;
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://123.207.85.242:3001/avatar/static/donghua/detail.html?id=%d",self.biSaiModel.namiId]] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:15];
+    [self clearWbCache];
+    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://123.207.85.242:3001/avatar/static/donghua/detail.html?id=%d", self.biSaiModel.namiId]] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:15];
     [self.wkView loadRequest:req];
 }
 
@@ -346,6 +348,18 @@ typedef void (^ChangeHeight)(int height);
     }
 }
 
+- (void)setShipingUrl:(NSString *)shipingUrl {
+    _shipingUrl = shipingUrl;
+    if (shipingUrl != nil && shipingUrl.length > 0) {
+        self.shiPingBtn.hidden = NO;
+        self.line.hidden = NO;
+        self.shiPingDongHuaView.frame = CGRectMake((RBScreenWidth - 150) * 0.5, CGRectGetMaxY(self.team1Label.frame) + 4, 150, 38);
+        self.line.frame = CGRectMake(150 * 0.5, 11, 1, 16);
+        self.shiPingBtn.frame = CGRectMake(0, 0, 150 * 0.5, 38);
+        self.dongHuaBtn.frame = CGRectMake(149 * 0.5, 0, 150 * 0.5, 38);
+    }
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     self.BGView.frame = CGRectMake(0, -RBStatusBarH, RBScreenWidth, self.height  - 44 + RBStatusBarH);
@@ -381,12 +395,19 @@ typedef void (^ChangeHeight)(int height);
     self.team1Label.centerX = self.team1.centerX;
     self.team2Label.centerX = self.team2.centerX;
     self.bigView.frame = CGRectMake(0, RBStatusBarH, RBScreenWidth, self.height  - 44);
-       self.shiPingDongHuaView.frame = CGRectMake((RBScreenWidth - 150) * 0.5, CGRectGetMaxY(self.team1Label.frame) + 4, 150, 38);
-    
-    
-    self.line.frame = CGRectMake(150 * 0.5, 11, 1, 16);
-    self.shiPingBtn.frame = CGRectMake(0, 0, 150 * 0.5, 38);
-    self.dongHuaBtn.frame = CGRectMake(149 * 0.5, 0, 150 * 0.5, 38);
+    if (self.shipingUrl != nil && self.shipingUrl.length > 0) {
+        self.shiPingBtn.hidden = NO;
+        self.line.hidden = NO;
+        self.shiPingDongHuaView.frame = CGRectMake((RBScreenWidth - 150) * 0.5, CGRectGetMaxY(self.team1Label.frame) + 4, 150, 38);
+        self.line.frame = CGRectMake(150 * 0.5, 11, 1, 16);
+        self.shiPingBtn.frame = CGRectMake(0, 0, 150 * 0.5, 38);
+        self.dongHuaBtn.frame = CGRectMake(149 * 0.5, 0, 150 * 0.5, 38);
+    } else {
+        self.shiPingDongHuaView.frame = CGRectMake((RBScreenWidth - 75) * 0.5, CGRectGetMaxY(self.team1Label.frame) + 4, 75, 38);
+        self.dongHuaBtn.frame = CGRectMake(0, 0, 75, 38);
+        self.shiPingBtn.hidden = YES;
+        self.line.hidden = YES;
+    }
     self.smallView.frame = CGRectMake(0, self.height - RBNavBarAndStatusBarH * 2 + RBStatusBarH, RBScreenWidth, RBNavBarAndStatusBarH);
     if (RB_iPhoneX) {
         self.team12.frame = CGRectMake(66, RBNavBarAndStatusBarH - 40, 32, 32);
@@ -414,14 +435,14 @@ typedef void (^ChangeHeight)(int height);
     NSString *str = [[NSString alloc]init];
     if (self.biSaiModel.status == 2 || self.biSaiModel.status == 4) {
         if (self.biSaiModel.status   == 2) {
-            str = [NSString stringWithFormat:@"%@%@",shangbanchang, [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:self.biSaiModel.TeeTime]];
+            str = [NSString stringWithFormat:@"%@%@", shangbanchang, [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:self.biSaiModel.TeeTime]];
         }
         if (self.biSaiModel.status   >= 4 && self.biSaiModel.status   <= 7) {
             long timeCount =  (long)[[NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:self.biSaiModel.TeeTime] longLongValue];
             if (timeCount + 45 > 90) {
                 str = xiabanchangjia;
             } else {
-                str = [NSString stringWithFormat:@"%@%ld",xiabanchang, timeCount + 45];
+                str = [NSString stringWithFormat:@"%@%ld", xiabanchang, timeCount + 45];
             }
         }
         if (self.show) {
@@ -543,14 +564,14 @@ typedef void (^ChangeHeight)(int height);
         self.biSaiTimeLabel.textAlignment = NSTextAlignmentLeft;
         self.biSaiTimeLabel2.textAlignment = NSTextAlignmentLeft;
         if (self.biSaiModel.status   == 2) {
-            str = [NSString stringWithFormat:@"%@%@",shangbanchang, [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:self.biSaiModel.TeeTime]];
+            str = [NSString stringWithFormat:@"%@%@", shangbanchang, [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:self.biSaiModel.TeeTime]];
         }
         if (self.biSaiModel.status   >= 4 && self.biSaiModel.status   <= 7) {
             long timeCount =  (long)[[NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:biSaiModel.TeeTime] longLongValue];
             if (timeCount + 45 > 90) {
                 str = xiabanchangjia;
             } else {
-                str = [NSString stringWithFormat:@"%@%ld",xiabanchang, timeCount + 45];
+                str = [NSString stringWithFormat:@"%@%ld", xiabanchang, timeCount + 45];
             }
         }
         if (self.show) {
@@ -600,6 +621,31 @@ typedef void (^ChangeHeight)(int height);
 }
 
 #pragma mark - WKNavigationDelegate
+/**
+ 清理缓存
+ */
+- (void)clearWbCache {
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    [[NSURLCache sharedURLCache] setDiskCapacity:0];
+    [[NSURLCache sharedURLCache] setMemoryCapacity:0];
+}
+
+- (void)webView:(WKWebView *)webView didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *_Nullable credential))completionHandler {
+    // 判断服务器采用的验证方法
+    if (challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust) {
+        // 如果没有错误的情况下 创建一个凭证，并使用证书
+        if (challenge.previousFailureCount == 0) {
+            NSURLCredential *credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
+            completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
+        } else {
+            // 验证失败，取消本次验证
+            completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+        }
+    } else {
+        completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+    }
+}
+
 // 页面开始加载时调用
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
     [self.player destroyPlayer];
@@ -640,6 +686,7 @@ typedef void (^ChangeHeight)(int height);
 
 // 页面加载失败时调用
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation {
+    [RBToast showWithTitle:jiazaifail andY:RBScreenHeight*0.5];
 }
 
 // 接收到服务器跳转请求之后调用

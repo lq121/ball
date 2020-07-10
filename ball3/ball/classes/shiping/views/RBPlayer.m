@@ -59,7 +59,6 @@ static CGFloat const playBtnSideLength = 60.0f;
 
 -(void)setShiPingUrl:(NSString *)shipingUrl andType:(int)type{
     _shipingUrl = shipingUrl;
-    NSLog(@"播放地址%@<<------>",shipingUrl);
     self.type = type;
     [self.layer addSublayer:self.playerLayer];
     [self insertSubview:self.activityIndicatorView belowSubview:self.playOrPauseBtn];

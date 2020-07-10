@@ -1,7 +1,7 @@
 #import "RBPredictCell.h"
 #import "RBFloatOption.h"
 
-@interface RBPredictCell()
+@interface RBPredictCell ()
 /// 线
 @property (nonatomic, strong) UIView *line;
 /// 内容
@@ -24,12 +24,10 @@
 @property (nonatomic, strong) UILabel *scoreLab;
 /// 亚盘
 @property (nonatomic, strong) UILabel *yaLab;
-/// 欧盘
-@property (nonatomic, strong) UILabel *ouLab;
+
 /// 大小
 @property (nonatomic, strong) UILabel *bigLab;
 @end
-
 
 @implementation RBPredictCell
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -107,14 +105,6 @@
         yaLab.textAlignment = NSTextAlignmentCenter;
         [centerView addSubview:yaLab];
 
-        UILabel *ouLab = [[UILabel alloc]init];
-        self.ouLab = ouLab;
-        ouLab.textColor = [UIColor colorWithSexadeString:@"#333333" AndAlpha:0.8];
-        ouLab.backgroundColor = [UIColor colorWithSexadeString:@"#EEEEEE"];
-        ouLab.font = [UIFont systemFontOfSize:12];
-        ouLab.textAlignment = NSTextAlignmentCenter;
-        [centerView addSubview:ouLab];
-
         UILabel *bigLab = [[UILabel alloc]init];
         self.bigLab = bigLab;
         bigLab.textColor = [UIColor colorWithSexadeString:@"#333333" AndAlpha:0.8];
@@ -131,11 +121,11 @@
     self.line.frame = CGRectMake(12, 0, RBScreenWidth - 12, 2);
     self.centerView.frame = CGRectMake(12, 2, RBScreenWidth - 12, 111);
     self.eventNameLab.frame = CGRectMake(8, 4, 120, 17);
-    NSString *str= self.biSaiTimeLab.text;
+    NSString *str = self.biSaiTimeLab.text;
     if (![str containsString:@"'"]) {
-        str = [NSString stringWithFormat:@"%@'",str];
+        str = [NSString stringWithFormat:@"%@'", str];
     }
-  
+
     self.biSaiTimeLab.frame = CGRectMake((RBScreenWidth - [str getLineSizeWithFontSize:12].width - 20) * 0.5, 4, [str getLineSizeWithFontSize:12].width + 8, 14);
     self.infoLab.frame = CGRectMake(RBScreenWidth - 52, 4, 28, 16);
     int isVip = [[[NSUserDefaults standardUserDefaults]objectForKey:@"isVip"]intValue];
@@ -150,44 +140,24 @@
     self.visitNameLab.frame = CGRectMake(CGRectGetMaxX(self.visitLogo.frame) + 8, 30, width, 36);
 
     int count = 0;
-    BOOL hasya = false, haOu = false, haBig = false;
+    BOOL hasya = false;
     if (self.yaLab.hidden == NO) {
         count += 1;
         hasya = YES;
     }
-    if (self.ouLab.hidden == NO) {
-        count += 1;
-        haOu = YES;
-    }
     if (self.bigLab.hidden == NO) {
         count += 1;
-        haBig = YES;
     }
     if (count == 1) {
         if (hasya) {
             self.yaLab.frame = CGRectMake(0, 83, (RBScreenWidth - 12), 28);
-        } else if (haOu) {
-            self.ouLab.frame = CGRectMake(0, 83, (RBScreenWidth - 12), 28);
         } else {
             self.bigLab.frame = CGRectMake(0, 83, (RBScreenWidth - 12), 28);
         }
     } else if (count == 2) {
         CGFloat width = (RBScreenWidth - 12 - 1) * 0.5;
-        if (hasya == false) {
-            self.ouLab.frame = CGRectMake(0, 83, width, 28);
-            self.bigLab.frame = CGRectMake(CGRectGetMaxX(self.ouLab.frame) + 1, 83, width, 28);
-        } else if (haOu == false) {
-            self.yaLab.frame = CGRectMake(0, 83, width, 28);
-            self.bigLab.frame = CGRectMake(CGRectGetMaxX(self.yaLab.frame) + 1, 83, width, 28);
-        } else {
-            self.yaLab.frame = CGRectMake(0, 83, width, 28);
-            self.ouLab.frame = CGRectMake(CGRectGetMaxX(self.yaLab.frame) + 1, 83, width, 28);
-        }
-    } else {
-        CGFloat width = (RBScreenWidth - 12 - 2) / 3;
         self.yaLab.frame = CGRectMake(0, 83, width, 28);
-        self.ouLab.frame = CGRectMake(CGRectGetMaxX(self.yaLab.frame) + 1, 83, width, 28);
-        self.bigLab.frame = CGRectMake(CGRectGetMaxX(self.ouLab.frame) + 1, 83, width, 28);
+        self.bigLab.frame = CGRectMake(CGRectGetMaxX(self.yaLab.frame) + 1, 83, width, 28);
     }
 }
 
@@ -200,7 +170,7 @@
     return cell;
 }
 
-- (void)setPredictModel:(RBPredictModel *)predictModel{
+- (void)setPredictModel:(RBPredictModel *)predictModel {
     _predictModel = predictModel;
     if (predictModel.state >= 2 && predictModel.state <= 8) {
         self.line.backgroundColor = [UIColor colorWithSexadeString:@"#213A4B"];
@@ -215,7 +185,7 @@
     NSString *teeTimeStr;
     if (predictModel.state == 2) {
         // 上半场
-        teeTimeStr = [NSString stringWithFormat:@"%@%@",shangbanchang, [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:predictModel.startballt]];
+        teeTimeStr = [NSString stringWithFormat:@"%@%@", shangbanchang, [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:predictModel.startballt]];
     } else if (predictModel.state == 3) {
         teeTimeStr = @"中";
     } else if (predictModel.state >= 4 && predictModel.state <= 7) {
@@ -223,7 +193,7 @@
         if (timeCount + 45 > 90) {
             teeTimeStr = xiabanchangjia;
         } else {
-            teeTimeStr = [NSString stringWithFormat:@"%@%ld",xiabanchang, timeCount + 45];
+            teeTimeStr = [NSString stringWithFormat:@"%@%ld", xiabanchang, timeCount + 45];
         }
     } else if (predictModel.state   == 8) {
         teeTimeStr = wan;
@@ -247,7 +217,7 @@
         self.biSaiTimeLab.layer.masksToBounds = NO;
         self.biSaiTimeLab.layer.cornerRadius = 0;
     }
-    
+
     if (predictModel.state == 2 || predictModel.state == 4) {
         if (predictModel.show) {
             if (![teeTimeStr containsString:@"'"]) {
@@ -262,7 +232,6 @@
         self.biSaiTimeLab.textColor = [UIColor colorWithSexadeString:@"#FFA500"];
     }
 
-    
     self.eventNameLab.text = predictModel.name[0];
     self.hostNameLab.text = predictModel.zhuname[0];
     self.visitNameLab.text = predictModel.kename[0];
@@ -296,46 +265,49 @@
         float disCount =  [predictModel.rangqiuArr[1] floatValue];
         if ([RBFloatOption judgeDivisibleWithFirstNumber:disCount andSecondNumber:0.5]) {
             if ([RBFloatOption judgeDivisibleWithFirstNumber:disCount andSecondNumber:1]) {
-                self.yaLab.text = [NSString stringWithFormat:@"亚盘 %0.0f", disCount];
+                if (disCount > 0) {
+                    self.yaLab.text = [NSString stringWithFormat:@"亚盘 主让 %0.0f", disCount];
+                } else if (disCount == 0) {
+                    self.yaLab.text = [NSString stringWithFormat:@"亚盘 %0.0f", disCount];
+                } else {
+                    self.yaLab.text = [NSString stringWithFormat:@"亚盘 客让 %0.0f", -disCount];
+                }
             } else {
-                self.yaLab.text = [NSString stringWithFormat:@"亚盘 %0.1f", disCount];
-            }
-        } else if (disCount > 0) {
-            CGFloat bigDisCount = disCount;
-            if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
-                self.yaLab.text = [NSString stringWithFormat:@"亚盘 %0.0f/%0.0f", bigDisCount - 0.25, bigDisCount + 0.25];
-            } else if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && ![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
-                self.yaLab.text = [NSString stringWithFormat:@"亚盘 %0.0f/%0.1f", bigDisCount - 0.25, bigDisCount + 0.25];
-            } else if (![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
-                self.yaLab.text = [NSString stringWithFormat:@"亚盘 %0.1f/%0.0f", bigDisCount - 0.25, bigDisCount + 0.25];
-            } else {
-                self.yaLab.text = [NSString stringWithFormat:@"亚盘 %0.1f/%0.1f", bigDisCount - 0.25, bigDisCount + 0.25];
+                if (disCount > 0) {
+                    self.yaLab.text = [NSString stringWithFormat:@"亚盘 主让 %0.1f", disCount];
+                } else if (disCount == 0) {
+                    self.yaLab.text = [NSString stringWithFormat:@"亚盘 %0.1f", disCount];
+                } else {
+                    self.yaLab.text = [NSString stringWithFormat:@"亚盘 客让 %0.1f", -disCount];
+                }
             }
         } else {
-            CGFloat bigDisCount = -disCount;
-            if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
-                self.yaLab.text = [NSString stringWithFormat:@"亚盘 -%0.0f/%0.0f", bigDisCount - 0.25, bigDisCount + 0.25];
-            } else if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && ![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
-                self.yaLab.text = [NSString stringWithFormat:@"亚盘 -%0.0f/%0.1f", bigDisCount - 0.25, bigDisCount + 0.25];
-            } else if (![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
-                self.yaLab.text = [NSString stringWithFormat:@"亚盘 -%0.1f/%0.0f", bigDisCount - 0.25, bigDisCount + 0.25];
+            NSString *str = @"亚盘 ";
+            CGFloat bigDisCount;
+            if (disCount > 0) {
+                str = [str stringByAppendingString:@"主让 "];
+                bigDisCount = disCount;
             } else {
-                self.yaLab.text = [NSString stringWithFormat:@"亚盘 -%0.1f/%0.1f", bigDisCount - 0.25, bigDisCount + 0.25];
+                str = [str stringByAppendingString:@"客让 "];
+                bigDisCount = -disCount;
+            }
+            if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                self.yaLab.text = [NSString stringWithFormat:@"%@%0.0f/%0.0f", str, bigDisCount - 0.25, bigDisCount + 0.25];
+            } else if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && ![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                self.yaLab.text = [NSString stringWithFormat:@"%@%0.0f/%0.1f", str, bigDisCount - 0.25, bigDisCount + 0.25];
+            } else if (![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                self.yaLab.text = [NSString stringWithFormat:@"%@%0.1f/%0.0f", str, bigDisCount - 0.25, bigDisCount + 0.25];
+            } else {
+                self.yaLab.text = [NSString stringWithFormat:@"%@%0.1f/%0.1f", str, bigDisCount - 0.25, bigDisCount + 0.25];
             }
         }
-    }else{
+    } else {
         self.yaLab.hidden = YES;
-    }
-    if (predictModel.shengps != nil && predictModel.shengps.count >= 3 && ![predictModel.shengps[0] isKindOfClass:[NSNull class]]) {
-        self.ouLab.hidden = NO;
-        self.ouLab.text = [NSString stringWithFormat:@"欧赔 %@ %@ %@", [NSString formatFloat:[predictModel.shengps[0] doubleValue]], [NSString formatFloat:[ predictModel.shengps[1] doubleValue]], [NSString formatFloat:[predictModel.shengps[2]doubleValue]]];
-    }else{
-       self.ouLab.hidden = YES;
     }
     if (predictModel.daxiao != nil && predictModel.daxiao.count >= 3 && ![predictModel.daxiao[0] isKindOfClass:[NSNull class]]) {
         self.bigLab.hidden = NO;
-        self.bigLab.text = [NSString stringWithFormat:@"大小球 %@",  [NSString formatFloat:[ predictModel.daxiao[1] doubleValue]]];
-    }else{
+        self.bigLab.text = [NSString stringWithFormat:@"大小球 %@球",  [NSString formatFloat:[ predictModel.daxiao[1] doubleValue]]];
+    } else {
         self.bigLab.hidden = YES;
     }
 }

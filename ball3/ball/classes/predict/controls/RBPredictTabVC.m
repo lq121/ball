@@ -197,7 +197,7 @@
     [[UIApplication sharedApplication].keyWindow addSubview:view];
 
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeBiSaiModels:) name:@"changeBiSaiModels" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(gengxinBiSaiModels:) name:@"gengxinBiSaiModels" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getMoreJipredict) name:@"getMoreJipredict" object:nil];
 }
 
@@ -206,14 +206,11 @@
     [self getJinpredictData];
 }
 
-
-
-
-- (void)changeBiSaiModels:(NSNotification *)noti {
-    NSArray *changebiSaiModels = noti.object;
+- (void)gengxinBiSaiModels:(NSNotification *)noti {
+    NSArray *gengxinBiSaiModels = noti.object;
     for (int i = 0; i < self.hotpredictArr.count; i++) {
        RBPredictModel *model = self.hotpredictArr[i];
-        for (RBBiSaiModel *biSaiModel in changebiSaiModels) {
+        for (RBBiSaiModel *biSaiModel in gengxinBiSaiModels) {
             if (model.namiid == biSaiModel.namiId) {
                 model.state = biSaiModel.status;
                 model.startballt = biSaiModel.TeeTime;

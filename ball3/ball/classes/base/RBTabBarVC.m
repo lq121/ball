@@ -82,7 +82,7 @@
             [self getBiSaiData];
             return;
         }
-        
+
         [[RBFMDBTool sharedFMDBTool]deleteTadayBiSaiModel];
         NSDictionary *dic = backData;
         NSArray *matchs = dic[@"matches"];
@@ -163,6 +163,7 @@
                 [[RBFMDBTool sharedFMDBTool]updateBiSaiModel:biSaiModel];
             }
         }
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"gengxinBiSaiModels" object:changeArr];
         UIViewController *vc  = [UIViewController getCurrentVC];
         // 忘记密码，登录注册，聊天页面有进球弹进球
         if (![vc isKindOfClass:NSClassFromString(@"RBForggetPwdVC")] && ![vc isKindOfClass:NSClassFromString(@"RBLoginRegisterVC")] && ![vc isKindOfClass:NSClassFromString(@"RBRegisterVC")]) {
@@ -175,7 +176,6 @@
                 [RBJqView showJQWithArray:scoreArr];
             }
         }
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"changebiSaiModels" object:changeArr];
     } Fail:^(NSError *_Nonnull error) {
     }];
 }

@@ -1,7 +1,8 @@
 #import "RBMyPredictCell.h"
 #import "RBProgress.h"
+#import "RBFloatOption.h"
 
-@interface RBMyPredictCell()
+@interface RBMyPredictCell ()
 /// 线
 @property (nonatomic, strong) UIView *line1;
 @property (nonatomic, strong) UIView *line2;
@@ -152,7 +153,7 @@
         UILabel *topLabel = [[UILabel alloc]init];
         topLabel.font = [UIFont systemFontOfSize:12];
         topLabel.textColor = [UIColor colorWithSexadeString:@"#333333" AndAlpha:0.6];
-        topLabel.textAlignment = NSTextAlignmentCenter;
+        topLabel.textAlignment = NSTextAlignmentLeft;
         self.topLabel = topLabel;
         [self addSubview:topLabel];
 
@@ -246,7 +247,8 @@
     self.secondChose.frame = CGRectMake(0, CGRectGetMaxY(self.line2.frame) + 35, 37, 25);
     self.img.frame = CGRectMake(RBScreenWidth - 33, CGRectGetMaxY(self.line2.frame), 33, 36);
     self.titleLabel.frame = CGRectMake(16, CGRectGetMaxY(self.line2.frame) + 16, 60, 22);
-    self.topLabel.frame = CGRectMake(60, CGRectGetMaxY(self.line2.frame) + 19, RBScreenWidth - 120, 17);
+    [self.titleLabel sizeToFit];
+    self.topLabel.frame = CGRectMake(CGRectGetMaxX(self.titleLabel.frame)+8, CGRectGetMaxY(self.line2.frame) + 16, RBScreenWidth - 120, 17);
     if (self.predictModel.style == 2) {
         self.winTip.frame = CGRectMake(41, 180, 6, 6);
         self.winLabel.frame = CGRectMake(CGRectGetMaxX(self.winTip.frame) + 4, 166, 110, 28);
@@ -356,7 +358,7 @@
     return cell;
 }
 
-- (void)setPredictModel:(RBPredictModel *)predictModel{
+- (void)setPredictModel:(RBPredictModel *)predictModel {
     _predictModel = predictModel;
     if (predictModel.state >= 2 && predictModel.state <= 8) {
         self.scoreLab.text = [NSString stringWithFormat:@"%d:%d", predictModel.zhufen, predictModel.kefen];
@@ -408,7 +410,7 @@
         } else if (predictModel.rqresult == 3) {
             self.img.image = [UIImage imageNamed:@"wrong"];
         }
-        self.topLabel.text = [NSString stringWithFormat:@"%@ %@ %@",  [NSString formatFloat:[predictModel.rangqiuArr[0] doubleValue]], [NSString formatFloat:[predictModel.rangqiuArr[1] doubleValue]], [NSString formatFloat:[predictModel.rangqiuArr[2] doubleValue]]];
+        self.topLabel.text = @"";
         int negative = ([predictModel.rangqiuArr[0]floatValue] * 100) / (([predictModel.rangqiuArr[0]floatValue] + [predictModel.rangqiuArr[2]floatValue]) * 100) * 100;
         int win = 100 - negative;
         if (win == 50) {
@@ -504,7 +506,45 @@
         [AttributedStr3 addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:14] range:NSMakeRange(self.negativeLabel.text.length - 1, 1)];
         self.negativeLabel.attributedText = AttributedStr3;
         self.titleLabel.text = shengpingfu;
-        self.topLabel.text = [NSString stringWithFormat:@"%@ %@ %@",  [NSString formatFloat:[predictModel.shengps[0] doubleValue]], [NSString formatFloat:[predictModel.shengps[1] doubleValue]], [NSString formatFloat:[predictModel.shengps[2] doubleValue]]];
+        CGFloat disCount = [predictModel.shengps[1] doubleValue];
+        if ([RBFloatOption judgeDivisibleWithFirstNumber:disCount andSecondNumber:0.5]) {
+            if ([RBFloatOption judgeDivisibleWithFirstNumber:disCount andSecondNumber:1]) {
+                if (disCount > 0) {
+                    self.topLabel.text = [NSString stringWithFormat:@"主让 %0.0f", disCount];
+                } else if (disCount == 0) {
+                    self.topLabel.text = [NSString stringWithFormat:@"%0.0f", disCount];
+                } else {
+                    self.topLabel.text = [NSString stringWithFormat:@"客让 %0.0f", -disCount];
+                }
+            } else {
+                if (disCount > 0) {
+                    self.topLabel.text = [NSString stringWithFormat:@"主让 %0.1f", disCount];
+                } else if (disCount == 0) {
+                    self.topLabel.text = [NSString stringWithFormat:@"%0.1f", disCount];
+                } else {
+                    self.topLabel.text = [NSString stringWithFormat:@"客让 %0.1f", -disCount];
+                }
+            }
+        } else {
+            CGFloat bigDisCount;
+            NSString *str = @"";
+            if (disCount > 0) {
+                str = [str stringByAppendingString:@"主让 "];
+                bigDisCount = disCount;
+            } else {
+                str = [str stringByAppendingString:@"客让 "];
+                bigDisCount = -disCount;
+            }
+            if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                self.topLabel.text = [NSString stringWithFormat:@"%@%0.0f/%0.0f", str, bigDisCount - 0.25, bigDisCount + 0.25];
+            } else if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && ![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                self.topLabel.text = [NSString stringWithFormat:@"%@%0.0f/%0.1f", str, bigDisCount - 0.25, bigDisCount + 0.25];
+            } else if (![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                self.topLabel.text = [NSString stringWithFormat:@"%@%0.1f/%0.0f", str, bigDisCount - 0.25, bigDisCount + 0.25];
+            } else {
+                self.topLabel.text = [NSString stringWithFormat:@"%@%0.1f/%0.1f", str, bigDisCount - 0.25, bigDisCount + 0.25];
+            }
+        }
     } else {
         int negative = ([predictModel.daxiao[0]floatValue] * 100) / (([predictModel.daxiao[0]floatValue] + [predictModel.daxiao[2]floatValue]) * 100) * 100;
         int win = 100 - negative;
@@ -535,7 +575,7 @@
         [AttributedStr2 addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:14] range:NSMakeRange(self.negativeLabel.text.length - 1, 1)];
         self.negativeLabel.attributedText = AttributedStr2;
         self.titleLabel.text = daxiaoqiu;
-        self.topLabel.text = [NSString stringWithFormat:@"%@ %@ %@",  [NSString formatFloat:[predictModel.daxiao[0] doubleValue]], [NSString formatFloat:[predictModel.daxiao[1] doubleValue]], [NSString formatFloat:[predictModel.daxiao[2] doubleValue]]];
+        self.topLabel.text = [NSString stringWithFormat:@"%@球", [NSString formatFloat:[predictModel.daxiao[1] doubleValue]]];
     }
 }
 

@@ -97,4 +97,5 @@
 #define remenshousuo        @"赛事"
 #define qingbaoStr          @"情报"
 #define yuce                @"预测"
+#define jiazaifail     @"加载失败"
 #endif /* strings_pch */

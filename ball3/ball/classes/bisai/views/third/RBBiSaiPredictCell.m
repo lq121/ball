@@ -192,9 +192,10 @@
 - (void)setBiSaiPredictModel:(RBBISaiPredictModel *)biSaiPredictModel {
     _biSaiPredictModel = biSaiPredictModel;
     self.titleLabel.text = biSaiPredictModel.titleName;
+    [self.titleLabel sizeToFit];
     self.topLabel.text = biSaiPredictModel.desTitle;
-    self.topLabel.textAlignment = NSTextAlignmentCenter;
-    self.topLabel.frame = CGRectMake(16, 19, RBScreenWidth - 32, 17);
+    self.topLabel.textAlignment = NSTextAlignmentLeft;
+    self.topLabel.frame = CGRectMake(CGRectGetMaxX(self.titleLabel.frame)+8, 16, RBScreenWidth - 32, 17);
     self.line.frame = CGRectMake(0, 115, RBScreenWidth, 1);
     self.line.hidden = !biSaiPredictModel.showLine;
     self.leftLabe.text = [NSString stringWithFormat:@" ¥%d", biSaiPredictModel.coin];

@@ -14,6 +14,7 @@
 #import "RBChekLogin.h"
 #import <AVFoundation/AVFoundation.h>
 
+
 @interface RBBiSaiDetailVC ()<UIScrollViewDelegate>
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIButton *backBtn;
@@ -29,6 +30,7 @@
 @property (nonatomic, assign) CGPoint lastContentOffset;
 @property (nonatomic, assign) int hasData;
 @property (nonatomic, assign) int hasBuy;
+@property(nonatomic,copy)NSString *shiPingUrl;
 @end
 
 @implementation RBBiSaiDetailVC
@@ -187,13 +189,13 @@
         [self.scrollView addSubview:view];
     }
     [self.scrollView addSubview:self.biSaiDetailHead];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeBiSaiModels:) name:@"changeBiSaiModels" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(gengxinBiSaiModels:) name:@"gengxinBiSaiModels" object:nil];
 }
 
-- (void)changeBiSaiModels:(NSNotification *)noti {
-    NSArray *changeBiSaiModels = noti.object;
-    for (int i = 0; i < changeBiSaiModels.count; i++) {
-        RBBiSaiModel *model = changeBiSaiModels[i];
+- (void)gengxinBiSaiModels:(NSNotification *)noti {
+    NSArray *gengxinBiSaiModels = noti.object;
+    for (int i = 0; i < gengxinBiSaiModels.count; i++) {
+        RBBiSaiModel *model = gengxinBiSaiModels[i];
         if (self.biSaiModel.namiId == model.namiId) {
             self.biSaiModel.hostScore = model.hostScore;
             self.biSaiModel.status = model.status;
@@ -231,6 +233,7 @@
             NSArray *ok = backData[@"ok"];
             NSString *url = ok[0][1];
             weakSelf.biSaiDetailHead.shipingUrl = url;
+            weakSelf.shiPingUrl = url;
         }
     } Fail:^(NSError *_Nonnull error) {
     }];
@@ -404,6 +407,7 @@
                 child.height =  RBScreenHeight - (self.biSaiDetailHead.height);
             }
         }
+        self.biSaiDetailHead.shipingUrl = self.shiPingUrl;
     } else {
         [self.backBtn removeFromSuperview];
         [self.attentionBtn removeFromSuperview];
