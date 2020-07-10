@@ -19,10 +19,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lanchBG.png" translatesAutoresizingMaskIntoConstraints="NO" id="hra-Oc-aOZ">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lanchBG2.png" translatesAutoresizingMaskIntoConstraints="NO" id="hra-Oc-aOZ">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lanchImg.png" translatesAutoresizingMaskIntoConstraints="NO" id="hWa-B7-5ge">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lanchImg2.png" translatesAutoresizingMaskIntoConstraints="NO" id="hWa-B7-5ge">
                                 <rect key="frame" x="155" y="396" width="104.5" height="104.5"/>
                             </imageView>
                         </subviews>
@@ -45,7 +45,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="lanchBG.png" width="1536" height="2048"/>
-        <image name="lanchImg.png" width="298" height="296"/>
+        <image name="lanchBG2.png" width="1536" height="2048"/>
+        <image name="lanchImg2.png" width="298" height="296"/>
     </resources>
 </document>

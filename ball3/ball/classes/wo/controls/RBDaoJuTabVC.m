@@ -18,7 +18,7 @@
 }
 
 - (void)getData {
-    [MBProgressHUD showLoading:@"加载中…" toView:self.tableView];
+    [MBProgressHUD showLoading:jiazhaizhong toView:self.tableView];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict setValue:@(self.currentPage) forKey:@"p"];
     [RBNetworkTool PostDataWithUrlStr:@"apis/getdetailpropcost" andParam:dict Success:^(NSDictionary *_Nonnull backData) {
@@ -74,7 +74,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *hedView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, RBScreenWidth, 44)];
     hedView.backgroundColor = [UIColor colorWithSexadeString:@"#F8F8F8"];
-    NSArray *arr = @[@"主播", @"赛事", @"礼物", @"额度"];
+    NSArray *arr = @[@"主播", saishi, @"礼物", @"额度"];
     UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(16, 12, 80, 20)];
     label1.text = @"时间";
     label1.textAlignment = NSTextAlignmentLeft;

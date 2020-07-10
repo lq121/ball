@@ -48,7 +48,7 @@
     headView.hidden = YES;
     headView.backgroundColor = [UIColor whiteColor];
     UILabel *titLebal = [[UILabel alloc]initWithFrame:CGRectMake((RBScreenWidth - 100) * 0.5, RBStatusBarH, 100, RBNavBarAndStatusBarH - RBStatusBarH)];
-    titLebal.text = @"评论";
+    titLebal.text = pinglun;
     titLebal.textAlignment = NSTextAlignmentCenter;
     titLebal.font = [UIFont systemFontOfSize:17];
     [headView addSubview:titLebal];
@@ -94,7 +94,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"评论";
+    self.title = pinglun;
     [self setupTableView];
     [self setupHeadView];
     [self getVideoDetail];
@@ -156,7 +156,7 @@
     [headView addSubview:coverView];
     coverView.hidden = YES;
     CGSize size = [self.shiPingModel.Title getSizeWithFontSize:16 andMaxWidth:RBScreenWidth - 32];
-    RBCommButton *topicBtn = [[RBCommButton alloc] initWithImage:@"btn／replay" andHeighImage:@"btn／replay" andFrame:CGRectMake((RBScreenWidth - 60) * 0.5, (RBScreenHeight - size.height - 26 - 32 - 67) * 0.5, 60, 67) andTitle:@"重新播放" andTarget:self andAction:@selector(showVideoPlayer:) andLabelFontSize:14];
+    RBCommButton *topicBtn = [[RBCommButton alloc] initWithImage:@"btn／replay" andHeighImage:@"btn／replay" andFrame:CGRectMake((RBScreenWidth - 60) * 0.5, (RBScreenHeight - size.height - 26 - 32 - 67) * 0.5, 60, 67) andTitle:chongxinbofang andTarget:self andAction:@selector(showVideoPlayer:) andLabelFontSize:14];
     topicBtn.hidden = YES;
     self.topicBtn = topicBtn;
     [headView addSubview:topicBtn];
@@ -286,7 +286,7 @@
     [dict setValue:self.shiPingModel.Uid forKey:@"huatihuid"];
     [RBNetworkTool PostDataWithUrlStr:@"apis/videocomment" andParam:dict Success:^(NSDictionary *_Nonnull backData) {
         if ([backData[@"err"]intValue] == 50002) {
-            [RBChekLogin checkWithTitile:@"等级需到达5级以上\n或者会员才可以参与互动" andtype:@"commentlv" andNeedCheck:NO];
+            [RBChekLogin checkWithTitile:xuyao5ji andtype:@"commentlv" andNeedCheck:NO];
         } else if (backData[@"ok"] != nil) {
             self.upBtn.selected = YES;
             [self getVideoDetail];
@@ -318,7 +318,7 @@
 
 /// 根据选择进行分享（好友/朋友圈）
 - (void)getShareDataWithIndex:(NSInteger)index {
-    [MBProgressHUD showLoading:@"加载中…" toView:self.view];
+    [MBProgressHUD showLoading:jiazhaizhong toView:self.view];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     NSString *uid = [[NSUserDefaults standardUserDefaults]objectForKey:@"userid"];
     if (uid != nil && ![uid isEqualToString:@""]) {
@@ -333,7 +333,7 @@
         } else {
             UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
             pasteboard.string = [NSString stringWithFormat:@"%@video?id=%d",  BASESHAREURL, self.shiPingModel.Id];
-            [RBToast showWithTitle:@"已复制到您的粘贴板"];
+            [RBToast showWithTitle:yifuzhi];
         }
     } Fail:^(NSError *_Nonnull error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -345,7 +345,7 @@
     if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {
         [[NSNotificationCenter defaultCenter]postNotificationName:@"needShow" object:[NSNumber numberWithBool:NO]];
         WXMediaMessage *message = [WXMediaMessage message];
-        message.title = @"小应体育";
+        message.title = appName;
         message.description = des;
         [message setThumbImage:[UIImage imageNamed:@"share logo"]];
         WXWebpageObject *webpageObject = [WXWebpageObject object];
@@ -400,7 +400,7 @@
     textField.delegate = self;
     textField.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 16, 32)];
     textField.leftViewMode = UITextFieldViewModeAlways;
-    textField.placeholder = @"说点什么…";
+    textField.placeholder = shuodianshenme;
     textField.font = [UIFont systemFontOfSize:16];
     textField.textAlignment = NSTextAlignmentLeft;
     textField.backgroundColor = [UIColor colorWithSexadeString:@"#F8F8F8"];
@@ -410,7 +410,7 @@
 
     UIButton *sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(textField.frame) + 16, 0, 50, 49)];
     [sendBtn addTarget:self action:@selector(clickSendBtn) forControlEvents:UIControlEventTouchUpInside];
-    [sendBtn setTitle:@"发送" forState:UIControlStateNormal];
+    [sendBtn setTitle:fasong forState:UIControlStateNormal];
     [sendBtn setTitleColor:[UIColor colorWithSexadeString:@"#FFA500"] forState:UIControlStateNormal];
     sendBtn.titleLabel.font = [UIFont systemFontOfSize:16];
     [chatToolBar addSubview:sendBtn];
@@ -421,7 +421,7 @@
         return;
     }
     if (self.textField.text.length <= 0) {
-        [RBToast showWithTitle:@"请输入回复内容"];
+        [RBToast showWithTitle:shuruhuifu];
         return;
     }
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -432,7 +432,7 @@
     [dict setValue:self.shiPingModel.Uid forKey:@"huatihuid"];
     [RBNetworkTool PostDataWithUrlStr:@"apis/videocomment" andParam:dict Success:^(NSDictionary *_Nonnull backData) {
         if ([backData[@"err"]intValue] == 50002) {
-            [RBChekLogin checkWithTitile:@"等级需到达5级以上\n或者会员才可以参与互动" andtype:@"commentlv" andNeedCheck:NO];
+            [RBChekLogin checkWithTitile:xuyao5ji andtype:@"commentlv" andNeedCheck:NO];
         } else if (backData[@"ok"] != nil) {
             self.textField.text = nil;
             [self.textField resignFirstResponder];
@@ -519,7 +519,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     RBHuiFuVC *huiFuVC = [[RBHuiFuVC alloc]init];
     huiFuVC.huiFuModel = self.pingLunArr[indexPath.row];
-    huiFuVC.title = @"评论";
+    huiFuVC.title = pinglun;
     [self.navigationController pushViewController:huiFuVC animated:YES];
     self.chatToolBar.hidden = YES;
 }

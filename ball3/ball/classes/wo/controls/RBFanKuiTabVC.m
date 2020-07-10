@@ -20,20 +20,20 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithSexadeString:@"#F8F8F8"];
     self.title = @"反馈记录";
-    [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183)];
+    [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
     [self.tableView reloadData];
     [self loadData];
 }
 
 - (void)loadData {
-    [MBProgressHUD showLoading:@"加载中…" toView:self.view];
+    [MBProgressHUD showLoading:jiazhaizhong toView:self.view];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict setValue:@(0) forKey:@"p"];
     [RBNetworkTool PostDataWithUrlStr:@"apis/getfeedback" andParam:dict Success:^(NSDictionary *_Nonnull backData) {
         if (backData[@"ok"] != nil) {
             NSArray *arr = backData[@"ok"];
             [self.dataArr addObjectsFromArray:[RBFanKuiModel mj_objectArrayWithKeyValuesArray:arr]];
-            [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183)];
+            [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
             [self.tableView reloadData];
         }
         [MBProgressHUD hideHUDForView:self.view animated:YES];

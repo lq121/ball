@@ -50,7 +50,7 @@
     [searchBarView addSubview:searchIcon];
 
     UILabel *searLab = [[UILabel alloc]initWithFrame:CGRectMake(40, 6, 80, 20)];
-    searLab.text = @"联赛/球队";
+    searLab.text = lainsaiqiudui;
     searLab.textColor = [UIColor colorWithWhite:1 alpha:0.6];
     searLab.font = [UIFont systemFontOfSize:14];
     searLab.textAlignment = NSTextAlignmentLeft;
@@ -61,7 +61,7 @@
     UIButton *rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(searchBarView.frame) + 6, RBStatusBarH, 42, 40)];
     self.rightBtn = rightBtn;
     rightBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    [rightBtn setTitle:@"筛选" forState:UIControlStateNormal];
+    [rightBtn setTitle:shuaixuan forState:UIControlStateNormal];
     [rightBtn setTitleColor:[UIColor colorWithSexadeString:@"#36C8B9"] forState:UIControlStateNormal];
     rightBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [rightBtn addTarget:self action:@selector(clickRightBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -140,7 +140,7 @@
 
 /// 点击筛选/历史按钮
 - (void)clickRightBtn:(UIButton *)btn {
-    if ([btn.currentTitle isEqualToString:@"筛选"]) {
+    if ([btn.currentTitle isEqualToString:shuaixuan]) {
         [self.navigationController pushViewController:[[RBSelectedVC alloc]init] animated:YES];
         self.needChange = YES;
     } else {
@@ -173,7 +173,7 @@
     if (btn.tag - 200 == 4) {
         [self.rightBtn setTitle:@"历史" forState:UIControlStateNormal];
     } else {
-        [self.rightBtn setTitle:@"筛选" forState:UIControlStateNormal];
+        [self.rightBtn setTitle:shuaixuan forState:UIControlStateNormal];
     }
 
     [UIView animateWithDuration:durationTime animations:^{

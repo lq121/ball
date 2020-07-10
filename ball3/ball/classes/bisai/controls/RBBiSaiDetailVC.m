@@ -262,7 +262,7 @@
     [buy addObject:ok[@"Rbuy"]];
     [buy addObject:ok[@"Sbuy"]];
     [buy addObject:ok[@"Dbuy"]];
-    NSArray *titles = @[@"胜平负", @"让球", @"大小球"];
+    NSArray *titles = @[shengpingfu, rangqiu, daxiaoqiu];
     NSArray *D = ok[@"D"];  // 大小球数据
     NSArray *R = ok[@"R"]; // 让球数据
     NSArray *S = ok[@"S"]; // 胜平负数据
@@ -301,7 +301,7 @@
     } else {
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
         pasteboard.string = [NSString stringWithFormat:@"%@game/%d", BASESHAREURL, self.biSaiModel.namiId];
-        [RBToast showWithTitle:@"已复制到您的粘贴板"];
+        [RBToast showWithTitle:yifuzhi];
     }
 }
 
@@ -433,7 +433,7 @@
 
 /// 根据选择进行分享（好友/朋友圈）
 - (void)getShareDataWithIndex:(int)index {
-    [MBProgressHUD showLoading:@"加载中…" toView:self.view];
+    [MBProgressHUD showLoading:jiazhaizhong toView:self.view];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     NSString *uid = [[NSUserDefaults standardUserDefaults]objectForKey:@"userid"];
     if (uid != nil && ![uid isEqualToString:@""]) {
@@ -530,10 +530,10 @@
     whiteView.backgroundColor = [UIColor whiteColor];
     [bgView addSubview:whiteView];
 
-    CGSize size = [@"小应体育" getLineSizeWithBoldFontSize:14];
+    CGSize size = [appName getLineSizeWithBoldFontSize:14];
     UIButton *topBtn = [[UIButton alloc]init];
     [topBtn setImage:[UIImage imageNamed:@"ding logo"] forState:UIControlStateNormal];
-    [topBtn setTitle:@"小应体育" forState:UIControlStateNormal];
+    [topBtn setTitle:appName forState:UIControlStateNormal];
     topBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
     [topBtn setTitleColor:[UIColor colorWithSexadeString:@"#213A4B"] forState:UIControlStateNormal];
     topBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 0);

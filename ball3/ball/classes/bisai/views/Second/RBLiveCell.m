@@ -11,7 +11,7 @@
 @implementation RBLiveCell
 - (void)setLiveModel:(RBLiveModel *)liveModel {
     _liveModel = liveModel;
-    NSString *dataStr = [liveModel.data stringByReplacingOccurrencesOfString:@"雷速" withString:@"小应体育"];
+    NSString *dataStr = [liveModel.data stringByReplacingOccurrencesOfString:@"雷速" withString:appName];
     self.dataLabel.text = dataStr;
 
     self.dataLabel.numberOfLines = 0;

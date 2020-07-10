@@ -153,7 +153,7 @@
 
     NSString *str1 = @"支付订单视为同意小应体育的 ";
     NSString *str2 = @"《用户协议》";
-    NSString *str3 = @" 和 ";
+    NSString *str3 = he;
     NSString *str4 = @"《隐私政策》";
     NSString *str = [NSString stringWithFormat:@"%@%@%@%@", str1, str2, str3, str4];
     NSRange range1 = [str rangeOfString:str1];
@@ -236,14 +236,14 @@
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
     if ([[URL scheme] isEqualToString:@"first"]) {
         RBWKWebView *webVC = [[RBWKWebView alloc]init];
-        webVC.title = @"用户协议";
+        webVC.title = yonghuxieyi;
         webVC.url = @"hios/user-policy.html";
         [self.navigationController pushViewController:webVC animated:YES];
         return NO;
     } else if ([[URL scheme] isEqualToString:@"second"]) {
         RBWKWebView *webVC = [[RBWKWebView alloc]init];
         webVC.url = @"hios/privacy-policy.html";
-        webVC.title = @"隐私政策";
+        webVC.title = yinsizhengce;
         [self.navigationController pushViewController:webVC animated:YES];
         return NO;
     }
@@ -288,9 +288,9 @@
     }
     // 订单类型
     int index = 0;
-    if ([self.biSaipredictModel.titleName isEqualToString:@"让球"]) {
+    if ([self.biSaipredictModel.titleName isEqualToString:rangqiu]) {
         index = 1;
-    } else if ([self.biSaipredictModel.titleName isEqualToString:@"胜平负"]) {
+    } else if ([self.biSaipredictModel.titleName isEqualToString:shengpingfu]) {
         index = 2;
     } else {
         index = 3;
@@ -302,17 +302,17 @@
         [dict setValue:@(10001) forKey:@"propid"];
         [dict setValue:[NSString stringWithFormat:@"%d", self.biSaiModel.namiId] forKey:@"matchid"];
         [dict setValue:@(index) forKey:@"aitype"];
-        NSString *bisai = self.biSaiModel.eventName;
+        NSString *bisaiTitle = self.biSaiModel.eventName;
         NSString *mark = [NSString stringWithFormat:@"%@VS%@%@", self.biSaiModel.hostTeamName, self.biSaiModel.visitingTeamName, [NSString getStrWithDateInt:self.biSaiModel.biSaiTime andFormat:@"yyyy-MM-dd HH:mm:ss"]];
-        [dict setObject:bisai forKey:@"game"];
+        [dict setObject:bisaiTitle forKey:@"game"];
         [dict setObject:mark forKey:@"mark"];
         [self orderWithDict:dict];
     } else { // 不使用优惠券
         NSMutableDictionary *mutDict = [NSMutableDictionary dictionary];
         [mutDict setValue:[NSString stringWithFormat:@"%d", self.biSaiModel.namiId] forKey:@"matchid"];
         [mutDict setValue:@(index) forKey:@"aitype"];
-        NSString *bisai = [NSString stringWithFormat:@"%@VS%@%@", self.biSaiModel.hostTeamName, self.biSaiModel.visitingTeamName, [NSString getStrWithDateInt:self.biSaiModel.biSaiTime andFormat:@"yyyy-MM-dd HH:mm:ss"]];
-        [mutDict setObject:bisai forKey:@"game"];
+        NSString *bisaiTitle = [NSString stringWithFormat:@"%@VS%@%@", self.biSaiModel.hostTeamName, self.biSaiModel.visitingTeamName, [NSString getStrWithDateInt:self.biSaiModel.biSaiTime andFormat:@"yyyy-MM-dd HH:mm:ss"]];
+        [mutDict setObject:bisaiTitle forKey:@"game"];
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:mutDict options:0 error:0];
         NSString *mark = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         [dict setObject:mark forKey:@"mark"];

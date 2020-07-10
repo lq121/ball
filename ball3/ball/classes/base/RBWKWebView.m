@@ -14,7 +14,7 @@
     webView.UIDelegate = self;
     webView.navigationDelegate = self;
     [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", BASEWEBURL, self.url]]]];
-    [MBProgressHUD showLoading:@"加载中…" toView:self.view];
+    [MBProgressHUD showLoading:jiazhaizhong toView:self.view];
 }
 
 #pragma mark - WKNavigationDelegate

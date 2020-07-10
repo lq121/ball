@@ -48,7 +48,7 @@
     tipLab.textColor = [UIColor colorWithSexadeString:@"#FA7268"];
     tipLab.font = [UIFont systemFontOfSize:12];
     tipLab.textAlignment = NSTextAlignmentCenter;
-    tipLab.text = @"仅提供当天赛事搜索";
+    tipLab.text = jinggongjintian;
     self.tipLab = tipLab;
     [self.view addSubview:tipLab];
     
@@ -70,7 +70,7 @@
     textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     textField.returnKeyType =  UIReturnKeySearch;
     textField.font = [UIFont systemFontOfSize:16];
-    textField.placeholder = @"联赛名称/队伍名称";
+    textField.placeholder = lainsaiqiudui;
     textField.tintColor = [UIColor colorWithSexadeString:@"#FFA500"];
     textField.textColor = [UIColor colorWithSexadeString:@"#333333"];
     textField.delegate = self;
@@ -81,7 +81,7 @@
 
     UIButton *cancelBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, 0, 40, 50)];
     self.cancelBtn = cancelBtn;
-    [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+    [cancelBtn setTitle:quxiao forState:UIControlStateNormal];
     [cancelBtn setTitleColor:[UIColor colorWithSexadeString:@"#333333"] forState:UIControlStateNormal];
     cancelBtn.titleLabel.font = [UIFont systemFontOfSize:16];
     [cancelBtn addTarget:self action:@selector(clickCancel:) forControlEvents:UIControlEventTouchUpInside];
@@ -93,7 +93,7 @@
     UIView *headView = [[UIView alloc]init];
     headView.backgroundColor = [UIColor whiteColor];
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, 18, RBScreenWidth - 20, 30)];
-    titleLabel.text = @"热门搜索";
+    titleLabel.text = remenshousuo;
     titleLabel.font = [UIFont boldSystemFontOfSize:16];
     titleLabel.textColor = [UIColor colorWithSexadeString:@"#333333"];
     [titleLabel sizeToFit];
@@ -171,7 +171,7 @@
 }
 
 - (void)loadData {
-    [MBProgressHUD showLoading:@"加载中…" toView:self.tableView];
+    [MBProgressHUD showLoading:jiazhaizhong toView:self.tableView];
     NSMutableArray *array = [[RBFMDBTool sharedFMDBTool]selectBiSaiModelWithStr:self.searchStr];
     [self.dataArr removeAllObjects];
     [self.dataArr addObjectsFromArray:array];
@@ -179,7 +179,7 @@
         UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, RBScreenWidth, 48)];
         headView.backgroundColor = [UIColor whiteColor];
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, 0, RBScreenWidth - 20, 48)];
-        titleLabel.text = @"赛事";
+        titleLabel.text = saishi;
         titleLabel.font = [UIFont boldSystemFontOfSize:16];
         titleLabel.textColor = [UIColor colorWithSexadeString:@"#333333"];
         [headView addSubview:titleLabel];
@@ -187,11 +187,11 @@
         int timet = [[NSDate date]timeIntervalSince1970];
         self.tipLab.text = [NSString stringWithFormat:@"%@ %@",[NSString getStrWithDate:[NSDate date] andFormat:@"yyyy年MM月dd日"],[NSString weekdayStringFromDate:timet]];
     } else {
-        self.tipLab.text = @"仅提供当天赛事搜索";
+        self.tipLab.text = jinggongjintian;
         self.tableView.tableHeaderView = nil;
     }
     [MBProgressHUD hideHUDForView:self.tableView animated:YES];
-    [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183)];
+    [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
     [self.tableView reloadData];
 }
 

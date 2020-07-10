@@ -37,7 +37,7 @@ typedef void (^ClickLeftBtn)(void);
             NSString *title = array[i];
             [btn setTitle:title forState:UIControlStateNormal];
             [btn addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
-            if ([title isEqualToString:@"回复"]) {
+            if ([title isEqualToString:huifu]) {
                 [btn setTitleColor:[UIColor colorWithSexadeString:@"#FFA500"] forState:UIControlStateNormal];
             } else {
                 [btn setTitleColor:[UIColor colorWithSexadeString:@"#333333"] forState:UIControlStateNormal];
@@ -48,7 +48,7 @@ typedef void (^ClickLeftBtn)(void);
 
         UIButton *cancelBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, array.count * 64 + 8, RBScreenWidth, 64)];
         cancelBtn.backgroundColor = [UIColor whiteColor];
-        [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+        [cancelBtn setTitle:quxiao forState:UIControlStateNormal];
         [cancelBtn addTarget:self action:@selector(clickCancelBtn) forControlEvents:UIControlEventTouchUpInside];
         [cancelBtn setTitleColor:cancelColor forState:UIControlStateNormal];
         cancelBtn.titleLabel.font = [UIFont systemFontOfSize:16];
@@ -151,7 +151,7 @@ typedef void (^ClickLeftBtn)(void);
 }
 
 - (instancetype)initWithFrame:(CGRect)frame andTitle:(NSString *)title andSure:(NSString *)sure andClickSureBtn:(void (^)(void))clickSureBtn {
-    return [self initWithFrame:frame andTitle:title andCancel:@"取消" andSure:sure andClickSureBtn:clickSureBtn];
+    return [self initWithFrame:frame andTitle:title andCancel:quxiao andSure:sure andClickSureBtn:clickSureBtn];
 }
 
 - (void)clicksureBtn {

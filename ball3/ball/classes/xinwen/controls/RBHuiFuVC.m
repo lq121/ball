@@ -20,7 +20,7 @@
     if (_footView == nil) {
         _footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, RBScreenWidth, 65)];
         UILabel *lab = [[UILabel alloc]initWithFrame:CGRectMake(0, 24, RBScreenWidth, 17)];
-        lab.text = @"全部加载完毕啦～";
+        lab.text = quanbujiazaiwan;
         lab.textAlignment = NSTextAlignmentCenter;
         lab.font = [UIFont systemFontOfSize:12];
         lab.textColor = [UIColor colorWithSexadeString:@"#333333" AndAlpha:0.4];
@@ -200,7 +200,7 @@
 
     UIButton *sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(textField.frame) + 16, 0, 50, 49)];
     [sendBtn addTarget:self action:@selector(clickSendBtn) forControlEvents:UIControlEventTouchUpInside];
-    [sendBtn setTitle:@"发送" forState:UIControlStateNormal];
+    [sendBtn setTitle:fasong forState:UIControlStateNormal];
     [sendBtn setTitleColor:[UIColor colorWithSexadeString:@"#FFA500"] forState:UIControlStateNormal];
     sendBtn.titleLabel.font = [UIFont systemFontOfSize:16];
     [chatToolBar addSubview:sendBtn];
@@ -211,7 +211,7 @@
 - (void)clickZanBtn {
     if ([RBChekLogin NotLogin]) {
         return;
-    }else if([RBChekLogin checkWithTitile:@"等级需到达5级以上\n或者会员才可以参与互动" andtype:@"zanlv" andNeedCheck:YES]){
+    }else if([RBChekLogin checkWithTitile:xuyao5ji andtype:@"zanlv" andNeedCheck:YES]){
         return;
     }
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -225,9 +225,9 @@
     }
     [RBNetworkTool PostDataWithUrlStr:str andParam:dict Success:^(NSDictionary *_Nonnull backData) {
         if ([backData[@"err"]intValue] == 50002) {
-            [RBChekLogin checkWithTitile:@"等级需到达5级以上\n或者会员才可以参与互动" andtype:@"zanlv" andNeedCheck:NO];
+            [RBChekLogin checkWithTitile:xuyao5ji andtype:@"zanlv" andNeedCheck:NO];
         } else if (backData[@"ok"] != nil) {
-            [RBToast showWithTitle:@"点赞成功"];
+            [RBToast showWithTitle:dianzansuccess];
             [self.zanBtn setTitle:[NSString stringWithFormat:@"%d", self.huiFuModel.Zannum + 1] forState:UIControlStateNormal];
             self.zanBtn.selected = YES;
         }
@@ -240,7 +240,7 @@
         return;
     }
     if (self.textField.text.length <= 0) {
-        [RBToast showWithTitle:@"请输入回复内容"];
+        [RBToast showWithTitle:shuruhuifu];
         return;
     }
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -255,7 +255,7 @@
     }
     [RBNetworkTool PostDataWithUrlStr:str andParam:dict Success:^(NSDictionary *_Nonnull backData) {
         if ([backData[@"err"]intValue] == 50002) {
-            [RBChekLogin checkWithTitile:@"等级需到达5级以上\n或者会员才可以参与互动" andtype:@"commentlv" andNeedCheck:NO];
+            [RBChekLogin checkWithTitile:xuyao5ji andtype:@"commentlv" andNeedCheck:NO];
         } else if (backData[@"ok"] != nil) {
             self.textField.text = nil;
             [self.textField resignFirstResponder];

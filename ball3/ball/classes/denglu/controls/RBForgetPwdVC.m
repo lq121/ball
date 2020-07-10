@@ -29,17 +29,17 @@
     [self.view addSubview:backBtn];
 
     UILabel *tipLabel = [[UILabel alloc]init];
-    tipLabel.text = @"忘记密码";
+    tipLabel.text = wangjimima;
     tipLabel.textAlignment = NSTextAlignmentLeft;
     tipLabel.font = [UIFont systemFontOfSize:30];
     tipLabel.textColor = [UIColor colorWithSexadeString:@"#333333"];
     tipLabel.frame = CGRectMake(20, RBStatusBarH + 56, 150, 42);
     [self.view addSubview:tipLabel];
 
-    self.eareField = [self createCodeViewWithFrame:CGRectMake(0, RBStatusBarH + 105, RBScreenWidth, 73) andText:@"中国" andPlaceholder:nil andLeftView:nil];
-    self.phoneField = [self createCodeViewWithFrame:CGRectMake(0, RBStatusBarH + 105 + 73, RBScreenWidth, 73) andText:self.phone andPlaceholder:@"手机号码/邮箱地址" andLeftView:nil];
-    self.codeField = [self createCodeViewWithFrame:CGRectMake(0, RBStatusBarH + 105 + 73 * 2, RBScreenWidth, 73) andText:nil andPlaceholder:@"请输入验证码" andLeftView:@"btn"];
-    self.pwdField = [self createCodeViewWithFrame:CGRectMake(0, RBStatusBarH + 105 + 73 * 3, RBScreenWidth, 73) andText:nil andPlaceholder:@"重置设置密码(至少6位数字或英文字母)" andLeftView:nil];
+    self.eareField = [self createCodeViewWithFrame:CGRectMake(0, RBStatusBarH + 105, RBScreenWidth, 73) andText:zhongguo andPlaceholder:nil andLeftView:nil];
+    self.phoneField = [self createCodeViewWithFrame:CGRectMake(0, RBStatusBarH + 105 + 73, RBScreenWidth, 73) andText:self.phone andPlaceholder:shoujihuoyouxiang andLeftView:nil];
+    self.codeField = [self createCodeViewWithFrame:CGRectMake(0, RBStatusBarH + 105 + 73 * 2, RBScreenWidth, 73) andText:nil andPlaceholder:shuruyanzhengma andLeftView:@"btn"];
+    self.pwdField = [self createCodeViewWithFrame:CGRectMake(0, RBStatusBarH + 105 + 73 * 3, RBScreenWidth, 73) andText:nil andPlaceholder:chongzhishezimima andLeftView:nil];
 
     UIButton *frogetBtn = [[UIButton alloc]initWithFrame:CGRectMake(16, RBStatusBarH + 105 + 73 * 4 + 64, RBScreenWidth - 32, 48)];
     frogetBtn.layer.masksToBounds = YES;
@@ -48,7 +48,7 @@
     frogetBtn.enabled = NO;
     [frogetBtn setBackgroundImage:[UIImage imageNamed:@"btn keep"] forState:UIControlStateNormal];
     [frogetBtn setBackgroundImage:[UIImage imageNamed:@"btn keep_enabled"] forState:UIControlStateDisabled];
-    [frogetBtn setTitle:@"提交" forState:UIControlStateNormal];
+    [frogetBtn setTitle:tijiao forState:UIControlStateNormal];
     frogetBtn.titleLabel.font = [UIFont systemFontOfSize:16];
     [frogetBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [frogetBtn setTitleColor:[UIColor colorWithSexadeString:@"#333333" AndAlpha:0.5] forState:UIControlStateDisabled];
@@ -74,13 +74,13 @@
     textField.frame = CGRectMake(20, 40, RBScreenWidth - 90 - 16 - 20, 25);
     textField.delegate = self;
     [BGView addSubview:textField];
-    if ([text isEqualToString:@"中国"]) {
+    if ([text isEqualToString:zhongguo]) {
         UIButton *rowBtn = [[UIButton alloc]initWithFrame:CGRectMake(RBScreenWidth - 16 - 28, 38, 28, 28)];
         textField.userInteractionEnabled = NO;
         [rowBtn setBackgroundImage:[UIImage imageNamed:@"down black"] forState:UIControlStateNormal];
         [BGView addSubview:rowBtn];
     }
-    if ([placeHolder containsString:@"重置设置密码"]) {
+    if ([placeHolder containsString:chongzhishezimima]) {
         textField.secureTextEntry = YES;
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc]initWithString:placeHolder];
         [attr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17] range:NSMakeRange(0, 6)];
@@ -93,7 +93,7 @@
         UIButton *getCodeBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(textField.frame), 25, 86, 28)];
         getCodeBtn.enabled = NO;
         self.getCodeBtn = getCodeBtn;
-        [getCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+        [getCodeBtn setTitle:huoquyanzhengma forState:UIControlStateNormal];
         getCodeBtn.layer.masksToBounds = YES;
         getCodeBtn.layer.cornerRadius = 4;
         [getCodeBtn addTarget:self action:@selector(clickGetCodeBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -111,11 +111,11 @@
     [BGView addSubview:line];
     if (placeHolder == nil) {
         self.line1 = line;
-    } else if ([placeHolder isEqualToString:@"手机号码/邮箱地址"]) {
+    } else if ([placeHolder isEqualToString:shoujihuoyouxiang]) {
         self.line2 = line;
-    } else if ([placeHolder isEqualToString:@"请输入验证码"]) {
+    } else if ([placeHolder isEqualToString:shuruyanzhengma]) {
         self.line3 = line;
-    } else if ([placeHolder containsString:@"重置设置密码"]) {
+    } else if ([placeHolder containsString:chongzhishezimima]) {
         self.line4 = line;
     }
     [self.view addSubview:BGView];
@@ -124,7 +124,7 @@
 
 - (void)clickGetCodeBtn:(UIButton *)btn {
     if (![NSString isVaildPhone:self.phoneField.text]) {
-        [RBToast showWithTitle:@"请输入合法手机号码"];
+        [RBToast showWithTitle:shuruhefashoujihao];
         return;
     }
     [RBNetworkTool getcodeWithMobile:self.phoneField.text AndType:2 Result:^(NSDictionary *_Nonnull backData, NSError *_Nonnull error) {
@@ -146,21 +146,21 @@
         self.timer = nil;
         return;
     }
-    [self.getCodeBtn setTitle:[NSString stringWithFormat:@"%ds重新获取", self.timeCount] forState:UIControlStateDisabled];
+    [self.getCodeBtn setTitle:[NSString stringWithFormat:chongxinhuoqu, self.timeCount] forState:UIControlStateDisabled];
     self.timeCount--;
 }
 
 - (void)clickfrogetBtn {
     if ([self.phoneField.text isEqualToString:@""] || self.phoneField.text.length <= 0) {
-        [RBToast showWithTitle:@"请输入手机号或邮箱"];
+        [RBToast showWithTitle:shurushoujihao];
         return;
     }
     if ([self.codeField.text isEqualToString:@""] || self.codeField.text.length <= 0) {
-        [RBToast showWithTitle:@"请输入验证码"];
+        [RBToast showWithTitle:shuruyanzhengma];
         return;
     }
     if ([self.pwdField.text isEqualToString:@""] || self.pwdField.text.length <= 0) {
-        [RBToast showWithTitle:@"请输入密码"];
+        [RBToast showWithTitle:shurumima];
         return;
     }
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -173,7 +173,7 @@
         }
         NSDictionary *dict = backData;
         if (dict[@"ok"] != nil) {
-            [RBToast showWithTitle:@"密码修改成功"];
+            [RBToast showWithTitle:xiugaimimasuccess];
             [self.navigationController popViewControllerAnimated:YES];
             return;
         }

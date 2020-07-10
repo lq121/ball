@@ -20,7 +20,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        RBAnalyzeTitleView *titleView = [[RBAnalyzeTitleView alloc]initWithTitle:@"预测" andFrame:CGRectMake(0, 0, RBScreenWidth, 46) andSecondTitle:@"(大数据锦囊)" andDetail:@"" andFirstBtn:@"" andSecondBtn:@"" andClickFirstBtn:^(BOOL selected) {
+        RBAnalyzeTitleView *titleView = [[RBAnalyzeTitleView alloc]initWithTitle:yuce andFrame:CGRectMake(0, 0, RBScreenWidth, 46) andSecondTitle:@"(大数据锦囊)" andDetail:@"" andFirstBtn:@"" andSecondBtn:@"" andClickFirstBtn:^(BOOL selected) {
         } andClickSecondBtn:^(BOOL selected) {
         }];
         [self addSubview:titleView];

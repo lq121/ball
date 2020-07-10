@@ -33,7 +33,7 @@
     if (_footView == nil) {
         _footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, RBScreenWidth, 65)];
         UILabel *lab = [[UILabel alloc]initWithFrame:CGRectMake(0, 24, RBScreenWidth, 17)];
-        lab.text = @"全部加载完毕啦～";
+        lab.text = quanbujiazaiwan;
         lab.textAlignment = NSTextAlignmentCenter;
         lab.font = [UIFont systemFontOfSize:12];
         lab.textColor = [UIColor colorWithSexadeString:@"#333333" AndAlpha:0.4];
@@ -149,7 +149,7 @@
         }
         [self.tableView reloadData];
         if (self.biSaiType == 0) {
-            [self.tableView showDataCount:self.allDataArray.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183)];
+            [self.tableView showDataCount:self.allDataArray.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
             if (self.allDataArray.count > 0) {
                 self.tableView.tableFooterView = self.footView;
             }
@@ -157,31 +157,40 @@
             if (self.beginingDataArray.count > 0) {
                 self.tableView.tableFooterView = self.footView;
             }
-            [self.tableView showDataCount:self.beginingDataArray.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183)];
+            [self.tableView showDataCount:self.beginingDataArray.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
         } else if (self.biSaiType == 2) {
             if (self.scheduleDataArray.count > 0) {
                 self.tableView.tableFooterView = self.footView;
             }
-            [self.tableView showDataCount:self.scheduleDataArray.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183)];
+            [self.tableView showDataCount:self.scheduleDataArray.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
         } else if (self.biSaiType == 3) {
             if (self.resultDataArray.count > 0) {
                 self.tableView.tableFooterView = self.footView;
             }
-            [self.tableView showDataCount:self.resultDataArray.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183)];
+            [self.tableView showDataCount:self.resultDataArray.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
         } else if (self.biSaiType == 4) {
             if (self.attentionDataArray.count > 0) {
                 self.tableView.tableFooterView = self.footView;
             }
-            [self.tableView showDataCount:self.attentionDataArray.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183) andType:2 ];
+            [self.tableView showDataCount:self.attentionDataArray.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183) andType:2 ];
         } else if (self.biSaiType == 5) {
             if (self.attentionHistoryDataArray.count > 0) {
                 self.tableView.tableFooterView = self.footView;
             }
-            [self.tableView showDataCount:self.attentionHistoryDataArray.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183) andType:2];
+            [self.tableView showDataCount:self.attentionHistoryDataArray.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183) andType:2];
         }
     } else {
         [self getBiSaiData];
     }
+}
+
+-(void)getgamezhibolist{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [RBNetworkTool PostDataWithUrlStr:@"try/go/getgamezhibolist"  andParam:dict Success:^(NSDictionary *_Nonnull backData) {
+        NSLog(@"%@",dict);
+    }Fail:^(NSError * _Nonnull error) {
+        
+    }];
 }
 
 - (void)setMatchArr {
@@ -332,10 +341,10 @@
                             }
                         }
                         if (nodata) {
-                            [self.tableView showDataCount:0 andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183) andType:2];
+                            [self.tableView showDataCount:0 andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183) andType:2];
                             [self.tableView reloadData];
                         } else {
-                            [self.tableView showDataCount:self.attentionDataArray.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183) andType:2];
+                            [self.tableView showDataCount:self.attentionDataArray.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183) andType:2];
                             [self.tableView reloadData];
                         }
                         for (int j = 1; j < arry.count; j++) {
@@ -367,7 +376,7 @@
 }
 
 - (void)getBiSaiData {
-    [MBProgressHUD showLoading:@"加载中" toView:self.view];
+    [MBProgressHUD showLoading:jiazhaizhong toView:self.view];
     NSString *str =  [NSString getStrWithDate:[NSDate date] andFormat:@"yyyyMMdd"];
     if (self.date > 0) {
         str = [NSString getStrWithDateInt:self.date andFormat:@"yyyyMMdd"];
@@ -435,7 +444,7 @@
             if (self.hasSelect) {
                 [self showData];
             }
-            [self.tableView showDataCount:self.allDataArray.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183)];
+            [self.tableView showDataCount:self.allDataArray.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
             if (self.allDataArray.count > 0) {
                 self.tableView.tableFooterView = self.footView;
             }
@@ -447,7 +456,7 @@
             if (self.hasSelect) {
                 [self showData];
             }
-            [self.tableView showDataCount:self.beginingDataArray.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183)];
+            [self.tableView showDataCount:self.beginingDataArray.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
         } else if (self.biSaiType == 2) {
             if (self.scheduleDataArray.count > 0) {
                 self.tableView.tableFooterView = self.footView;
@@ -456,7 +465,7 @@
             if (self.hasSelect) {
                 [self showData];
             }
-            [self.tableView showDataCount:self.scheduleDataArray.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183)];
+            [self.tableView showDataCount:self.scheduleDataArray.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
         } else if (self.biSaiType == 3) {
             if (self.resultDataArray.count > 0) {
                 self.tableView.tableFooterView = self.footView;
@@ -465,17 +474,17 @@
             if (self.hasSelect) {
                 [self showData];
             }
-            [self.tableView showDataCount:self.resultDataArray.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183)];
+            [self.tableView showDataCount:self.resultDataArray.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
         } else if (self.biSaiType == 4) {
             if (self.attentionDataArray.count > 0) {
                 self.tableView.tableFooterView = self.footView;
             }
-            [self.tableView showDataCount:self.attentionDataArray.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183) andType:2 ];
+            [self.tableView showDataCount:self.attentionDataArray.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183) andType:2 ];
         } else if (self.biSaiType == 5) {
             if (self.attentionHistoryDataArray.count > 0) {
                 self.tableView.tableFooterView = self.footView;
             }
-            [self.tableView showDataCount:self.attentionHistoryDataArray.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183) andType:2];
+            [self.tableView showDataCount:self.attentionHistoryDataArray.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183) andType:2];
         }
         [self.tableView reloadData];
 
@@ -506,6 +515,7 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeBiSaiModels:) name:@"changeBiSaiModels" object:nil];
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadData)];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deleteBiSai) name:@"deleteBiSai" object:nil];
+    [self getgamezhibolist];
 }
 
 - (void)deleteBiSai {
@@ -518,7 +528,7 @@
 }
 
 - (void)loadData {
-    [MBProgressHUD showLoading:@"加载中" toView:self.tableView];
+    [MBProgressHUD showLoading:jiazhaizhong toView:self.tableView];
     if (self.biSaiType == 3) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.tableView.mj_header endRefreshing];
@@ -584,7 +594,7 @@
             NSArray *array = [[RBFMDBTool sharedFMDBTool] selectBiSaiModelWithTime:[[NSDate date] timeIntervalSince1970] andMinStatus:9 andMaxStatus:13];
             [self.allDataArray addObjectsFromArray:array];
         }
-        [self.tableView showDataCount:self.allDataArray.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183)];
+        [self.tableView showDataCount:self.allDataArray.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
         [self.tableView reloadData];
     } else if (self.biSaiType == 1) {
         for (int i = 0; i < self.beginingDataArray.count; i++) {
@@ -734,22 +744,22 @@
     }
     if (model.status == 2) {
         // 上半场
-        model.TeeTimeStr = [NSString stringWithFormat:@"上半场 %@", [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:model.TeeTime]];
+        model.TeeTimeStr = [NSString stringWithFormat:@"%@%@",shangbanchang, [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:model.TeeTime]];
     } else if (model.status == 3) {
         model.TeeTimeStr = @"中";
     } else if (model.status >= 4 && model.status <= 7) {
         long timeCount =  (long)[[NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:model.TeeTime] longLongValue];
         if (timeCount + 45 > 90) {
-            model.TeeTimeStr = @"下半场 90+";
+            model.TeeTimeStr = xiabanchangjia;
         } else {
-            model.TeeTimeStr = [NSString stringWithFormat:@"下半场 %ld", timeCount + 45];
+            model.TeeTimeStr = [NSString stringWithFormat:@"%@%ld",xiabanchang, timeCount + 45];
         }
     } else if (model.status  == 8) {
-        model.TeeTimeStr = @"完";
+        model.TeeTimeStr = wan;
     } else if (model.status == 1) {
-        model.TeeTimeStr = @"未";
+        model.TeeTimeStr = wei;
     } else if (model.status > 8 || model.status == 0) {
-        model.TeeTimeStr = @"延迟";
+        model.TeeTimeStr = yanci;
     }
     if (model.status == 2 || model.status == 4) {
         if (self.show) {

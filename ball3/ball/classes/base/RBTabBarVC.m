@@ -18,8 +18,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addChildWithName:@"RBXinWenTabVC" andTitle:@"新闻" andImage:@"xinwen" andSelectedImage:@"xinwen_selected"];
-    [self addChildWithName:@"RBShiPingVC" andTitle:@"视频" andImage:@"shiping" andSelectedImage:@"shiping_selected"];
+    [self addChildWithName:@"RBXinWenTabVC" andTitle:xinwen andImage:@"xinwen" andSelectedImage:@"xinwen_selected"];
+    [self addChildWithName:@"RBShiPingVC" andTitle:shiping andImage:@"shiping" andSelectedImage:@"shiping_selected"];
     if (IS_IPAD) {
         NSString *str = @"                           小应预测";
         CGSize size = [str getLineSizeWithFontSize:10];
@@ -32,8 +32,8 @@
         [self addChildWithName:@"RBPredictTabVC" andTitle:@"小应预测" andImage:@"" andSelectedImage:@""];
     }
 
-    [self addChildWithName:@"RBBiSaisVC" andTitle:@"比赛" andImage:@"bisai" andSelectedImage:@"bisai_selected"];
-    [self addChildWithName:@"RBWoTabVC" andTitle:@"我的" andImage:@"wode" andSelectedImage:@"wode_selected"];
+    [self addChildWithName:@"RBBiSaisVC" andTitle:bisaiStr andImage:@"bisai" andSelectedImage:@"bisai_selected"];
+    [self addChildWithName:@"RBWoTabVC" andTitle:wode andImage:@"wode" andSelectedImage:@"wode_selected"];
     [self.tabBar removeFromSuperview];
     RBTabBar *tabBar = [[RBTabBar alloc] init];
     tabBar.delegate = self;
@@ -82,8 +82,7 @@
             [self getBiSaiData];
             return;
         }
-        [[NSUserDefaults standardUserDefaults]setValue:[NSNumber numberWithBool:NO] forKey:@"loadDataOver"];
-        [[NSUserDefaults standardUserDefaults]synchronize];
+        
         [[RBFMDBTool sharedFMDBTool]deleteTadayBiSaiModel];
         NSDictionary *dic = backData;
         NSArray *matchs = dic[@"matches"];
@@ -97,7 +96,7 @@
             model.index = i + 1;
             [mutArr addObject:model];
         }
-        [[RBFMDBTool sharedFMDBTool] insertStudentsUseTransaction:mutArr];
+        [[RBFMDBTool sharedFMDBTool] insertBiSaisUseTransaction:mutArr];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                            [[NSUserDefaults standardUserDefaults]setValue:[NSNumber numberWithBool:YES] forKey:@"loadDataOver"];
                            [[NSUserDefaults standardUserDefaults]synchronize];

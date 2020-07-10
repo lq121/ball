@@ -26,7 +26,7 @@
 - (void)setEuropeArr:(NSArray *)europeArr {
     _europeArr = europeArr;
     [self.dataArr addObjectsFromArray:europeArr];
-    [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183)];
+    [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
     if (europeArr.count != 0) {
         double minFirstHostBall, minFirstCenterBall, minFirstVisitBall, minSecondHostBall, minSecondCenterBall, minSecondVisitBall, maxFirstHostBall, maxFirstCenterBall, maxFirstVisitBall, maxSecondHostBall, maxSecondCenterBall, maxSecondVisitBall, sumFirstHostBall, sumFirstCenterBall, sumFirstVisitBall, sumSecondHostBall, sumSecondCenterBall, sumSecondVisitBall;
         RBAiDataModel *aiModel = europeArr[0];
@@ -142,7 +142,7 @@
     self.tableView.estimatedSectionHeaderHeight = 0;
     self.tableView.estimatedSectionFooterHeight = 0;
     self.tableView.backgroundColor = [UIColor colorWithSexadeString:@"#F8F8F8"];
-    [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183)];
+    [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
     [self.tableView reloadData];
 }
 

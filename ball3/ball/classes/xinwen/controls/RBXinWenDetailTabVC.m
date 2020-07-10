@@ -129,20 +129,20 @@
     [view addSubview:shearView];
 
     UILabel *label = [[UILabel alloc]init];
-    label.text = @"分享";
+    label.text = fenxiang;
     label.font = [UIFont systemFontOfSize:16];
     label.frame = CGRectMake(16, 19, 32, 22);
     [label sizeToFit];
     [shearView addSubview:label];
 
     CGFloat margin = (RBScreenWidth - 159 - 55 * 3) * 0.5;
-    RBCommButton *WXBtn = [[RBCommButton alloc] initWithImage:@"wx2" andHeighImage:@"wx2" andFrame:CGRectMake(123, 8, 55, 47) andTitle:@"微信好友" andTarget:self andAction:@selector(clickBtn:) andLabelFontSize:12];
+    RBCommButton *WXBtn = [[RBCommButton alloc] initWithImage:@"wx2" andHeighImage:@"wx2" andFrame:CGRectMake(123, 8, 55, 47) andTitle:weixinhaoyou andTarget:self andAction:@selector(clickBtn:) andLabelFontSize:12];
     WXBtn.tag = 1;
     [shearView addSubview:WXBtn];
-    RBCommButton *wFriendsBtn = [[RBCommButton alloc] initWithImage:@"quan2" andHeighImage:@"quan2" andFrame:CGRectMake(CGRectGetMaxX(WXBtn.frame) + margin, 8,  55, 47) andTitle:@"朋友圈" andTarget:self andAction:@selector(clickBtn:) andLabelFontSize:12];
+    RBCommButton *wFriendsBtn = [[RBCommButton alloc] initWithImage:@"quan2" andHeighImage:@"quan2" andFrame:CGRectMake(CGRectGetMaxX(WXBtn.frame) + margin, 8,  55, 47) andTitle:pengyouquan andTarget:self andAction:@selector(clickBtn:) andLabelFontSize:12];
     wFriendsBtn.tag = 2;
     [shearView addSubview:wFriendsBtn];
-    RBCommButton *copyBtn = [[RBCommButton alloc] initWithImage:@"link2" andHeighImage:@"link2" andFrame:CGRectMake(CGRectGetMaxX(wFriendsBtn.frame) + margin, 8,  55, 47) andTitle:@"复制链接" andTarget:self andAction:@selector(clickBtn:) andLabelFontSize:12];
+    RBCommButton *copyBtn = [[RBCommButton alloc] initWithImage:@"link2" andHeighImage:@"link2" andFrame:CGRectMake(CGRectGetMaxX(wFriendsBtn.frame) + margin, 8,  55, 47) andTitle:fuzhilianjie andTarget:self andAction:@selector(clickBtn:) andLabelFontSize:12];
     copyBtn.tag = 3;
     [shearView addSubview:copyBtn];
     if (![WXApi isWXAppInstalled]) {
@@ -157,7 +157,7 @@
     if (self.index == 3) {
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
         pasteboard.string = @"http://test.Youtoball.com:8080/download";
-        [RBToast showWithTitle:@"已复制到您的粘贴板"];
+        [RBToast showWithTitle:yifuzhi];
     } else {
         [self shareurlWithType:self.index];
     }
@@ -165,7 +165,7 @@
 
 - (void)shareurlWithType:(int)type {
     if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {
-        [MBProgressHUD showLoading:@"加载中…" toView:self.view];
+        [MBProgressHUD showLoading:jiazhaizhong toView:self.view];
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];
         NSString *uid = [[NSUserDefaults standardUserDefaults]objectForKey:@"userid"];
         if (uid != nil && ![uid isEqualToString:@""]) {
@@ -175,7 +175,7 @@
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"needShow" object:[NSNumber numberWithBool:NO]];
             WXMediaMessage *message = [WXMediaMessage message];
-            message.title = @"小应体育";
+            message.title = appName;
             message.description = self.xinWenModel.title;
             [message setThumbImage:[UIImage imageNamed:@"share logo"]];
             WXWebpageObject *webpageObject = [WXWebpageObject object];

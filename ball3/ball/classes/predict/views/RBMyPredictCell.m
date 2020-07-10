@@ -316,7 +316,7 @@
         self.negativeTip.frame = CGRectMake(RBScreenWidth - 145, 180, 6, 6);
         self.negativeLabel.frame = CGRectMake(CGRectGetMaxX(self.negativeTip.frame) + 4, 166, 140, 28);
         if (self.predictModel.style == 1) {
-            int negative = ([self.predictModel.rangqiu[0]floatValue] * 100) / (([self.predictModel.rangqiu[0]floatValue] + [self.predictModel.rangqiu[2]floatValue]) * 100) * 100;
+            int negative = ([self.predictModel.rangqiuArr[0]floatValue] * 100) / (([self.predictModel.rangqiuArr[0]floatValue] + [self.predictModel.rangqiuArr[2]floatValue]) * 100) * 100;
             int win = 100 - negative;
             if (win == 50) {
                 if (negative > 50.0) {
@@ -400,7 +400,7 @@
     self.firstChose.hidden = (predictModel.style != 2);
     self.secondChose.hidden =  (predictModel.style != 2);
     if (predictModel.style == 1) {
-        self.titleLabel.text = @"让球";
+        self.titleLabel.text = rangqiu;
         if (predictModel.rqresult == 1) {
             self.img.image = [UIImage imageNamed:@"correct"];
         } else if (predictModel.rqresult == 2) {
@@ -408,8 +408,8 @@
         } else if (predictModel.rqresult == 3) {
             self.img.image = [UIImage imageNamed:@"wrong"];
         }
-        self.topLabel.text = [NSString stringWithFormat:@"%@ %@ %@",  [NSString formatFloat:[predictModel.rangqiu[0] doubleValue]], [NSString formatFloat:[predictModel.rangqiu[1] doubleValue]], [NSString formatFloat:[predictModel.rangqiu[2] doubleValue]]];
-        int negative = ([predictModel.rangqiu[0]floatValue] * 100) / (([predictModel.rangqiu[0]floatValue] + [predictModel.rangqiu[2]floatValue]) * 100) * 100;
+        self.topLabel.text = [NSString stringWithFormat:@"%@ %@ %@",  [NSString formatFloat:[predictModel.rangqiuArr[0] doubleValue]], [NSString formatFloat:[predictModel.rangqiuArr[1] doubleValue]], [NSString formatFloat:[predictModel.rangqiuArr[2] doubleValue]]];
+        int negative = ([predictModel.rangqiuArr[0]floatValue] * 100) / (([predictModel.rangqiuArr[0]floatValue] + [predictModel.rangqiuArr[2]floatValue]) * 100) * 100;
         int win = 100 - negative;
         if (win == 50) {
             if (negative > 50.0) {
@@ -503,7 +503,7 @@
         [AttributedStr3 addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:20] range:NSMakeRange(1, self.negativeLabel.text.length - 2)];
         [AttributedStr3 addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:14] range:NSMakeRange(self.negativeLabel.text.length - 1, 1)];
         self.negativeLabel.attributedText = AttributedStr3;
-        self.titleLabel.text = @"胜平负";
+        self.titleLabel.text = shengpingfu;
         self.topLabel.text = [NSString stringWithFormat:@"%@ %@ %@",  [NSString formatFloat:[predictModel.shengps[0] doubleValue]], [NSString formatFloat:[predictModel.shengps[1] doubleValue]], [NSString formatFloat:[predictModel.shengps[2] doubleValue]]];
     } else {
         int negative = ([predictModel.daxiao[0]floatValue] * 100) / (([predictModel.daxiao[0]floatValue] + [predictModel.daxiao[2]floatValue]) * 100) * 100;
@@ -534,7 +534,7 @@
         [AttributedStr2 addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:20] range:NSMakeRange(4, self.negativeLabel.text.length - 5)];
         [AttributedStr2 addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:14] range:NSMakeRange(self.negativeLabel.text.length - 1, 1)];
         self.negativeLabel.attributedText = AttributedStr2;
-        self.titleLabel.text = @"大小球";
+        self.titleLabel.text = daxiaoqiu;
         self.topLabel.text = [NSString stringWithFormat:@"%@ %@ %@",  [NSString formatFloat:[predictModel.daxiao[0] doubleValue]], [NSString formatFloat:[predictModel.daxiao[1] doubleValue]], [NSString formatFloat:[predictModel.daxiao[2] doubleValue]]];
     }
 }

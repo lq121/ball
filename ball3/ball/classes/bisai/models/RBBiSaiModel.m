@@ -46,22 +46,22 @@
     model.TeeTime = [arr[4]intValue];
     if (model.status == 2) {
         // 上半场
-        model.TeeTimeStr = [NSString stringWithFormat:@"上半场 %@", [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:[arr[4]intValue]]];
+        model.TeeTimeStr = [NSString stringWithFormat:@"%@%@",shangbanchang, [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:[arr[4]intValue]]];
     } else if (model.status == 3) {
         model.TeeTimeStr = @"中";
     } else if (model.status >= 4 && model.status <= 7) {
         long timeCount =  (long)[[NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:[arr[4]intValue]] longLongValue];
         if (timeCount + 45 > 90) {
-            model.TeeTimeStr = @"下半场 90+";
+            model.TeeTimeStr = xiabanchangjia;
         } else {
-            model.TeeTimeStr = [NSString stringWithFormat:@"下半场 %ld", timeCount + 45];
+            model.TeeTimeStr = [NSString stringWithFormat:@"%@%ld",xiabanchang, timeCount + 45];
         }
     } else if (model.status  == 8) {
-        model.TeeTimeStr = @"完";
+        model.TeeTimeStr = wan;
     } else if (model.status == 1) {
-        model.TeeTimeStr = @"未";
+        model.TeeTimeStr = wei;
     } else if (model.status > 8 || model.status == 0) {
-        model.TeeTimeStr = @"延迟";
+        model.TeeTimeStr = yanci;
     }
     return model;
 }

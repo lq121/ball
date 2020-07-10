@@ -64,7 +64,7 @@
     self.head.hidden = !infoModel.isImage;
     self.row.hidden = !infoModel.showRow;
     self.desLabel.hidden = infoModel.isImage;
-    if ([infoModel.tipName isEqualToString:@"邀请码"] && !infoModel.hasUsed) {
+    if ([infoModel.tipName isEqualToString:yaoqingma] && !infoModel.hasUsed) {
         self.tip.textColor = [UIColor colorWithSexadeString:@"#FA7268"];
     } else {
         self.tip.textColor = [UIColor colorWithSexadeString:@"#333333"];

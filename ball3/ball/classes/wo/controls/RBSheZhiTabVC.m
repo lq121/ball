@@ -16,7 +16,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"通用设置";
-    self.sheZhiArr = @[@"关于平台", @"进球音效", @"通知开关", @"使用条款和隐私", @"用户协议", @"清除缓存"];
+    self.sheZhiArr = @[@"关于平台", @"进球音效", @"通知开关", @"使用条款和隐私", yonghuxieyi, @"清除缓存"];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -145,13 +145,13 @@
         // 使用条款和隐私
         RBWKWebView *webVc = [[RBWKWebView alloc]init];
         webVc.url = @"hios/privacy-policy.html";
-        webVc.title = @"隐私政策";
+        webVc.title = yinsizhengce;
         [self.navigationController pushViewController:webVc animated:YES];
     } else if (indexPath.row == 4) {
         // 使用条款和隐私
         RBWKWebView *webVc = [[RBWKWebView alloc]init];
         webVc.url = @"hios/user-policy.html";
-        webVc.title = @"用户协议";
+        webVc.title = yonghuxieyi;
         [self.navigationController pushViewController:webVc animated:YES];
     } else if (indexPath.row == 5) {
         // 清除缓存
@@ -221,10 +221,10 @@
         return;
     }
     __weak typeof(self) weakSelf = self;
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"缓存大小为%@,确定要清理缓存吗？", self.cacheStr] preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:tishi message:[NSString stringWithFormat:@"缓存大小为%@,确定要清理缓存吗？", self.cacheStr] preferredStyle:UIAlertControllerStyleAlert];
 
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *_Nonnull action) {
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:quxiao style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:queding style:UIAlertActionStyleDefault handler:^(UIAlertAction *_Nonnull action) {
         weakSelf.cacheStr = @"0.00M";
         [weakSelf.tableView reloadData];
         [weakSelf clearCache];

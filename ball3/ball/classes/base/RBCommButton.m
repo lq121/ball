@@ -11,7 +11,7 @@
         self.frame = CGRectMake(0, 0, 100, 60);
         self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
         self.titleLabel.font = [UIFont systemFontOfSize:fontSize];
-        if([title isEqualToString:@"重新播放"]){
+        if([title isEqualToString:chongxinbofang]){
             [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         }else{
             [self setTitleColor:[UIColor colorWithSexadeString:@"#333333"] forState:UIControlStateNormal];

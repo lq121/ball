@@ -29,7 +29,7 @@
 }
 
 - (void)getData {
-    [MBProgressHUD showLoading:@"加载中…" toView:self.tableView];
+    [MBProgressHUD showLoading:jiazhaizhong toView:self.tableView];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict setValue:@(self.currentPage) forKey:@"p"];
     [RBNetworkTool PostDataWithUrlStr:@"apis/getdetailservercost2" andParam:dict Success:^(NSDictionary *_Nonnull backData) {

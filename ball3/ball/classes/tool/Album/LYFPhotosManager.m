@@ -36,7 +36,7 @@
                         [[UIApplication sharedApplication] openURL:url];
                     }
                 }];
-                               UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *_Nonnull action) {
+                               UIAlertAction *action2 = [UIAlertAction actionWithTitle:quxiao style:UIAlertActionStyleCancel handler:^(UIAlertAction *_Nonnull action) {
                 }];
 
                                [alertViewController addAction:action1];

@@ -414,14 +414,14 @@ typedef void (^ChangeHeight)(int height);
     NSString *str = [[NSString alloc]init];
     if (self.biSaiModel.status == 2 || self.biSaiModel.status == 4) {
         if (self.biSaiModel.status   == 2) {
-            str = [NSString stringWithFormat:@"上半场 %@", [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:self.biSaiModel.TeeTime]];
+            str = [NSString stringWithFormat:@"%@%@",shangbanchang, [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:self.biSaiModel.TeeTime]];
         }
         if (self.biSaiModel.status   >= 4 && self.biSaiModel.status   <= 7) {
             long timeCount =  (long)[[NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:self.biSaiModel.TeeTime] longLongValue];
             if (timeCount + 45 > 90) {
-                str = @"下半场 90+";
+                str = xiabanchangjia;
             } else {
-                str = [NSString stringWithFormat:@"下半场 %ld", timeCount + 45];
+                str = [NSString stringWithFormat:@"%@%ld",xiabanchang, timeCount + 45];
             }
         }
         if (self.show) {
@@ -532,25 +532,25 @@ typedef void (^ChangeHeight)(int height);
         self.biSaiTimeLabel.textAlignment = NSTextAlignmentCenter;
         self.biSaiTimeLabel2.textAlignment = NSTextAlignmentCenter;
     } else if (self.biSaiModel.status == 8) {
-        str =  @"完";
+        str =  wan;
         self.biSaiTimeLabel.textAlignment = NSTextAlignmentCenter;
         self.biSaiTimeLabel2.textAlignment = NSTextAlignmentCenter;
     } else if (self.biSaiModel.status == 1) {
-        str =  @"未";
+        str =  wei;
         self.biSaiTimeLabel.textAlignment = NSTextAlignmentCenter;
         self.biSaiTimeLabel2.textAlignment = NSTextAlignmentCenter;
     } else if (self.biSaiModel.status == 2 || self.biSaiModel.status == 4) {
         self.biSaiTimeLabel.textAlignment = NSTextAlignmentLeft;
         self.biSaiTimeLabel2.textAlignment = NSTextAlignmentLeft;
         if (self.biSaiModel.status   == 2) {
-            str = [NSString stringWithFormat:@"上半场 %@", [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:self.biSaiModel.TeeTime]];
+            str = [NSString stringWithFormat:@"%@%@",shangbanchang, [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:self.biSaiModel.TeeTime]];
         }
         if (self.biSaiModel.status   >= 4 && self.biSaiModel.status   <= 7) {
             long timeCount =  (long)[[NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:biSaiModel.TeeTime] longLongValue];
             if (timeCount + 45 > 90) {
-                str = @"下半场 90+";
+                str = xiabanchangjia;
             } else {
-                str = [NSString stringWithFormat:@"下半场 %ld", timeCount + 45];
+                str = [NSString stringWithFormat:@"%@%ld",xiabanchang, timeCount + 45];
             }
         }
         if (self.show) {
@@ -571,12 +571,12 @@ typedef void (^ChangeHeight)(int height);
     } else if (self.biSaiModel.status == 0 || self.biSaiModel.status > 8) {
         self.biSaiTimeLabel.textAlignment = NSTextAlignmentCenter;
         self.biSaiTimeLabel2.textAlignment = NSTextAlignmentCenter;
-        str = @"延迟";
-        str = @"延迟";
+        str = yanci;
+        str = yanci;
     }
     self.biSaiTimeLabel.text = [NSString stringWithFormat:@"%@", str];
     self.biSaiTimeLabel2.text = [NSString stringWithFormat:@"%@", str];
-    if ([self.biSaiTimeLabel.text isEqualToString:@"延迟"]) {
+    if ([self.biSaiTimeLabel.text isEqualToString:yanci]) {
         [self.biSaiTimeLabel sizeToFit];
         self.biSaiTimeLabel.textAlignment = NSTextAlignmentCenter;
         self.biSaiTimeLabel.textColor = [UIColor whiteColor];

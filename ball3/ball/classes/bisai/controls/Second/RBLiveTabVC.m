@@ -277,7 +277,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     RBLiveModel *liveModel = self.liveArr[self.liveArr.count - indexPath.row - 1];
-    NSString *dataStr = [liveModel.data stringByReplacingOccurrencesOfString:@"雷速" withString:@"小应体育"];
+    NSString *dataStr = [liveModel.data stringByReplacingOccurrencesOfString:@"雷速" withString:appName];
     return [RBLiveCell getCellHeightWithString:dataStr] + 4;
 }
 

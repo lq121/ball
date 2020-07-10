@@ -25,7 +25,7 @@
             typeNum = [huatilvlimit[type] intValue];
         }
         if (isVip != 2 && Viplevel < typeNum) {
-            RBActionView *actionView = [[RBActionView alloc]initWithFrame:CGRectMake(38, (RBScreenHeight - 150) * 0.5, RBScreenWidth - 38 * 2, 150) andTitle:title andCancel:@"知道了"  andSure:@"如何升级" andClickSureBtn:^{
+            RBActionView *actionView = [[RBActionView alloc]initWithFrame:CGRectMake(38, (RBScreenHeight - 150) * 0.5, RBScreenWidth - 38 * 2, 150) andTitle:title andCancel:@"zhidaole"  andSure:@"如何升级" andClickSureBtn:^{
                 int Viplevel = [[[NSUserDefaults standardUserDefaults]objectForKey:@"Viplevel"]intValue];
                 int Exp = [[[NSUserDefaults standardUserDefaults]objectForKey:@"Exp"]intValue];
                 RBDengJiVC *dengJiVC = [[RBDengJiVC alloc]init];
@@ -37,7 +37,7 @@
             return YES;
         }
     } else {
-        RBActionView *actionView = [[RBActionView alloc]initWithFrame:CGRectMake(38, (RBScreenHeight - 150) * 0.5, RBScreenWidth - 38 * 2, 150) andTitle:title andCancel:@"知道了"  andSure:@"如何升级" andClickSureBtn:^{
+        RBActionView *actionView = [[RBActionView alloc]initWithFrame:CGRectMake(38, (RBScreenHeight - 150) * 0.5, RBScreenWidth - 38 * 2, 150) andTitle:title andCancel:@"zhidaole"  andSure:@"如何升级" andClickSureBtn:^{
             int Viplevel = [[[NSUserDefaults standardUserDefaults]objectForKey:@"Viplevel"]intValue];
             int Exp = [[[NSUserDefaults standardUserDefaults]objectForKey:@"Exp"]intValue];
             RBDengJiVC *dengJiVC = [[RBDengJiVC alloc]init];

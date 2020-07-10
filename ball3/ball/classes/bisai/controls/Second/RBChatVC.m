@@ -61,7 +61,7 @@
 
         UIButton *sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(textField.frame) + 8, 0, 50, 49)];
         [sendBtn addTarget:self action:@selector(clickSendBtn) forControlEvents:UIControlEventTouchUpInside];
-        [sendBtn setTitle:@"发送" forState:UIControlStateNormal];
+        [sendBtn setTitle:fasong forState:UIControlStateNormal];
         [sendBtn setTitleColor:[UIColor colorWithSexadeString:@"#333333"] forState:UIControlStateNormal];
         sendBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
         [chatToolBar addSubview:sendBtn];

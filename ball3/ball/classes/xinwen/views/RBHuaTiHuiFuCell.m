@@ -123,7 +123,7 @@ typedef void (^LongTap)(RBHuaTiHuiFuModel *huaTiHuiFuModel);
     if ([RBChekLogin NotLogin]) {
         return;
     }
-    if ([RBChekLogin checkWithTitile:@"等级需到达5级以上\n或者会员才可以参与互动" andtype:@"zanlv" andNeedCheck:YES]) {
+    if ([RBChekLogin checkWithTitile:xuyao5ji andtype:@"zanlv" andNeedCheck:YES]) {
         return;
     }
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -137,7 +137,7 @@ typedef void (^LongTap)(RBHuaTiHuiFuModel *huaTiHuiFuModel);
     }
     [RBNetworkTool PostDataWithUrlStr:str andParam:dict Success:^(NSDictionary *_Nonnull backData) {
         if (backData[@"ok"] != nil) {
-            [RBToast showWithTitle:@"点赞成功"];
+            [RBToast showWithTitle:dianzansuccess];
             RBHuaTiHuiFuModel *topicModel = self.huaTiHuiFuModel;
             topicModel.Zannum += 1;
             topicModel.Zan = 1;
@@ -148,7 +148,7 @@ typedef void (^LongTap)(RBHuaTiHuiFuModel *huaTiHuiFuModel);
 }
 
 - (void)clickReplyBtn {
-    NSArray *arr = @[@"回复", @"举报"];
+    NSArray *arr = @[huifu, jubao];
     RBActionView *actionView = [[RBActionView alloc]initWithArray:arr andCancelBtnColor:[UIColor colorWithSexadeString:@"#333333"]  andClickItem:^(NSInteger index) {
         if (index == 0) {
             // 回复
@@ -178,7 +178,7 @@ typedef void (^LongTap)(RBHuaTiHuiFuModel *huaTiHuiFuModel);
         }
         [RBNetworkTool PostDataWithUrlStr:str andParam:dict Success:^(NSDictionary *_Nonnull backData) {
             if (backData[@"ok"] != nil) {
-                [RBToast showWithTitle:@"举报成功"];
+                [RBToast showWithTitle:jubaosuccess];
             }
         } Fail:^(NSError *_Nonnull error) {
         }];

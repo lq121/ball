@@ -129,7 +129,7 @@
     self.title = @"个人信息";
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     self.tableView.backgroundColor = [UIColor colorWithSexadeString:@"#F8F8F8"];
-    NSArray *tips = @[@"头像", @"昵称", @"UID", @"邀请码", @"密码", @"邮箱", @"手机号", @"实名认证", @"我的等级", @"我的金币"];
+    NSArray *tips = @[@"头像", @"昵称", @"UID", yaoqingma, @"密码", @"邮箱", @"手机号", @"实名认证", @"我的等级", @"我的金币"];
     if (self.des.count == 0) {
         NSArray *des = @[@"user pic", @"", @"", @"", @"修改", @"", @"", @"未认证", @"Lv.0", @"0"];
         [self.des addObjectsFromArray:des];
@@ -312,7 +312,7 @@
         if (YES == cameraIsAvailable) {
             [self presentViewController:self.imagePicker animated:YES completion:nil];
         } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请在iPhone的“设置-隐私-相机”选项中，允许本应用程序访问你的相机。" delegate:self cancelButtonTitle:@"好，我知道了" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:tishi message:@"请在iPhone的“设置-隐私-相机”选项中，允许本应用程序访问你的相机。" delegate:self cancelButtonTitle:@"好，我知道了" otherButtonTitles:nil];
             [alert show];
         }
     }

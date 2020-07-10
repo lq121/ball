@@ -154,7 +154,7 @@
     UIButton *backbtn = [[UIButton alloc]initWithFrame:CGRectMake(16, RBScreenHeight - 74 - RBBottomSafeH - RBNavBarAndStatusBarH, RBScreenWidth - 32, 48)];
     [backbtn setBackgroundImage:[UIImage imageNamed:@"btn keep"] forState:UIControlStateNormal];
     [backbtn setBackgroundImage:[UIImage imageNamed:@"btn keep_enabled"] forState:UIControlStateDisabled];
-    [backbtn setTitle:@"提交" forState:UIControlStateNormal];
+    [backbtn setTitle:tijiao forState:UIControlStateNormal];
     backbtn.titleLabel.font = [UIFont systemFontOfSize:16];
     [backbtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [backbtn setTitleColor:[UIColor colorWithSexadeString:@"#333333" AndAlpha:0.5] forState:UIControlStateDisabled];
@@ -319,7 +319,7 @@
         if (YES == cameraIsAvailable) {
             [self presentViewController:self.imagePicker animated:YES completion:nil];
         } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请在iPhone的“设置-隐私-相机”选项中，允许本应用程序访问你的相机。" delegate:self cancelButtonTitle:@"好，我知道了" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:tishi message:@"请在iPhone的“设置-隐私-相机”选项中，允许本应用程序访问你的相机。" delegate:self cancelButtonTitle:@"好，我知道了" otherButtonTitles:nil];
             [alert show];
         }
     }

@@ -33,19 +33,19 @@
     [self.view addSubview:backBtn];
 
     UILabel *tipLabel = [[UILabel alloc]init];
-    tipLabel.text = @"注册";
+    tipLabel.text = zhuce;
     tipLabel.textAlignment = NSTextAlignmentLeft;
     tipLabel.font = [UIFont systemFontOfSize:30];
     tipLabel.textColor = [UIColor colorWithSexadeString:@"#333333"];
     tipLabel.frame = CGRectMake(20, RBStatusBarH + 56, 150, 42);
     [self.view addSubview:tipLabel];
 
-    self.eareField = [self createCodeViewWithFrame:CGRectMake(0, RBStatusBarH + 105, RBScreenWidth, 73) andText:@"中国" andPlaceholder:nil andLeftView:nil];
+    self.eareField = [self createCodeViewWithFrame:CGRectMake(0, RBStatusBarH + 105, RBScreenWidth, 73) andText:zhongguo andPlaceholder:nil andLeftView:nil];
     self.eareField.userInteractionEnabled = NO;
-    self.phoneField = [self createCodeViewWithFrame:CGRectMake(0, RBStatusBarH + 105 + 73, RBScreenWidth, 73) andText:nil andPlaceholder:@"手机号码/邮箱地址" andLeftView:nil];
-    self.codeField = [self createCodeViewWithFrame:CGRectMake(0, RBStatusBarH + 105 + 73 * 2, RBScreenWidth, 73) andText:nil andPlaceholder:@"请输入验证码" andLeftView:@"btn"];
-    self.pwdField = [self createCodeViewWithFrame:CGRectMake(0, RBStatusBarH + 105 + 73 * 3, RBScreenWidth, 73) andText:nil andPlaceholder:@"设置登录密码(至少6位数字或英文字母)" andLeftView:nil];
-    self.invitationField = [self createCodeViewWithFrame:CGRectMake(0, RBStatusBarH + 105 + 73 * 4, RBScreenWidth, 73) andText:nil andPlaceholder:@"邀请码(非必填)" andLeftView:nil];
+    self.phoneField = [self createCodeViewWithFrame:CGRectMake(0, RBStatusBarH + 105 + 73, RBScreenWidth, 73) andText:nil andPlaceholder:shoujihuoyouxiang andLeftView:nil];
+    self.codeField = [self createCodeViewWithFrame:CGRectMake(0, RBStatusBarH + 105 + 73 * 2, RBScreenWidth, 73) andText:nil andPlaceholder:shuruyanzhengma andLeftView:@"btn"];
+    self.pwdField = [self createCodeViewWithFrame:CGRectMake(0, RBStatusBarH + 105 + 73 * 3, RBScreenWidth, 73) andText:nil andPlaceholder:shezhimima andLeftView:nil];
+    self.invitationField = [self createCodeViewWithFrame:CGRectMake(0, RBStatusBarH + 105 + 73 * 4, RBScreenWidth, 73) andText:nil andPlaceholder:yaoqingmafeibitian andLeftView:nil];
 
     UIButton *registBtn = [[UIButton alloc]initWithFrame:CGRectMake(16, RBStatusBarH + 105 + 73 * 5 + 59, RBScreenWidth - 32, 48)];
     registBtn.layer.masksToBounds = YES;
@@ -54,18 +54,18 @@
     registBtn.enabled = NO;
     [registBtn setBackgroundImage:[UIImage imageNamed:@"btn keep"] forState:UIControlStateNormal];
     [registBtn setBackgroundImage:[UIImage imageNamed:@"btn keep_enabled"] forState:UIControlStateDisabled];
-    [registBtn setTitle:@"提交" forState:UIControlStateNormal];
+    [registBtn setTitle:tijiao forState:UIControlStateNormal];
     registBtn.titleLabel.font = [UIFont systemFontOfSize:16];
     [registBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [registBtn setTitleColor:[UIColor colorWithSexadeString:@"#333333" AndAlpha:0.5] forState:UIControlStateDisabled];
     [registBtn addTarget:self action:@selector(clickregistBtn) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:registBtn];
 
-    CGSize size = [@"登录即同意小应体育 用户协议 和 隐私政策   " getLineSizeWithFontSize:12];
-    NSString *str1 = @"注册即同意小应体育 ";
-    NSString *str2 = @"用户协议";
-    NSString *str3 = @" 和 ";
-    NSString *str4 = @"隐私政策";
+    CGSize size = [dengluxieyi getLineSizeWithFontSize:12];
+    NSString *str1 = zhucetongyi;
+    NSString *str2 = yonghuxieyi;
+    NSString *str3 = he;
+    NSString *str4 = yinsizhengce;
     NSString *str = [NSString stringWithFormat:@"%@%@%@%@", str1, str2, str3, str4];
     NSRange range1 = [str rangeOfString:str1];
     NSRange range2 = [str rangeOfString:str2];
@@ -95,14 +95,14 @@
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
     if ([[URL scheme] isEqualToString:@"first"]) {
         RBWKWebView *webVC = [[RBWKWebView alloc]init];
-        webVC.title = @"用户协议";
+        webVC.title = yonghuxieyi;
         webVC.url = @"hios/user-policy.html";
         [self.navigationController pushViewController:webVC animated:YES];
         return NO;
     } else if ([[URL scheme] isEqualToString:@"second"]) {
         RBWKWebView *webVC = [[RBWKWebView alloc]init];
         webVC.url = @"hios/privacy-policy.html";
-        webVC.title = @"隐私政策";
+        webVC.title = yinsizhengce;
         [self.navigationController pushViewController:webVC animated:YES];
         return NO;
     }
@@ -128,19 +128,19 @@
     textField.frame = CGRectMake(20, 40, RBScreenWidth - 90 - 16 - 20, 25);
     textField.delegate = self;
     [BGView addSubview:textField];
-    if ([text isEqualToString:@"中国"]) {
+    if ([text isEqualToString:zhongguo]) {
         UIButton *rowBtn = [[UIButton alloc]initWithFrame:CGRectMake(RBScreenWidth - 16 - 28, 38, 28, 28)];
         textField.userInteractionEnabled = NO;
         [rowBtn setBackgroundImage:[UIImage imageNamed:@"down black"] forState:UIControlStateNormal];
         [BGView addSubview:rowBtn];
     }
-    if ([placeHolder containsString:@"设置登录密码"]) {
+    if ([placeHolder containsString:shezhidenglumima]) {
         textField.secureTextEntry = YES;
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc]initWithString:placeHolder];
         [attr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17] range:NSMakeRange(0, 6)];
         [attr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(6, placeHolder.length - 6)];
         textField.attributedPlaceholder = attr;
-    } else if ([placeHolder containsString:@"邀请码"]) {
+    } else if ([placeHolder containsString:yaoqingma]) {
         textField.secureTextEntry = YES;
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc]initWithString:placeHolder];
         [attr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17] range:NSMakeRange(0, 3)];
@@ -157,7 +157,7 @@
         getCodeBtn.layer.cornerRadius = 4;
         getCodeBtn.enabled = NO;
         self.getCodeBtn = getCodeBtn;
-        [getCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+        [getCodeBtn setTitle:huoquyanzhengma forState:UIControlStateNormal];
         [getCodeBtn setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithSexadeString:@"#E8E8E8"]] forState:UIControlStateDisabled];
         [getCodeBtn setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithSexadeString:@"#FFA500"]] forState:UIControlStateNormal];
         [getCodeBtn setTitleColor:[UIColor colorWithSexadeString:@"#333333" AndAlpha:0.5] forState:UIControlStateDisabled];
@@ -172,11 +172,11 @@
     [BGView addSubview:line];
     if (placeHolder == nil) {
         self.line1 = line;
-    } else if ([placeHolder isEqualToString:@"手机号码/邮箱地址"]) {
+    } else if ([placeHolder isEqualToString:shoujihuoyouxiang]) {
         self.line2 = line;
-    } else if ([placeHolder isEqualToString:@"请输入验证码"]) {
+    } else if ([placeHolder isEqualToString:shuruyanzhengma]) {
         self.line3 = line;
-    } else if ([placeHolder isEqualToString:@"设置登录密码"]) {
+    } else if ([placeHolder isEqualToString:shezhidenglumima]) {
         self.line4 = line;
     }
 
@@ -186,7 +186,7 @@
 
 - (void)clickGetCodeBtn:(UIButton *)btn {
     if (![NSString isVaildPhone:self.phoneField.text]) {
-        [RBToast showWithTitle:@"请输入合法手机号码"];
+        [RBToast showWithTitle:shuruhefashoujihao];
         return;
     }
 
@@ -208,7 +208,7 @@
         self.timer = nil;
         return;
     }
-    [self.getCodeBtn setTitle:[NSString stringWithFormat:@"%ds重新获取", self.timeCount] forState:UIControlStateDisabled];
+    [self.getCodeBtn setTitle:[NSString stringWithFormat:chongxinhuoqu, self.timeCount] forState:UIControlStateDisabled];
     self.timeCount--;
 }
 
@@ -222,15 +222,15 @@
     NSString *pwd = [self.pwdField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSString *invitationCode = [self.invitationField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
     if (phone.length <= 0) {
-        [RBToast showWithTitle:@"请输入手机号或邮箱"];
+        [RBToast showWithTitle:shurushoujihao];
         return;
     }
     if (code.length <= 0) {
-        [RBToast showWithTitle:@"请输入验证码"];
+        [RBToast showWithTitle:shuruyanzhengma];
         return;
     }
     if (pwd.length <= 0) {
-        [RBToast showWithTitle:@"请输入密码"];
+        [RBToast showWithTitle:shurumima];
         return;
     }
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -245,7 +245,7 @@
     [RBNetworkTool PostDataWithUrlStr:@"try/go/reg" andParam:dict Success:^(NSDictionary *_Nonnull backData) {
         NSDictionary *dict = backData;
         if (dict[@"access_token"] != nil && dict[@"refresh_token"] != nil) {
-            [RBTipView tipWithTitle:@"注册成功" andExp:[dict[@"addexp"]intValue] andCoin:[dict[@"addcoin"]intValue]];
+            [RBTipView tipWithTitle:zhucesuccess andExp:[dict[@"addexp"]intValue] andCoin:[dict[@"addcoin"]intValue]];
             [[NSUserDefaults standardUserDefaults]setValue:dict[@"access_token"] forKey:@"access_token"];
             [[NSUserDefaults standardUserDefaults]setValue:dict[@"refresh_token"] forKey:@"refresh_token"];
             [[NSUserDefaults standardUserDefaults]setValue:dict[@"userid"] forKey:@"userid"];

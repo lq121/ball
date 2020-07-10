@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.labelArray = [NSMutableArray array];
-    self.title = @"邀请码";
+    self.title = yaoqingma;
     self.view.backgroundColor = [UIColor colorWithSexadeString:@"#F8F8F8"];
     UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, RBScreenWidth, RBScreenHeight - 74 - RBBottomSafeH - RBNavBarAndStatusBarH)];
     self.scrollView = scrollView;
@@ -96,7 +96,7 @@
         saveBtn.layer.cornerRadius = 24;
         [saveBtn setBackgroundImage:[UIImage imageNamed:@"btn keep"] forState:UIControlStateNormal];
         [saveBtn setBackgroundImage:[UIImage imageNamed:@"btn keep_enabled"] forState:UIControlStateDisabled];
-        [saveBtn setTitle:@"提交" forState:UIControlStateNormal];
+        [saveBtn setTitle:tijiao forState:UIControlStateNormal];
         saveBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
         [saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [saveBtn setTitleColor:[UIColor colorWithSexadeString:@"#333333" AndAlpha:0.5] forState:UIControlStateDisabled];

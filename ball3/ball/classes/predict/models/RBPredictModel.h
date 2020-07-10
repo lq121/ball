@@ -60,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 情报
 @property (nonatomic, assign) int qingbao;
 /// 让球
-@property (nonatomic, strong) NSArray *rangqiu;
+@property (nonatomic, strong) NSArray *rangqiuArr;
 /// 让球结果
 @property (nonatomic, assign) int rqresult;
 /// 赛季Id

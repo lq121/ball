@@ -103,7 +103,7 @@
 
         UIButton *sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(btn.frame) + 16, 0, 50, 49)];
         sendBtn.enabled = NO;
-        [sendBtn setTitle:@"发送" forState:UIControlStateNormal];
+        [sendBtn setTitle:fasong forState:UIControlStateNormal];
         [sendBtn setTitleColor:[UIColor colorWithSexadeString:@"#8B8B8B"] forState:UIControlStateDisabled];
         sendBtn.titleLabel.font = [UIFont systemFontOfSize:16];
         [chatToolBar addSubview:sendBtn];
@@ -124,7 +124,7 @@
 
         UIButton *sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(textField.frame) + 16, 0, 50, 49)];
         [sendBtn addTarget:self action:@selector(clickSendBtn) forControlEvents:UIControlEventTouchUpInside];
-        [sendBtn setTitle:@"发送" forState:UIControlStateNormal];
+        [sendBtn setTitle:fasong forState:UIControlStateNormal];
         [sendBtn setTitleColor:[UIColor colorWithSexadeString:@"#FFA500"] forState:UIControlStateNormal];
         sendBtn.titleLabel.font = [UIFont systemFontOfSize:16];
         [chatToolBar addSubview:sendBtn];
@@ -135,11 +135,11 @@
     if ([RBChekLogin NotLogin]) {
         return;
     }
-    if ([RBChekLogin checkWithTitile:@"等级需到达5级以上\n或者会员才可以参与互动" andtype:@"commentlv" andNeedCheck:YES]) {
+    if ([RBChekLogin checkWithTitile:xuyao5ji andtype:@"commentlv" andNeedCheck:YES]) {
         return;
     }
     if (self.textField.text.length <= 0) {
-        [RBToast showWithTitle:@"请输入回复内容"];
+        [RBToast showWithTitle:shuruhuifu];
         return;
     }
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -151,7 +151,7 @@
 
     [RBNetworkTool PostDataWithUrlStr:@"apis/huaticomment" andParam:dict Success:^(NSDictionary *_Nonnull backData) {
         if ([backData[@"err"]intValue] == 50002) {
-            [RBChekLogin checkWithTitile:@"等级需到达5级以上\n或者会员才可以参与互动" andtype:@"commentlv" andNeedCheck:NO];
+            [RBChekLogin checkWithTitile:xuyao5ji andtype:@"commentlv" andNeedCheck:NO];
         } else if (backData[@"ok"] != nil) {
             self.textField.text = nil;
             [self.textField resignFirstResponder];

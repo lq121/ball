@@ -24,26 +24,26 @@ typedef void (^ClickSureBtn)(void);
         [self addSubview:whiteView];
 
         UILabel *tip = [[UILabel alloc]init];
-        tip.text = @"转发至";
+        tip.text = zhuanfazhi;
         tip.frame = CGRectMake(0, 16, RBScreenWidth, 22);
         tip.textAlignment = NSTextAlignmentCenter;
         tip.textColor = [UIColor colorWithSexadeString:@"#333333"];
         tip.font = [UIFont boldSystemFontOfSize:16];
         [whiteView addSubview:tip];
         if (nocopy) {
-            RBCommButton *WXBtn = [[RBCommButton alloc] initWithImage:@"wx" andHeighImage:@"wx" andFrame:CGRectMake(49, 54, 56, 72) andTitle:@"微信好友" andTarget:self andAction:@selector(clickWXBtn)];
+            RBCommButton *WXBtn = [[RBCommButton alloc] initWithImage:@"wx" andHeighImage:@"wx" andFrame:CGRectMake(49, 54, 56, 72) andTitle:weixinhaoyou andTarget:self andAction:@selector(clickWXBtn)];
             [whiteView addSubview:WXBtn];
 
-            RBCommButton *wFriendsBtn = [[RBCommButton alloc] initWithImage:@"quan" andHeighImage:@"quan" andFrame:CGRectMake(RBScreenWidth - 56 - 49, 54, 56, 72) andTitle:@"朋友圈" andTarget:self andAction:@selector(clickwFriendsBtn)];
+            RBCommButton *wFriendsBtn = [[RBCommButton alloc] initWithImage:@"quan" andHeighImage:@"quan" andFrame:CGRectMake(RBScreenWidth - 56 - 49, 54, 56, 72) andTitle:pengyouquan andTarget:self andAction:@selector(clickwFriendsBtn)];
             [whiteView addSubview:wFriendsBtn];
         } else {
-            RBCommButton *WXBtn = [[RBCommButton alloc] initWithImage:@"wx" andHeighImage:@"wx" andFrame:CGRectMake(49, 54, 56, 72) andTitle:@"微信好友" andTarget:self andAction:@selector(clickWXBtn)];
+            RBCommButton *WXBtn = [[RBCommButton alloc] initWithImage:@"wx" andHeighImage:@"wx" andFrame:CGRectMake(49, 54, 56, 72) andTitle:weixinhaoyou andTarget:self andAction:@selector(clickWXBtn)];
             [whiteView addSubview:WXBtn];
 
-            RBCommButton *wFriendsBtn = [[RBCommButton alloc] initWithImage:@"quan" andHeighImage:@"quan" andFrame:CGRectMake((RBScreenWidth - 56) * 0.5, 54, 56, 72) andTitle:@"朋友圈" andTarget:self andAction:@selector(clickwFriendsBtn)];
+            RBCommButton *wFriendsBtn = [[RBCommButton alloc] initWithImage:@"quan" andHeighImage:@"quan" andFrame:CGRectMake((RBScreenWidth - 56) * 0.5, 54, 56, 72) andTitle:pengyouquan andTarget:self andAction:@selector(clickwFriendsBtn)];
             [whiteView addSubview:wFriendsBtn];
 
-            RBCommButton *copyBtn = [[RBCommButton alloc] initWithImage:@"link" andHeighImage:@"link" andFrame:CGRectMake(RBScreenWidth - 56 - 49, 54, 56, 72) andTitle:@"复制链接" andTarget:self andAction:@selector(clickCopyBtn)];
+            RBCommButton *copyBtn = [[RBCommButton alloc] initWithImage:@"link" andHeighImage:@"link" andFrame:CGRectMake(RBScreenWidth - 56 - 49, 54, 56, 72) andTitle:fuzhilianjie andTarget:self andAction:@selector(clickCopyBtn)];
             [whiteView addSubview:copyBtn];
         }
     }

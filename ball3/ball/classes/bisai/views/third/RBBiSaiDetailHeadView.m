@@ -37,7 +37,7 @@
     }
     view.backgroundColor = [UIColor whiteColor];
 
-    NSArray *array = @[@"日期", @"赛事", @"主队", @"比分", @"客队"];
+    NSArray *array = @[@"日期", saishi, @"主队", @"比分", @"客队"];
     NSArray *margins = @[@(16), @(20), @(10), @(10), @(10)];
     NSArray *widths = @[@(40), @(50), @(65), @(35), @(65)];
     for (int i = 0; i < array.count; i++) {

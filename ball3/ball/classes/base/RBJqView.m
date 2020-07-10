@@ -50,7 +50,7 @@
         UIButton *tip = [[UIButton alloc]init];
         self.tip = tip;
         [tip setBackgroundImage:[UIImage imageNamed:@"tip"] forState:UIControlStateNormal];
-        [tip setTitle:@"进球" forState:UIControlStateNormal];
+        [tip setTitle:jinqiu forState:UIControlStateNormal];
         tip.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 4, 2);
         [tip setTitleColor:[UIColor colorWithSexadeString:@"#FA7268"] forState:UIControlStateNormal];
         tip.titleLabel.font = [UIFont systemFontOfSize:12];
@@ -107,13 +107,13 @@
     _biSaiModel = biSaiModel;
     if (biSaiModel.status == 2) {
         // 上半场
-        biSaiModel.TeeTimeStr = [NSString stringWithFormat:@"上半场 %@", @"34"];
+        biSaiModel.TeeTimeStr = [NSString stringWithFormat:@"%@%@",shangbanchang, [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:biSaiModel.TeeTime]];
     } else if (biSaiModel.status >= 4 && biSaiModel.status <= 7) {
         long timeCount =  30;
         if (timeCount + 45 > 90) {
-            biSaiModel.TeeTimeStr = @"下半场 90+";
+            biSaiModel.TeeTimeStr = xiabanchangjia;
         } else {
-            biSaiModel.TeeTimeStr = [NSString stringWithFormat:@"下半场 %ld", timeCount + 45];
+            biSaiModel.TeeTimeStr = [NSString stringWithFormat:@"%@%ld",xiabanchang, timeCount + 45];
         }
     }
     if (biSaiModel.TeeTimeStr.length > 4) {

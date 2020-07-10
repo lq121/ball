@@ -20,7 +20,7 @@
         UILabel *label2 = [[UILabel alloc]init];
         label2.numberOfLines = 0;
 
-        label2.text = [NSString stringWithFormat:@"经验+%d", exp];
+        label2.text = [NSString stringWithFormat:jingyanjia, exp];
         label2.font = [UIFont systemFontOfSize:16];
         label2.textColor = [UIColor whiteColor];
         label2.textAlignment = NSTextAlignmentCenter;
@@ -48,7 +48,7 @@
     }
     RBTipView *view = [[RBTipView alloc] initWithTitle:title andExp:exp andCoin:coin];
     CGSize size1 = [title getLineSizeWithFontSize:16];
-    CGSize size2 = [[NSString stringWithFormat:@"金币+%d", exp] getLineSizeWithFontSize:16];
+    CGSize size2 = [[NSString stringWithFormat:jinbijia, exp] getLineSizeWithFontSize:16];
     CGFloat width = MAX(size1.width, size2.width);
     view.label1.frame = CGRectMake(11, 16, width, size1.height);
     view.label2.frame = CGRectMake(11, CGRectGetMaxY(view.label1.frame) + 7, width, size2.height);

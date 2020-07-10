@@ -194,7 +194,7 @@
     [self.fmdb executeUpdate:@"CREATE TABLE IF NOT EXISTS tb_bisai (namiId integer PRIMARY KEY, id integer, matcheventId integer NOT NULL, hostID integer , visitingID integer ,hostTeamName varchar(50),visitingTeamName varchar(50),biSaiTime integer ,TeeTime integer,eventName varchar(50),eventLongName varchar(100), eventId integer , stageName varchar(100),hostCorner integer , visitingCorner integer , hostHalfScore integer , visitingHalfScore integer,hostPointScore integer, visitingPointScore integer, hostScore integer,visitingScore integer, hostRedCard integer, visitingRedCard integer, hostYellowCard integer, visitingYellowCard integer, hostOvertimeScore integer, visitingOvertimeScore integer, hostPenaltyScore integer, visitingPenaltyScore integer, week varchar(50), status integer, hostLogo varchar(250),visitingLogo varchar(250),hasIntelligence BOOL,stage varchar(500),hasAttention BOOL );"];
 }
 
-- (void)insertStudentsUseTransaction:(NSArray<RBBiSaiModel *> *)biSais {
+- (void)insertBiSaisUseTransaction:(NSArray<RBBiSaiModel *> *)biSais {
     [self.fmdb open];
     [self.fmdb beginTransaction];
     BOOL isRollBack = NO;

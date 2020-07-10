@@ -217,35 +217,8 @@
             jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&err];
             NSDictionary *backDic;
-            if ([request.URL.absoluteString containsString:@"gameproxy"]) {
-                NSString *backStr = dic[@"ok"];
-                NSString *dataStr = [self replaceUnicode:backStr];
-                dataStr = [dataStr stringByReplacingOccurrencesOfString:@"\r\n" withString:@""];
-                dataStr = [dataStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-                dataStr = [dataStr stringByReplacingOccurrencesOfString:@"\t" withString:@""];
-                dataStr = [dataStr stringByReplacingOccurrencesOfString:@"\\" withString:@""];
-                NSMutableString *mstring = [NSMutableString stringWithString:dataStr];
-                NSCharacterSet *controlChars = [NSCharacterSet controlCharacterSet];
-                NSRange range = [mstring rangeOfCharacterFromSet:controlChars];
-                while (range.location != NSNotFound && range.location + range.length < mstring.length) {
-                    [mstring deleteCharactersInRange:range];
-                    range = [dataStr rangeOfCharacterFromSet:controlChars];
-                }
-                NSData *jsonData = [mstring dataUsingEncoding:NSUTF8StringEncoding];
-                NSError *err;
-                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                                    options:NSJSONReadingMutableContainers
-                                                                      error:&err];
+            backDic = dic;
 
-                backDic = dic;
-            } else {
-                NSData *jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
-                NSError *err;
-                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                                    options:NSJSONReadingMutableContainers
-                                                                      error:&err];
-                backDic = dic;
-            }
             if ([backDic isKindOfClass:[NSDictionary class]] && backDic[@"err"] != nil) {
                 int errCode = [backDic[@"err"]intValue];
                 [self showToastWithErrCode:errCode andString:urlStr];

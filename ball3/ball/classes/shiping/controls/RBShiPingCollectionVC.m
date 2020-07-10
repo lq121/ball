@@ -38,7 +38,7 @@
     if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
         view.backgroundColor = [UIColor lightGrayColor];
         UILabel *lab = [[UILabel alloc]initWithFrame:CGRectMake(0, 24, RBScreenWidth, 17)];
-        lab.text = @"全部加载完毕啦～";
+        lab.text = quanbujiazaiwan;
         lab.textAlignment = NSTextAlignmentCenter;
         lab.font = [UIFont systemFontOfSize:12];
         lab.textColor = [UIColor colorWithSexadeString:@"#333333" AndAlpha:0.4];

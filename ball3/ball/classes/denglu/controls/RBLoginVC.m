@@ -27,7 +27,7 @@
     [self.view addSubview:backBtn];
 
     UILabel *tipLabel = [[UILabel alloc]init];
-    tipLabel.text = @"登录";
+    tipLabel.text = denglu;
     tipLabel.textAlignment = NSTextAlignmentLeft;
     tipLabel.font = [UIFont systemFontOfSize:30];
     tipLabel.textColor = [UIColor colorWithSexadeString:@"#333333"];
@@ -41,7 +41,7 @@
     textfield1.tintColor = [UIColor colorWithSexadeString:@"#FFA500"];
     textfield1.clearButtonMode = UITextFieldViewModeWhileEditing;
     textfield1.returnKeyType = UIReturnKeyDone;
-    textfield1.placeholder = @"手机号码/邮箱地址";
+    textfield1.placeholder = shoujihuoyouxiang;
     [self.view addSubview:textfield1];
 
     UIView *line1 = [[UIView alloc]initWithFrame:CGRectMake(20, CGRectGetMaxY(textfield1.frame) + 8, RBScreenWidth - 40, 1)];
@@ -52,7 +52,7 @@
     UITextField *textfield2 = [[UITextField alloc]initWithFrame:CGRectMake(20, CGRectGetMaxY(line1.frame) + 40, RBScreenWidth - 40 - 40, 25)];
     textfield2.tintColor = [UIColor colorWithSexadeString:@"#FFA500"];
     [textfield2 addTarget:self action:@selector(changedTextField:) forControlEvents:UIControlEventEditingChanged];
-    textfield2.placeholder = @"输入密码";
+    textfield2.placeholder = shurumima;
     textfield2.secureTextEntry = YES;
     textfield2.delegate = self;
     textfield2.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -73,7 +73,7 @@
 
     UIButton *foggertBtn = [[UIButton alloc]initWithFrame:CGRectMake(RBScreenWidth - 80, CGRectGetMaxY(line2.frame) + 12, 60, 22)];
     foggertBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-    [foggertBtn setTitle:@"忘记密码" forState:UIControlStateNormal];
+    [foggertBtn setTitle:wangjimima forState:UIControlStateNormal];
     [foggertBtn setTitleColor:[UIColor colorWithSexadeString:@"#FFA500"] forState:UIControlStateNormal];
     [foggertBtn addTarget:self action:@selector(clickFoggertBtn) forControlEvents:UIControlEventTouchUpInside];
     foggertBtn.titleLabel.textAlignment = NSTextAlignmentRight;
@@ -86,7 +86,7 @@
     loginBtn.enabled = NO;
     [loginBtn setBackgroundImage:[UIImage imageNamed:@"btn keep"] forState:UIControlStateNormal];
     [loginBtn setBackgroundImage:[UIImage imageNamed:@"btn keep_enabled"] forState:UIControlStateDisabled];
-    [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
+    [loginBtn setTitle:denglu forState:UIControlStateNormal];
     loginBtn.titleLabel.font = [UIFont systemFontOfSize:16];
     [loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [loginBtn setTitleColor:[UIColor colorWithSexadeString:@"#333333" AndAlpha:0.5] forState:UIControlStateDisabled];
@@ -95,7 +95,7 @@
 
     UIButton *registBtn = [[UIButton alloc]initWithFrame:CGRectMake(16, CGRectGetMaxY(loginBtn.frame) + 10, RBScreenWidth - 32, 48)];
     self.registBtn = registBtn;
-    [registBtn setTitle:@"注册" forState:UIControlStateNormal];
+    [registBtn setTitle:zhuce forState:UIControlStateNormal];
     registBtn.titleLabel.font = [UIFont systemFontOfSize:16];
     [registBtn setTitleColor:[UIColor colorWithSexadeString:@"#333333"] forState:UIControlStateNormal];
     [registBtn addTarget:self action:@selector(clickRegistBtn) forControlEvents:UIControlEventTouchUpInside];
@@ -109,7 +109,7 @@
     label.frame = CGRectMake((RBScreenWidth - 100) * 0.5, CGRectGetMaxY(loginBtn.frame) + 146, 100, 20);
     label.textAlignment = NSTextAlignmentCenter;
     label.font = [UIFont systemFontOfSize:14];
-    label.text = @"其他登录方式";
+    label.text = qita;
     [self.view addSubview:label];
 
     UIView *rightLine = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(label.frame) + 16, CGRectGetMaxY(loginBtn.frame) + 156, (RBScreenWidth - 100 - 80 - 32) * 0.5, 1)];
@@ -140,7 +140,7 @@
 
 // 微信登录成功
 - (void)wxLogin:(NSNotification *)noti {
-    [MBProgressHUD showLoading:@"加载中" toView:self.view];
+    [MBProgressHUD showLoading:jiazhaizhong toView:self.view];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict setValue:noti.object forKey:@"code"];
     [dict setValue:@(1001) forKey:@"usrc"]; 
@@ -190,11 +190,11 @@
 // 登录
 - (void)clickloginBtn {
     if ([self.phoneField.text isEqualToString:@""] || self.phoneField.text.length <= 0) {
-        [RBToast showWithTitle:@"请输入手机号或邮箱"];
+        [RBToast showWithTitle:shurushoujihao];
         return;
     }
     if ([self.pwdField.text isEqualToString:@""] || self.pwdField.text.length <= 0) {
-        [RBToast showWithTitle:@"请输入密码"];
+        [RBToast showWithTitle:shurumima];
         return;
     }
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];

@@ -30,7 +30,7 @@
         [self addSubview:titleLab];
 
         UILabel *desLab = [[UILabel alloc]init];
-        desLab.text = @"小应体育";
+        desLab.text = appName;
         self.desLab = desLab;
         desLab.font = [UIFont systemFontOfSize:12];
         desLab.textAlignment = NSTextAlignmentLeft;

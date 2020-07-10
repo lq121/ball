@@ -57,7 +57,7 @@
     checkBtn.enabled = NO;
     [checkBtn setBackgroundImage:[UIImage imageNamed:@"btn keep"] forState:UIControlStateNormal];
     [checkBtn setBackgroundImage:[UIImage imageNamed:@"btn keep_enabled"] forState:UIControlStateDisabled];
-    [checkBtn setTitle:@"提交" forState:UIControlStateNormal];
+    [checkBtn setTitle:tijiao forState:UIControlStateNormal];
     checkBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [checkBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
     [checkBtn setTitleColor:[UIColor colorWithSexadeString:@"#333333" AndAlpha:0.5] forState:UIControlStateDisabled];
@@ -74,11 +74,11 @@
         return;
     }
     if (![NSString isVaildPhone:textField3.text]) {
-        [RBToast showWithTitle:@"请输入合法手机号码"];
+        [RBToast showWithTitle:shuruhefashoujihao];
         return;
     }
     if (self.codeTextField.text.length == 0) {
-        [RBToast showWithTitle:@"请输入验证码"];
+        [RBToast showWithTitle:shuruyanzhengma];
         return;
     }
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -161,7 +161,7 @@
         getCodeBtn.enabled = NO;
         [getCodeBtn setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithSexadeString:@"#E8E8E8"]] forState:UIControlStateDisabled];
         [getCodeBtn setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithSexadeString:@"#FFA500"]] forState:UIControlStateNormal];
-        [getCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+        [getCodeBtn setTitle:huoquyanzhengma forState:UIControlStateNormal];
         [getCodeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [getCodeBtn setTitleColor:[UIColor colorWithSexadeString:@"#333333" AndAlpha:0.5] forState:UIControlStateDisabled];
         getCodeBtn.layer.masksToBounds = YES;
@@ -183,7 +183,7 @@
 - (void)clickGetCodeBtn:(UIButton *)btn {
     UITextField *textField3 = [self.view viewWithTag:12];
     if (![NSString isVaildPhone:textField3.text]) {
-        [RBToast showWithTitle:@"请输入合法手机号码"];
+        [RBToast showWithTitle:shuruhefashoujihao];
         return;
     }
     [RBNetworkTool getcodeWithMobile:textField3.text AndType:4 Result:^(NSDictionary *_Nonnull backData, NSError *_Nonnull error) {
@@ -204,7 +204,7 @@
         self.timer = nil;
         return;
     }
-    [self.getCodeBtn setTitle:[NSString stringWithFormat:@"%ds重新获取", self.timeCount] forState:UIControlStateDisabled];
+    [self.getCodeBtn setTitle:[NSString stringWithFormat:chongxinhuoqu, self.timeCount] forState:UIControlStateDisabled];
     self.timeCount--;
 }
 

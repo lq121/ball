@@ -68,7 +68,7 @@ static NSString *albumCollectionViewCell = @"LYFAlbumCollectionViewCell";
     [LYFPhotoManger standardPhotoManger].choiceCountChange = ^(NSInteger choiceCount) {
         weakSelf.confirmButton.enabled = ((choiceCount != 0) && (choiceCount != [LYFPhotoManger standardPhotoManger].lastChoiceCount));
         if (choiceCount == 0) {
-            [weakSelf.confirmButton setTitle:@"确定" forState:UIControlStateNormal];
+            [weakSelf.confirmButton setTitle:queding forState:UIControlStateNormal];
             [weakSelf.confirmButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         } else {
             [weakSelf.confirmButton setTitle:[NSString stringWithFormat:@"确定%ld/%ld", (long)[LYFPhotoManger standardPhotoManger].choiceCount, (long)[LYFPhotoManger standardPhotoManger].maxCount] forState:UIControlStateNormal];
@@ -272,7 +272,7 @@ static NSString *albumCollectionViewCell = @"LYFAlbumCollectionViewCell";
     if (!_cancelButton) {
         _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _cancelButton.frame = CGRectMake(0, 0, 50, 50);
-        [_cancelButton setTitle:@"取消" forState:UIControlStateNormal];
+        [_cancelButton setTitle:quxiao forState:UIControlStateNormal];
         _cancelButton.titleLabel.font = [UIFont systemFontOfSize:15];
         [_cancelButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_cancelButton addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -289,7 +289,7 @@ static NSString *albumCollectionViewCell = @"LYFAlbumCollectionViewCell";
         _confirmButton.frame = CGRectMake(0, 0, 80, 45);
         _confirmButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         _confirmButton.titleLabel.font = [UIFont systemFontOfSize:15];
-        [_confirmButton setTitle:@"确定" forState:UIControlStateNormal];
+        [_confirmButton setTitle:queding forState:UIControlStateNormal];
         [_confirmButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     }
 

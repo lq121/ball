@@ -220,7 +220,7 @@
     [RBNetworkTool uploadImageWithImages:self.imagesArr andDict:dict andSuccess:^(NSDictionary *_Nonnull backData) {
         [MBProgressHUD hidHUDFromView:self.view];
         if ([backData[@"err"]intValue] == 50002) {
-            [RBChekLogin checkWithTitile:@"等级需到达5级以上\n或者会员才可以参与互动" andtype:@"pushlv" andNeedCheck:NO];
+            [RBChekLogin checkWithTitile:xuyao5ji andtype:@"pushlv" andNeedCheck:NO];
         } else if (backData[@"ok"] != nil) {
             [RBToast showWithTitle:@"发布成功"];
             [self.navigationController popViewControllerAnimated:YES];
@@ -253,7 +253,7 @@
         if (YES == cameraIsAvailable) {
             [self presentViewController:self.imagePicker animated:YES completion:nil];
         } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请在iPhone的“设置-隐私-相机”选项中，允许本应用程序访问你的相机。" delegate:self cancelButtonTitle:@"好，我知道了" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:tishi message:@"请在iPhone的“设置-隐私-相机”选项中，允许本应用程序访问你的相机。" delegate:self cancelButtonTitle:@"好，我知道了" otherButtonTitles:nil];
             [alert show];
         }
     }

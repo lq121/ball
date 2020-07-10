@@ -59,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)deleteLongTimeBiSaiModel;
 // 删除今天比赛
 - (void)deleteTadayBiSaiModel;
-- (void)insertStudentsUseTransaction:(NSArray<RBBiSaiModel *> *)biSais;
+- (void)insertBiSaisUseTransaction:(NSArray<RBBiSaiModel *> *)biSais;
 @end
 
 NS_ASSUME_NONNULL_END

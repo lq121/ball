@@ -9,6 +9,8 @@
 #ifndef RBPrefixHeader_pch
 #define RBPrefixHeader_pch
 
+#import "strings.pch"
+
 #import "MJRefresh.h"
 #import "UIView+PBExtesion.h"
 #import "MJExtension.h"

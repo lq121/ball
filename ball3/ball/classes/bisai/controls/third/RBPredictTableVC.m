@@ -31,7 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183)];
+    [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
     [self.tableView reloadData];
 }
 
@@ -50,10 +50,10 @@
         if (backData[@"err"] == nil && backData[@"error"] == nil && backData != nil && backData[@"ok"] != nil) {
             [self setDataWith:backData];
         }
-        [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183)];
+        [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
         [self.tableView reloadData];
     } Fail:^(NSError *_Nonnull error) {
-        [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183)];
+        [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
         [self.tableView reloadData];
     }];
 }
@@ -65,7 +65,7 @@
     [buy addObject:ok[@"Sbuy"]];
     [buy addObject:ok[@"Rbuy"]];
     [buy addObject:ok[@"Dbuy"]];
-    NSArray *titles = @[ @"胜平负", @"让球", @"大小球"];
+    NSArray *titles = @[ shengpingfu, rangqiu, daxiaoqiu];
     NSArray *D = ok[@"D"];  // 大小球数据
     NSArray *R = ok[@"R"]; // 让球数据
     NSArray *S = ok[@"S"]; // 胜平负数据

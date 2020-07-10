@@ -61,7 +61,7 @@
 
         UILabel *infoLab = [[UILabel alloc]init];
         self.infoLab = infoLab;
-        infoLab.text = @"情报";
+        infoLab.text = qingbaoStr;
         infoLab.textColor = [UIColor whiteColor];
         infoLab.backgroundColor = [UIColor colorWithSexadeString:@"#FF4F72"];
         infoLab.font = [UIFont boldSystemFontOfSize:10];
@@ -215,25 +215,25 @@
     NSString *teeTimeStr;
     if (predictModel.state == 2) {
         // 上半场
-        teeTimeStr = [NSString stringWithFormat:@"上半场 %@", [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:predictModel.startballt]];
+        teeTimeStr = [NSString stringWithFormat:@"%@%@",shangbanchang, [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:predictModel.startballt]];
     } else if (predictModel.state == 3) {
         teeTimeStr = @"中";
     } else if (predictModel.state >= 4 && predictModel.state <= 7) {
         long timeCount =  (long)[[NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:predictModel.startballt] longLongValue];
         if (timeCount + 45 > 90) {
-            teeTimeStr = @"下半场 90+";
+            teeTimeStr = xiabanchangjia;
         } else {
-            teeTimeStr = [NSString stringWithFormat:@"下半场 %ld", timeCount + 45];
+            teeTimeStr = [NSString stringWithFormat:@"%@%ld",xiabanchang, timeCount + 45];
         }
     } else if (predictModel.state   == 8) {
-        teeTimeStr = @"完";
+        teeTimeStr = wan;
     } else if (predictModel.state  == 1) {
         teeTimeStr = [NSString getComperStrWithDateInt:predictModel.startt andFormat:@"HH:mm"];
     } else if (predictModel.state > 8 || predictModel.state == 0) {
-        teeTimeStr = @"延迟";
+        teeTimeStr = yanci;
     }
     self.biSaiTimeLab.text = teeTimeStr;
-    if ([self.biSaiTimeLab.text isEqualToString:@"延迟"]) {
+    if ([self.biSaiTimeLab.text isEqualToString:yanci]) {
         [self.biSaiTimeLab sizeToFit];
         self.biSaiTimeLab.textAlignment = NSTextAlignmentCenter;
         self.biSaiTimeLab.textColor = [UIColor whiteColor];
@@ -291,9 +291,9 @@
         }
     }];
 
-    if (predictModel.rangqiu != nil && predictModel.rangqiu.count >= 3) {
+    if (predictModel.rangqiuArr != nil && predictModel.rangqiuArr.count >= 3) {
         self.yaLab.hidden = NO;
-        float disCount =  [predictModel.rangqiu[1] floatValue];
+        float disCount =  [predictModel.rangqiuArr[1] floatValue];
         if ([RBFloatOption judgeDivisibleWithFirstNumber:disCount andSecondNumber:0.5]) {
             if ([RBFloatOption judgeDivisibleWithFirstNumber:disCount andSecondNumber:1]) {
                 self.yaLab.text = [NSString stringWithFormat:@"亚盘 %0.0f", disCount];

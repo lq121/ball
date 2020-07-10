@@ -86,7 +86,7 @@
     self.biSaiTimeLab.text = [NSString getComperStrWithDateInt:predictModel.startt andFormat:@"HH:mm"];
     self.biSaiTimeLab.frame = CGRectMake(self.width - [self.biSaiTimeLab.text getLineSizeWithFontSize:12].width - 8, 10, [self.biSaiTimeLab.text getLineSizeWithFontSize:12].width, 14);
     if (predictModel.Result == 1 || predictModel.Result == 11 || predictModel.Result == 21) {
-        int negative = ([predictModel.rangqiu[0]floatValue] * 100) / (([predictModel.rangqiu[0]floatValue] + [predictModel.rangqiu[2]floatValue]) * 100) * 100;
+        int negative = ([predictModel.rangqiuArr[0]floatValue] * 100) / (([predictModel.rangqiuArr[0]floatValue] + [predictModel.rangqiuArr[2]floatValue]) * 100) * 100;
 
         int win = 100 - negative;
         if (win == 50) {

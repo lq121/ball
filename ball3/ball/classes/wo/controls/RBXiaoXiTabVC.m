@@ -26,7 +26,7 @@
     [super viewDidLoad];
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loaddata)];
     [self.tableView.mj_header beginRefreshing];
-    [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183)];
+    [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
     [self.tableView reloadData];
 }
 
@@ -47,13 +47,13 @@
             [self.dataArr addObject:model];
         }
         [self.dataArr addObjectsFromArray:[[RBFMDBTool sharedFMDBTool] selectMsgModelWithType:3]];
-        [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183)];
+        [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
         [self.tableView reloadData];
     } Fail:^(NSError *_Nonnull error) {
         [self.tableView.mj_header endRefreshing];
         [self.dataArr removeAllObjects];
         [self.dataArr addObjectsFromArray:[[RBFMDBTool sharedFMDBTool] selectMsgModelWithType:3]];
-        [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183)];
+        [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
         [self.tableView reloadData];
     }];
 }
@@ -93,7 +93,7 @@
         [[RBFMDBTool sharedFMDBTool]delelteMsgWithId:xiaoXiModel.Id];
         [self.dataArr removeObject:xiaoXiModel];
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183)];
+        [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
     }
 }
 

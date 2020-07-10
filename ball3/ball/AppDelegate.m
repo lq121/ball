@@ -36,9 +36,9 @@
         self.checkDict = nil;
         dispatch_async(dispatch_get_main_queue(), ^{
                            if (backData[@"err"] != nil) {
-                               [RBToast showWithTitle:@"支付失败"];
+                               [RBToast showWithTitle:zhifufail];
                            } else {
-                               [RBToast showWithTitle:@"支付成功"];
+                               [RBToast showWithTitle:zhifusuccess];
                                if (style <= 6) {
                                    int coinCount = [[[NSUserDefaults standardUserDefaults]objectForKey:@"coinCount"]intValue];
                                    coinCount += [backData[@"ok"]intValue];
@@ -143,9 +143,9 @@
         if (self.needShow) {
             // 分享
             if (resp.errCode == 0) {
-                [RBTipView tipWithTitle:@"分享成功" andExp:1 andCoin:1];
+                [RBTipView tipWithTitle:fengxiangsuccess andExp:1 andCoin:1];
             } else {
-                [RBToast showWithTitle:@"分享失败"];
+                [RBToast showWithTitle:fengxiangFail];
             }
         }
     } else if ([resp isKindOfClass:[SendAuthResp class]]) {

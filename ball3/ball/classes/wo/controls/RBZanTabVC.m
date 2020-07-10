@@ -35,7 +35,7 @@
     self.currentPage2 = 0;
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
-    [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183)];
+    [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
     [self.tableView reloadData];
 }
 
@@ -82,10 +82,10 @@
         }
         if (self.type == 1) {
             [self.dataArr2 addObjectsFromArray:arr];
-            [self.tableView showDataCount:self.dataArr2.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183)];
+            [self.tableView showDataCount:self.dataArr2.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
         } else {
             [self.dataArr addObjectsFromArray:arr];
-            [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183)];
+            [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
         }
         [self.tableView reloadData];
     } Fail:^(NSError *_Nonnull error) {
@@ -93,10 +93,10 @@
         [self.tableView.mj_footer endRefreshing];
         if (self.type == 1) {
             [self.dataArr2 removeAllObjects];
-            [self.tableView showDataCount:self.dataArr2.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183)];
+            [self.tableView showDataCount:self.dataArr2.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
         } else {
             [self.dataArr removeAllObjects];
-            [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:@"没有任何数据呀" andImageSize:CGSizeMake(146, 183)];
+            [self.tableView showDataCount:self.dataArr.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
         }
         [self.tableView reloadData];
     }];

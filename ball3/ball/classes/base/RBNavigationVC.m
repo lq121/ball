@@ -33,9 +33,9 @@
 - (void)back {
     Class c = NSClassFromString(@"RBSendTopicVC");
     if ([[self.childViewControllers lastObject] isKindOfClass:c]) {
-        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"确认退出?"  preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *cancelBtn = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-        UIAlertAction *sureBtn = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *_Nonnull action) {
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:tishi message:quedingtuichu  preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelBtn = [UIAlertAction actionWithTitle:quxiao style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *sureBtn = [UIAlertAction actionWithTitle:queding style:UIAlertActionStyleDefault handler:^(UIAlertAction *_Nonnull action) {
             [self popViewControllerAnimated:YES];
         }];
         [alertVC addAction:cancelBtn];

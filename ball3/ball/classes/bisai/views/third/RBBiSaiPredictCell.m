@@ -180,11 +180,11 @@
 
 
 - (void)clickBuyBtn {
-    if ([self.biSaiPredictModel.titleName isEqualToString:@"让球"]) {
+    if ([self.biSaiPredictModel.titleName isEqualToString:rangqiu]) {
         self.clickBtn(2);
-    } else if ([self.biSaiPredictModel.titleName isEqualToString:@"胜平负"]) {
+    } else if ([self.biSaiPredictModel.titleName isEqualToString:shengpingfu]) {
         self.clickBtn(1);
-    } else if ([self.biSaiPredictModel.titleName isEqualToString:@"大小球"]) {
+    } else if ([self.biSaiPredictModel.titleName isEqualToString:daxiaoqiu]) {
         self.clickBtn(3);
     }
 }
@@ -199,7 +199,7 @@
     self.line.hidden = !biSaiPredictModel.showLine;
     self.leftLabe.text = [NSString stringWithFormat:@" ¥%d", biSaiPredictModel.coin];
     self.buyBtn.enabled = YES;
-    if ([biSaiPredictModel.titleName isEqualToString:@"让球"]) {
+    if ([biSaiPredictModel.titleName isEqualToString:rangqiu]) {
         int win = 100 - (int)biSaiPredictModel.negative;
         if (win == 50) {
             if (biSaiPredictModel.negative > 50.0) {
@@ -210,7 +210,7 @@
         }
         self.winLabel.text = [NSString stringWithFormat:@"主胜概率 %d%%", win];
         self.negativeLabel.text = [NSString stringWithFormat:@"客胜概率 %d%%", 100 - win];
-    } else if ([biSaiPredictModel.titleName isEqualToString:@"胜平负"]) {
+    } else if ([biSaiPredictModel.titleName isEqualToString:shengpingfu]) {
         NSMutableArray *mutArr = [NSMutableArray array];
         [mutArr addObject:@(biSaiPredictModel.win)];
         [mutArr addObject:@(biSaiPredictModel.flat)];

@@ -74,7 +74,7 @@
         [self.contentView addSubview:statLab];
 
         UILabel *infoLab = [[UILabel alloc]init];
-        infoLab.text = @"情报";
+        infoLab.text = qingbaoStr;
         self.infoLab = infoLab;
         infoLab.textColor = [UIColor whiteColor];
         infoLab.backgroundColor = [UIColor colorWithSexadeString:@"#FF4F72"];
@@ -337,7 +337,7 @@
         }
     }
     CGSize size = [str getLineSizeWithFontSize:12];
-    if ([self.statLab.text isEqualToString:@"延迟"]) {
+    if ([self.statLab.text isEqualToString:yanci]) {
         self.statLab.frame = CGRectMake((RBScreenWidth - size.width) * 0.5, 8, size.width + 8, 14);
         self.statLab.layer.masksToBounds = YES;
         self.statLab.layer.cornerRadius = 1;

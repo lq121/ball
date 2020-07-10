@@ -58,25 +58,25 @@
     }
     if (biSaiModel.status == 2) {
         // 上半场
-        biSaiModel.TeeTimeStr =   [NSString stringWithFormat:@"上半场 %@", [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:biSaiModel.TeeTime]];
+        biSaiModel.TeeTimeStr =   [NSString stringWithFormat:@"%@%@",shangbanchang, [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:biSaiModel.TeeTime]];
     } else if (biSaiModel.status == 3) {
         biSaiModel.TeeTimeStr = @"中";
     } else if (biSaiModel.status >= 4 && biSaiModel.status <= 7) {
         long timeCount =  (long)[[NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:biSaiModel.TeeTime] longLongValue];
         if (timeCount + 45 > 90) {
-            biSaiModel.TeeTimeStr = @"下半场 90+";
+            biSaiModel.TeeTimeStr = xiabanchangjia;
         } else {
-            biSaiModel.TeeTimeStr = [NSString stringWithFormat:@"下半场 %ld", timeCount + 45];
+            biSaiModel.TeeTimeStr = [NSString stringWithFormat:@"%@%ld",xiabanchang, timeCount + 45];
         }
     } else if (biSaiModel.status  == 8) {
-        biSaiModel.TeeTimeStr = @"完";
+        biSaiModel.TeeTimeStr = wan;
     } else if (biSaiModel.status == 1) {
-        biSaiModel.TeeTimeStr = @"未";
+        biSaiModel.TeeTimeStr = wei;
     } else if (biSaiModel.status > 8 || biSaiModel == 0) {
-        biSaiModel.TeeTimeStr = @"延迟";
+        biSaiModel.TeeTimeStr = yanci;
     }
     self.biSaiTimeLab.text = biSaiModel.TeeTimeStr;
-    if ([self.biSaiTimeLab.text isEqualToString:@"延迟"]) {
+    if ([self.biSaiTimeLab.text isEqualToString:yanci]) {
         [self.biSaiTimeLab sizeToFit];
         self.biSaiTimeLab.textAlignment = NSTextAlignmentCenter;
         self.biSaiTimeLab.textColor = [UIColor whiteColor];

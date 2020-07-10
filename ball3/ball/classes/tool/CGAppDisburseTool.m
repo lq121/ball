@@ -234,7 +234,7 @@
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         if (connectionError) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                               [RBToast showWithTitle:@"支付失败"];
+                               [RBToast showWithTitle:zhifufail];
                                [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow animated:YES];
                            });
         } else {
@@ -242,7 +242,7 @@
             NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
             if (!jsonResponse) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                                   [RBToast showWithTitle:@"支付失败"];
+                                   [RBToast showWithTitle:zhifufail];
                                    [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow animated:YES];
                                });
             }
@@ -262,9 +262,9 @@
             [RBNetworkTool PostDataWithUrlStr:@"apis/iosrechargecheck2" andParam:dict Success:^(NSDictionary *_Nonnull backData) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                                    if (backData[@"err"] != nil) {
-                                       [RBToast showWithTitle:@"支付失败"];
+                                       [RBToast showWithTitle:zhifufail];
                                    } else {
-                                       [RBToast showWithTitle:@"支付成功"];
+                                       [RBToast showWithTitle:zhifusuccess];
                                        if (style <= 6) {
                                            int coinCount = [[[NSUserDefaults standardUserDefaults]objectForKey:@"coinCount"]intValue];
                                            coinCount += [backData[@"ok"]intValue];
@@ -281,7 +281,7 @@
                                });
             } Fail:^(NSError *_Nonnull error) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                                   [RBToast showWithTitle:@"支付失败"];
+                                   [RBToast showWithTitle:zhifufail];
                                    [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow animated:YES];
                                });
             }];

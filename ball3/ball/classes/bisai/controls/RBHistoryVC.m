@@ -34,7 +34,7 @@
     NSString *tomorrowHM = [NSString getStrWithDate:yesterday andFormat:@"MM月dd日"];
     NSString *afterTomorrowHM = [NSString getStrWithDate:beforeYesterday andFormat:@"MM月dd日"];
     NSString *threeDaysFromNowHM = [NSString getStrWithDate:threeDaysAgo andFormat:@"MM月dd日"];
-    NSArray *days = @[[NSString stringWithFormat:@"%@\n%@", threeDaysAgoTimeWeek, threeDaysFromNowHM], [NSString stringWithFormat:@"%@\n%@", beforeYesterdayWeek, afterTomorrowHM], [NSString stringWithFormat:@"%@\n%@", yesterdayWeek, tomorrowHM], @"今天"];
+    NSArray *days = @[[NSString stringWithFormat:@"%@\n%@", threeDaysAgoTimeWeek, threeDaysFromNowHM], [NSString stringWithFormat:@"%@\n%@", beforeYesterdayWeek, afterTomorrowHM], [NSString stringWithFormat:@"%@\n%@", yesterdayWeek, tomorrowHM], jintian];
 
     RBBiSaiTabVC *biSaiabVC = [[RBBiSaiTabVC alloc]init];
     self.biSaiabVC = biSaiabVC;

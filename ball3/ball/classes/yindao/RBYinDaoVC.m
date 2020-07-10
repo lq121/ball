@@ -40,7 +40,7 @@
     [detailView1 addSubview:nextBtn1];
     UILabel *detailLab1 = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(nextBtn1.frame) + 15, RBScreenWidth, 28)];
     detailLab1.tag = 102;
-    detailLab1.text = @"点击进入比赛详情";
+    detailLab1.text = gotoDetail;
     detailLab1.textColor = [UIColor whiteColor];
     detailLab1.textAlignment = NSTextAlignmentCenter;
     detailLab1.font = [UIFont systemFontOfSize:20];
@@ -56,7 +56,7 @@
     [detailView2 addSubview:imageView2];
     UILabel *detailLab2 = [[UILabel alloc]initWithFrame:CGRectMake(0, 260 + RBNavBarAndStatusBarH + RBBottomSafeH, RBScreenWidth - 10, 28)];
     detailLab2.tag = 101;
-    detailLab2.text = @"点击购买预测";
+    detailLab2.text = goumaiyuce;
     detailLab2.textColor = [UIColor whiteColor];
     detailLab2.textAlignment = NSTextAlignmentRight;
     detailLab2.font = [UIFont systemFontOfSize:20];
@@ -76,7 +76,7 @@
     imageView3.frame = CGRectMake(0, 0, RBScreenWidth, RBScreenHeight);
     [detailView3 addSubview:imageView3];
     UILabel *detailLab31 = [[UILabel alloc]initWithFrame:CGRectMake(0, 216 + RBNavBarAndStatusBarH + RBBottomSafeH, RBScreenWidth - 12, 28)];
-    detailLab31.text = @"可以使用优惠券购买";
+    detailLab31.text = youhuiquangoumai;
     detailLab31.tag = 101;
     detailLab31.textColor = [UIColor whiteColor];
     detailLab31.textAlignment = NSTextAlignmentRight;
@@ -94,7 +94,7 @@
     UILabel *detailLab32 = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(imageView.frame) + 15, 0, RBScreenWidth - 100, 28)];
     detailLab32.tag = 103;
     detailLab32.centerY = imageView.centerY;
-    detailLab32.text = @"勾选须知并确认支付订单";
+    detailLab32.text = xuanxuzhi;
     detailLab32.textColor = [UIColor whiteColor];
     detailLab32.textAlignment = NSTextAlignmentLeft;
     detailLab32.font = [UIFont systemFontOfSize:20];
@@ -120,7 +120,7 @@
     [self.view addSubview:scrollView];
 
     UILabel *tipLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 52 + RBStatusBarH, RBScreenWidth, 33)];
-    tipLab.text = @"- 新手指引 -";
+    tipLab.text = xinshouzhiying;
     tipLab.textColor = [UIColor whiteColor];
     tipLab.textAlignment = NSTextAlignmentCenter;
     tipLab.font = [UIFont systemFontOfSize:24];
@@ -129,7 +129,7 @@
     UIButton *skipBtn = [[UIButton alloc]initWithFrame:CGRectMake((RBScreenWidth - 170) * 0.5, RBScreenHeight - 56 - 32 - RBBottomSafeH, 170, 56)];
     [skipBtn addTarget:self action:@selector(clickSkipBtn) forControlEvents:UIControlEventTouchUpInside];
     [skipBtn setBackgroundImage:[UIImage imageNamed:@"pass"] forState:UIControlStateNormal];
-    [skipBtn setTitle:@"跳过指引" forState:UIControlStateNormal];
+    [skipBtn setTitle:tiaoguozhiying forState:UIControlStateNormal];
     [skipBtn setTitleColor:[UIColor colorWithSexadeString:@"#494949"] forState:UIControlStateNormal];
     skipBtn.titleLabel.font = [UIFont systemFontOfSize:18];
     self.skipBtn = skipBtn;
@@ -145,13 +145,13 @@
     imageTipView.frame = tipView.bounds;
     [tipView addSubview:imageTipView];
     UILabel *skiptipLab1 = [[UILabel alloc]initWithFrame:CGRectMake(0, 55, RBScreenWidth - 28, 28)];
-    skiptipLab1.text = @"确定要跳过全部指引吗？";
+    skiptipLab1.text = tiaoguoallzhiying;
     skiptipLab1.textColor = [UIColor colorWithSexadeString:@"#4C4C4C"];
     skiptipLab1.textAlignment = NSTextAlignmentCenter;
     skiptipLab1.font = [UIFont systemFontOfSize:20];
     [tipView addSubview:skiptipLab1];
     UILabel *skiptipLab2 = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(skiptipLab1.frame) + 1, RBScreenWidth - 28, 28)];
-    skiptipLab2.text = @"跳过指引后将直接进入App";
+    skiptipLab2.text = tiaoguozhiyingtoapp;
     skiptipLab2.textColor = [UIColor colorWithSexadeString:@"#4C4C4C"];
     skiptipLab2.textAlignment = NSTextAlignmentCenter;
     skiptipLab2.font = [UIFont systemFontOfSize:14];
@@ -159,14 +159,14 @@
 
     UIButton *skipCancelBtn = [[UIButton alloc]initWithFrame:CGRectMake(86, 146, 40, 28)];
     [skipCancelBtn addTarget:self action:@selector(clickskipCancelBtn) forControlEvents:UIControlEventTouchUpInside];
-    [skipCancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+    [skipCancelBtn setTitle:quxiao forState:UIControlStateNormal];
     [skipCancelBtn setTitleColor:[UIColor colorWithSexadeString:@"#494949"] forState:UIControlStateNormal];
     skipCancelBtn.titleLabel.font = [UIFont systemFontOfSize:18];
     [tipView addSubview:skipCancelBtn];
 
     UIButton *skipSureBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(skipCancelBtn.frame) + 97, 146, 40, 28)];
     [skipSureBtn addTarget:self action:@selector(clickskipSureBtn) forControlEvents:UIControlEventTouchUpInside];
-    [skipSureBtn setTitle:@"确定" forState:UIControlStateNormal];
+    [skipSureBtn setTitle:queding forState:UIControlStateNormal];
     [skipSureBtn setTitleColor:[UIColor colorWithSexadeString:@"#494949"] forState:UIControlStateNormal];
     skipSureBtn.titleLabel.font = [UIFont systemFontOfSize:18];
     [tipView addSubview:skipSureBtn];
@@ -246,14 +246,14 @@
     [tipView addSubview:icon];
 
     UILabel *detailLab1 = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(icon.frame) + 20, RBScreenWidth, 33)];
-    detailLab1.text = @"欢迎来到小应体育";
+    detailLab1.text = huanying;
     detailLab1.textColor = [UIColor whiteColor];
     detailLab1.textAlignment = NSTextAlignmentCenter;
     detailLab1.font = [UIFont systemFontOfSize:24];
     [tipView addSubview:detailLab1];
 
     UILabel *detailLab2 = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(detailLab1.frame), RBScreenWidth, 20)];
-    detailLab2.text = @"Welcome to 小应体育";
+    detailLab2.text = welcome;
     detailLab2.textColor = [UIColor colorWithWhite:1 alpha:0.8];
     detailLab2.textAlignment = NSTextAlignmentCenter;
     detailLab2.font = [UIFont systemFontOfSize:14];

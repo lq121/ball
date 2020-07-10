@@ -18,7 +18,7 @@
         UILabel *label = [[UILabel alloc] init];
         label.frame = CGRectMake(0, CGRectGetMaxY(imageView.frame) + 4, RBScreenWidth, 28);
         [self.view addSubview:label];
-        NSMutableAttributedString *string1 = [[NSMutableAttributedString alloc] initWithString:@"小应体育"];
+        NSMutableAttributedString *string1 = [[NSMutableAttributedString alloc] initWithString:appName];
         [string1 addAttributes:@{ NSFontAttributeName: [UIFont boldSystemFontOfSize:20], NSForegroundColorAttributeName: [UIColor colorWithSexadeString:@"#333333"] } range:NSMakeRange(0, string1.string.length)];
         label.attributedText = string1;
         label.textAlignment = NSTextAlignmentCenter;

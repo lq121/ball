@@ -176,9 +176,9 @@
     int isVip = [[[NSUserDefaults standardUserDefaults]objectForKey:@"isVip"]intValue];
     NSArray *titles;
     if (isVip == 2) {
-        titles = @[@"预测", @"情报", @"亚盘", @"欧赔", @"大小"];
+        titles = @[yuce, qingbaoStr, @"亚盘", @"欧赔", @"大小"];
     } else {
-        titles = @[@"预测", @"亚盘", @"欧赔", @"大小"];
+        titles = @[yuce, @"亚盘", @"欧赔", @"大小"];
     }
 
     CGFloat heigth = 32;

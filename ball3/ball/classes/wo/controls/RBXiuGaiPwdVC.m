@@ -18,7 +18,7 @@
     self.timeCount = 60;
     self.title = @"修改密码";
     self.view.backgroundColor = [UIColor colorWithSexadeString:@"#F8F8F8"];
-    NSArray *tips = @[@"手机号码/邮箱地址", @"请输入验证码", @"请输入原始密码", @"设置新密码(至少6位数字或英文字母)", @"确认新密码"];
+    NSArray *tips = @[shoujihuoyouxiang, shuruyanzhengma, @"请输入原始密码", @"设置新密码(至少6位数字或英文字母)", @"确认新密码"];
 
     for (int i = 0; i < tips.count; i++) {
         UIView *whiteView = [[UIView alloc]initWithFrame:CGRectMake(0, i * 61, RBScreenWidth, 61)];
@@ -64,7 +64,7 @@
             getCodeBtn.enabled = self.phone.length > 0;
             [getCodeBtn setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithSexadeString:@"#E8E8E8"]] forState:UIControlStateDisabled];
             [getCodeBtn setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithSexadeString:@"#FFA500"]] forState:UIControlStateNormal];
-            [getCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+            [getCodeBtn setTitle:huoquyanzhengma forState:UIControlStateNormal];
             [getCodeBtn addTarget:self action:@selector(clickGetCodeBtn:) forControlEvents:UIControlEventTouchUpInside];
             [getCodeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [getCodeBtn setTitleColor:[UIColor colorWithSexadeString:@"#333333" AndAlpha:0.5] forState:UIControlStateDisabled];
@@ -96,7 +96,7 @@
 - (void)clickGetCodeBtn:(UIButton *)btn {
     UITextField *textField1 = [self.view viewWithTag:10];
     if (![NSString isVaildPhone:textField1.text]) {
-        [RBToast showWithTitle:@"请输入合法手机号码"];
+        [RBToast showWithTitle:shuruhefashoujihao];
         return;
     }
     [RBNetworkTool getcodeWithMobile:textField1.text AndType:3 Result:^(NSDictionary *_Nonnull backData, NSError *_Nonnull error) {
@@ -117,7 +117,7 @@
         self.timer = nil;
         return;
     }
-    [self.getCodeBtn setTitle:[NSString stringWithFormat:@"%ds重新获取", self.timeCount] forState:UIControlStateDisabled];
+    [self.getCodeBtn setTitle:[NSString stringWithFormat:chongxinhuoqu, self.timeCount] forState:UIControlStateDisabled];
     self.timeCount--;
 }
 

@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSArray *titles = @[@"赞", @"评论", @"话题"];
+    NSArray *titles = @[@"赞", pinglun, @"话题"];
     UIView *selectView = [[UIView alloc]initWithFrame:CGRectMake(-40, 0, RBScreenWidth - 160, 44)];
     self.selectView = selectView;
     selectView.backgroundColor = [UIColor whiteColor];
