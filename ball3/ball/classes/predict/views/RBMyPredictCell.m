@@ -248,7 +248,7 @@
     self.img.frame = CGRectMake(RBScreenWidth - 33, CGRectGetMaxY(self.line2.frame), 33, 36);
     self.titleLabel.frame = CGRectMake(16, CGRectGetMaxY(self.line2.frame) + 16, 60, 22);
     [self.titleLabel sizeToFit];
-    self.topLabel.frame = CGRectMake(CGRectGetMaxX(self.titleLabel.frame)+8, CGRectGetMaxY(self.line2.frame) + 16, RBScreenWidth - 120, 17);
+    self.topLabel.frame = CGRectMake(CGRectGetMaxX(self.titleLabel.frame) + 8, CGRectGetMaxY(self.line2.frame) + 16, RBScreenWidth - 120, 17);
     if (self.predictModel.style == 2) {
         self.winTip.frame = CGRectMake(41, 180, 6, 6);
         self.winLabel.frame = CGRectMake(CGRectGetMaxX(self.winTip.frame) + 4, 166, 110, 28);
@@ -575,7 +575,20 @@
         [AttributedStr2 addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:14] range:NSMakeRange(self.negativeLabel.text.length - 1, 1)];
         self.negativeLabel.attributedText = AttributedStr2;
         self.titleLabel.text = daxiaoqiu;
-        self.topLabel.text = [NSString stringWithFormat:@"%@球", [NSString formatFloat:[predictModel.daxiao[1] doubleValue]]];
+        if ([RBFloatOption judgeDivisibleWithFirstNumber:[predictModel.daxiao[1] doubleValue] andSecondNumber:0.5]) {
+            self.topLabel.text = [NSString stringWithFormat:@"大小球 %@球", [NSString formatFloat:[predictModel.daxiao[1] doubleValue]]];
+        } else {
+            CGFloat bigDisCount = [predictModel.daxiao[1] doubleValue];
+            if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                self.topLabel.text = [NSString stringWithFormat:@"大小球 %0.0f/%0.0f球", bigDisCount - 0.25, bigDisCount + 0.25];
+            } else if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && ![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                self.topLabel.text = [NSString stringWithFormat:@"大小球 %0.0f/%0.1f球", bigDisCount - 0.25, bigDisCount + 0.25];
+            } else if (![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                self.topLabel.text = [NSString stringWithFormat:@"大小球 %0.1f/%0.0f球", bigDisCount - 0.25, bigDisCount + 0.25];
+            } else {
+                self.topLabel.text = [NSString stringWithFormat:@"大小球 %0.1f/%0.1f球", bigDisCount - 0.25, bigDisCount + 0.25];
+            }
+        }
     }
 }
 

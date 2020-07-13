@@ -150,6 +150,9 @@
                     [[NSUserDefaults standardUserDefaults]setValue:nil forKey:@"access_token"];
                     [[NSUserDefaults standardUserDefaults]setValue:nil forKey:@"refresh_token"];
                     [[NSUserDefaults standardUserDefaults]synchronize];
+                    if ([[UIViewController getCurrentVC] isKindOfClass:[RBLoginVC class]]) {
+                        return;
+                    }
                     RBLoginVC *loginVC = [[RBLoginVC alloc]init];
                     loginVC.fromVC = [UIViewController getCurrentVC];
                     [[UIViewController getCurrentVC].navigationController pushViewController:loginVC animated:YES];
@@ -416,7 +419,12 @@
             [[NSUserDefaults standardUserDefaults]setValue:nil forKey:@"seletmatchArr"];
             [[NSUserDefaults standardUserDefaults]setValue:[NSNumber numberWithBool:NO] forKey:@"notEditPwd"];
             [[NSUserDefaults standardUserDefaults]synchronize];
-            [[UIViewController getCurrentVC].navigationController pushViewController:[[RBLoginVC alloc]init] animated:YES];
+            if ([[UIViewController getCurrentVC] isKindOfClass:[RBLoginVC class]]) {
+                return;
+            }
+            RBLoginVC *loginVC = [[RBLoginVC alloc]init];
+            loginVC.fromVC = [UIViewController getCurrentVC];
+            [[UIViewController getCurrentVC].navigationController pushViewController:loginVC animated:YES];
             break;
         }
         case 309:

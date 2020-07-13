@@ -306,7 +306,20 @@
     }
     if (predictModel.daxiao != nil && predictModel.daxiao.count >= 3 && ![predictModel.daxiao[0] isKindOfClass:[NSNull class]]) {
         self.bigLab.hidden = NO;
-        self.bigLab.text = [NSString stringWithFormat:@"大小球 %@球",  [NSString formatFloat:[ predictModel.daxiao[1] doubleValue]]];
+        if ([RBFloatOption judgeDivisibleWithFirstNumber:[predictModel.daxiao[1] doubleValue] andSecondNumber:0.5]) {
+                 self.bigLab.text  = [NSString stringWithFormat:@"大小球 %@球", [NSString formatFloat:[predictModel.daxiao[1] doubleValue]]];
+             }else{
+                  CGFloat bigDisCount = [predictModel.daxiao[1] doubleValue];
+                 if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                     self.bigLab.text  = [NSString stringWithFormat:@"大小球 %0.0f/%0.0f球", bigDisCount - 0.25, bigDisCount + 0.25];
+                 } else if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && ![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                     self.bigLab.text  = [NSString stringWithFormat:@"大小球 %0.0f/%0.1f球", bigDisCount - 0.25, bigDisCount + 0.25];
+                 } else if (![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                     self.bigLab.text  = [NSString stringWithFormat:@"大小球 %0.1f/%0.0f球", bigDisCount - 0.25, bigDisCount + 0.25];
+                 } else {
+                    self.bigLab.text  = [NSString stringWithFormat:@"大小球 %0.1f/%0.1f球", bigDisCount - 0.25, bigDisCount + 0.25];
+                 }
+             }
     } else {
         self.bigLab.hidden = YES;
     }

@@ -175,8 +175,8 @@
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"needShow" object:[NSNumber numberWithBool:NO]];
             WXMediaMessage *message = [WXMediaMessage message];
-            message.title = appName;
-            message.description = self.xinWenModel.title;
+            message.title = xinwenShareTitle;
+            message.description = xinwenShareDes;
             [message setThumbImage:[UIImage imageNamed:@"share logo"]];
             WXWebpageObject *webpageObject = [WXWebpageObject object];
             webpageObject.webpageUrl = BASEWEBURL;

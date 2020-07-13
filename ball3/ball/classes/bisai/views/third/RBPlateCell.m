@@ -34,69 +34,64 @@
     float disCount =  (float)aiDataModel.firstCenterBall;
     float disCount2 =  (float)aiDataModel.secondCenterBall;
 
-    if (aiDataModel.type == 2) {
-        if ([RBFloatOption judgeDivisibleWithFirstNumber:disCount andSecondNumber:0.5]) {
-            if ([RBFloatOption judgeDivisibleWithFirstNumber:disCount andSecondNumber:1]) {
-                self.firstCenterLab.text = [NSString stringWithFormat:@"%0.0f", disCount];
-            } else {
-                self.firstCenterLab.text = [NSString stringWithFormat:@"%0.1f", disCount];
-            }
-        } else if (disCount > 0) {
-            CGFloat bigDisCount = disCount;
-            if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
-                self.firstCenterLab.text = [NSString stringWithFormat:@"%0.0f/%0.0f", bigDisCount - 0.25, bigDisCount + 0.25];
-            } else if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && ![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
-                self.firstCenterLab.text = [NSString stringWithFormat:@"%0.0f/%0.1f", bigDisCount - 0.25, bigDisCount + 0.25];
-            } else if (![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
-                self.firstCenterLab.text = [NSString stringWithFormat:@"%0.1f/%0.0f", bigDisCount - 0.25, bigDisCount + 0.25];
-            } else {
-                self.firstCenterLab.text = [NSString stringWithFormat:@"%0.1f/%0.1f", bigDisCount - 0.25, bigDisCount + 0.25];
-            }
+    if ([RBFloatOption judgeDivisibleWithFirstNumber:disCount andSecondNumber:0.5]) {
+        if ([RBFloatOption judgeDivisibleWithFirstNumber:disCount andSecondNumber:1]) {
+            self.firstCenterLab.text = [NSString stringWithFormat:@"%0.0f", disCount];
         } else {
-            CGFloat bigDisCount = -disCount;
-            if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
-                self.firstCenterLab.text = [NSString stringWithFormat:@"-%0.0f/%0.0f", bigDisCount - 0.25, bigDisCount + 0.25];
-            } else if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && ![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
-                self.firstCenterLab.text = [NSString stringWithFormat:@"-%0.0f/%0.1f", bigDisCount - 0.25, bigDisCount + 0.25];
-            } else if (![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
-                self.firstCenterLab.text = [NSString stringWithFormat:@"-%0.1f/%0.0f", bigDisCount - 0.25, bigDisCount + 0.25];
-            } else {
-                self.firstCenterLab.text = [NSString stringWithFormat:@"-%0.1f/%0.1f", bigDisCount - 0.25, bigDisCount + 0.25];
-            }
+            self.firstCenterLab.text = [NSString stringWithFormat:@"%0.1f", disCount];
         }
-
-        if ([RBFloatOption judgeDivisibleWithFirstNumber:disCount2 andSecondNumber:0.5]) {
-            if ([RBFloatOption judgeDivisibleWithFirstNumber:disCount2 andSecondNumber:1]) {
-                self.seconCenterLab.text = [NSString stringWithFormat:@"%0.0f", disCount2];
-            } else {
-                self.seconCenterLab.text = [NSString stringWithFormat:@"%0.1f", disCount2];
-            }
-        } else if (disCount2 > 0) {
-            CGFloat bigDisCount = disCount2;
-            if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
-                self.seconCenterLab.text = [NSString stringWithFormat:@"%0.0f/%0.0f", bigDisCount - 0.25, bigDisCount + 0.25];
-            } else if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && ![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
-                self.seconCenterLab.text = [NSString stringWithFormat:@"%0.0f/%0.1f", bigDisCount - 0.25, bigDisCount + 0.25];
-            } else if (![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
-                self.seconCenterLab.text = [NSString stringWithFormat:@"%0.1f/%0.0f", bigDisCount - 0.25, bigDisCount + 0.25];
-            } else {
-                self.seconCenterLab.text = [NSString stringWithFormat:@"%0.1f/%0.1f", bigDisCount - 0.25, bigDisCount + 0.25];
-            }
+    } else if (disCount > 0) {
+        CGFloat bigDisCount = disCount;
+        if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+            self.firstCenterLab.text = [NSString stringWithFormat:@"%0.0f/%0.0f", bigDisCount - 0.25, bigDisCount + 0.25];
+        } else if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && ![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+            self.firstCenterLab.text = [NSString stringWithFormat:@"%0.0f/%0.1f", bigDisCount - 0.25, bigDisCount + 0.25];
+        } else if (![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+            self.firstCenterLab.text = [NSString stringWithFormat:@"%0.1f/%0.0f", bigDisCount - 0.25, bigDisCount + 0.25];
         } else {
-            CGFloat bigDisCount = -disCount2;
-            if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
-                self.seconCenterLab.text = [NSString stringWithFormat:@"-%0.0f/%0.0f", bigDisCount - 0.25, bigDisCount + 0.25];
-            } else if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && ![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
-                self.seconCenterLab.text = [NSString stringWithFormat:@"-%0.0f/%0.1f", bigDisCount - 0.25, bigDisCount + 0.25];
-            } else if (![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
-                self.seconCenterLab.text = [NSString stringWithFormat:@"-%0.1f/%0.0f", bigDisCount - 0.25, bigDisCount + 0.25];
-            } else {
-                self.seconCenterLab.text = [NSString stringWithFormat:@"-%0.1f/%0.1f", bigDisCount - 0.25, bigDisCount + 0.25];
-            }
+            self.firstCenterLab.text = [NSString stringWithFormat:@"%0.1f/%0.1f", bigDisCount - 0.25, bigDisCount + 0.25];
         }
     } else {
-        self.firstCenterLab.text = [NSString stringWithFormat:@"%0.2f", aiDataModel.firstCenterBall];
-        self.seconCenterLab.text = [NSString stringWithFormat:@"%0.2f", aiDataModel.secondCenterBall];
+        CGFloat bigDisCount = -disCount;
+        if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+            self.firstCenterLab.text = [NSString stringWithFormat:@"-%0.0f/%0.0f", bigDisCount - 0.25, bigDisCount + 0.25];
+        } else if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && ![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+            self.firstCenterLab.text = [NSString stringWithFormat:@"-%0.0f/%0.1f", bigDisCount - 0.25, bigDisCount + 0.25];
+        } else if (![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+            self.firstCenterLab.text = [NSString stringWithFormat:@"-%0.1f/%0.0f", bigDisCount - 0.25, bigDisCount + 0.25];
+        } else {
+            self.firstCenterLab.text = [NSString stringWithFormat:@"-%0.1f/%0.1f", bigDisCount - 0.25, bigDisCount + 0.25];
+        }
+    }
+
+    if ([RBFloatOption judgeDivisibleWithFirstNumber:disCount2 andSecondNumber:0.5]) {
+        if ([RBFloatOption judgeDivisibleWithFirstNumber:disCount2 andSecondNumber:1]) {
+            self.seconCenterLab.text = [NSString stringWithFormat:@"%0.0f", disCount2];
+        } else {
+            self.seconCenterLab.text = [NSString stringWithFormat:@"%0.1f", disCount2];
+        }
+    } else if (disCount2 > 0) {
+        CGFloat bigDisCount = disCount2;
+        if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+            self.seconCenterLab.text = [NSString stringWithFormat:@"%0.0f/%0.0f", bigDisCount - 0.25, bigDisCount + 0.25];
+        } else if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && ![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+            self.seconCenterLab.text = [NSString stringWithFormat:@"%0.0f/%0.1f", bigDisCount - 0.25, bigDisCount + 0.25];
+        } else if (![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+            self.seconCenterLab.text = [NSString stringWithFormat:@"%0.1f/%0.0f", bigDisCount - 0.25, bigDisCount + 0.25];
+        } else {
+            self.seconCenterLab.text = [NSString stringWithFormat:@"%0.1f/%0.1f", bigDisCount - 0.25, bigDisCount + 0.25];
+        }
+    } else {
+        CGFloat bigDisCount = -disCount2;
+        if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+            self.seconCenterLab.text = [NSString stringWithFormat:@"-%0.0f/%0.0f", bigDisCount - 0.25, bigDisCount + 0.25];
+        } else if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && ![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+            self.seconCenterLab.text = [NSString stringWithFormat:@"-%0.0f/%0.1f", bigDisCount - 0.25, bigDisCount + 0.25];
+        } else if (![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+            self.seconCenterLab.text = [NSString stringWithFormat:@"-%0.1f/%0.0f", bigDisCount - 0.25, bigDisCount + 0.25];
+        } else {
+            self.seconCenterLab.text = [NSString stringWithFormat:@"-%0.1f/%0.1f", bigDisCount - 0.25, bigDisCount + 0.25];
+        }
     }
 
     self.firstVistitingLab.text = [NSString stringWithFormat:@"%0.2f", aiDataModel.firstVisiterBall];

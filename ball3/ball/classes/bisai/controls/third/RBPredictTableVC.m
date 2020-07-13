@@ -128,7 +128,20 @@
         } else if (i == 0 && ![S isKindOfClass:[NSNull class]] && S.count >= 3) {
             model.desTitle = @"";
         } else if (i == 2 && ![D isKindOfClass:[NSNull class]] && D.count >= 3) {
-            model.desTitle = [NSString stringWithFormat:@"%@球", [NSString formatFloat:[D[1]floatValue]]];
+            if ([RBFloatOption judgeDivisibleWithFirstNumber:[D[1]floatValue] andSecondNumber:0.5]) {
+                model.desTitle = [NSString stringWithFormat:@"%@球", [NSString formatFloat:[D[1]floatValue]]];
+            }else{
+                 CGFloat bigDisCount = [D[1]floatValue];
+                if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                    model.desTitle = [NSString stringWithFormat:@"%0.0f/%0.0f球", bigDisCount - 0.25, bigDisCount + 0.25];
+                } else if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && ![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                    model.desTitle = [NSString stringWithFormat:@"%0.0f/%0.1f球", bigDisCount - 0.25, bigDisCount + 0.25];
+                } else if (![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                    model.desTitle = [NSString stringWithFormat:@"%0.1f/%0.0f球", bigDisCount - 0.25, bigDisCount + 0.25];
+                } else {
+                    model.desTitle = [NSString stringWithFormat:@"%0.1f/%0.1f球", bigDisCount - 0.25, bigDisCount + 0.25];
+                }
+            }  
         }
 
         if ([buy[i] intValue] == 0 && self.biSaiModel.status != 8) { // 是否有购买或者已完赛

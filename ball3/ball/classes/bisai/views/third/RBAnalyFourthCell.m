@@ -4,12 +4,10 @@
 #import "RBInjuredModel.h"
 #import "RBInjuredHeadView.h"
 
-
 @interface RBAnalyFourthCell ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *homedataArr;
 @property (nonatomic, strong) NSMutableArray *awaydataArr;
-@property(nonatomic,strong) UIView *footView;
 @end
 
 @implementation RBAnalyFourthCell
@@ -32,6 +30,7 @@
     NSDictionary *injuryDict =  dict[@"injury"];
     NSArray *home = injuryDict[@"home"];
     NSArray *away = injuryDict[@"away"];
+
     int count1 =  (int)(home.count);
     int count2 =  (int)(away.count);
 
@@ -48,21 +47,16 @@
         RBInjuredModel *cellModel = [RBInjuredModel mj_objectWithKeyValues:dict];
         [self.awaydataArr addObject:cellModel];
     }
-    int count = 2;
-    if (self.homedataArr.count == 0) {
-        count--;
+    int footH = 0;
+    if (count1 == 0 ) {
+        footH += 53;
     }
-    if (self.awaydataArr.count == 0) {
-        count--;
+    if (count2 == 0) {
+        footH += 53;
     }
-    self.tableView.frame = CGRectMake(0, 46, RBScreenWidth, (self.homedataArr.count + self.awaydataArr.count) * 44 + 71 * count);
+    self.tableView.frame = CGRectMake(0, 46, RBScreenWidth, (self.homedataArr.count + self.awaydataArr.count) * 44 + 71 * 2+footH);
     [self.tableView reloadData];
-    if (count1 == 0 && count2 == 0) {
-        self.footView.hidden = NO;
-    }
 }
-
-
 
 + (instancetype)createCellByTableView:(UITableView *)tableView {
     static NSString *indentifier = @"RBAnalyFourthCell";
@@ -73,27 +67,13 @@
     return cell;
 }
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         RBAnalyzeTitleView *titleView = [[RBAnalyzeTitleView alloc]initWithTitle:@"伤停情况" andFrame:CGRectMake(0, 0, RBScreenWidth, 46) andSecondTitle:@"" andDetail:@"" andFirstBtn:@"" andSecondBtn:@"" andClickFirstBtn:^(BOOL selected) {
         } andClickSecondBtn:^(BOOL selected) {
         }];
         [self addSubview:titleView];
-        UIView *footView = [[UIView alloc]init];
-        footView.hidden = YES;
-        self.footView = footView;
-        footView.backgroundColor = [UIColor whiteColor];
-        footView.frame = CGRectMake(0, 0, RBScreenWidth, 0);
-        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 46, RBScreenWidth, 53)];
-        label.backgroundColor = [UIColor whiteColor];
-        label.textColor = [UIColor colorWithSexadeString:@"#333333"];
-        label.text = @"赞无数据或无伤病";
-        label.font = [UIFont systemFontOfSize:16];
-        label.textAlignment = NSTextAlignmentCenter;
-        [footView addSubview:label];
-        [self addSubview:footView];
-        
         UITableView *tableView = [[UITableView alloc]init];
         tableView.backgroundColor = [UIColor whiteColor];
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -109,7 +89,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RBDetailInjuredCell *cell = [RBDetailInjuredCell createCellByTableView:tableView];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    if (indexPath.section == 0 && self.homedataArr.count > 0) {
+    if (indexPath.section == 0) {
         RBInjuredModel *injuredModel = self.homedataArr[indexPath.row];
         injuredModel.isLast = (indexPath.row == self.homedataArr.count - 1);
         cell.injuredModel = injuredModel;
@@ -126,18 +106,11 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    int count = 2;
-    if (self.homedataArr.count == 0) {
-        count--;
-    }
-    if (self.awaydataArr.count == 0) {
-        count--;
-    }
-    return count;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0 && self.homedataArr.count > 0) {
+    if (section == 0) {
         return self.homedataArr.count;
     } else {
         return self.awaydataArr.count;
@@ -153,6 +126,36 @@
         return [RBInjuredHeadView HeadViewWithLogo:self.currentHostLogo andName:self.currentHostName];
     } else {
         return [RBInjuredHeadView HeadViewWithLogo:self.currentVisitingLogo andName:self.currentVisitingName];
+    }
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    UIView *footView = [[UIView alloc]init];
+    footView.backgroundColor = [UIColor whiteColor];
+    footView.frame = CGRectMake(0, 0, RBScreenWidth, 53);
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, RBScreenWidth, 53)];
+    label.backgroundColor = [UIColor whiteColor];
+    label.textColor = [UIColor colorWithSexadeString:@"#333333"];
+    label.text = @"赞无数据或无伤病";
+    label.font = [UIFont systemFontOfSize:16];
+    label.textAlignment = NSTextAlignmentCenter;
+    [footView addSubview:label];
+    return footView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section == 0) {
+        if (self.homedataArr.count == 0) {
+            return 53;
+        } else {
+            return 0;
+        }
+    } else {
+        if (self.awaydataArr.count == 0) {
+            return 53;
+        } else {
+            return 0;
+        }
     }
 }
 

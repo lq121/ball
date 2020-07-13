@@ -210,25 +210,17 @@
             }
         }
     } else if (indexPath.row == 3) {
+        // 伤停情况
         NSArray *home = self.dict[@"injury"][@"home"];
         NSArray *away = self.dict[@"injury"][@"away"];
-        if (home.count == 0 && away.count == 0) {
-            return 53 + 46;
-        } else {
-            int count =  (int)(home.count + away.count);
-            int count2 = 2;
-            if (home.count == 0) {
-                count--;
-            }
-            if (away.count == 0) {
-                count--;
-            }
-            if (count == 0 && count2 == 0) {
-                return 53 + 46;
-            } else {
-                return 71 * count2 + 44 * count + 46;
-            }
+        int footH = 0;
+        if (home.count == 0) {
+            footH += 53;
         }
+        if (away.count == 0) {
+            footH += 53;
+        }
+        return 71 * 2 + footH + 44 * (home.count + away.count) + 46;
     } else if (indexPath.row == 4) {
         // 历史交锋
         NSArray *vs = self.dict[@"history"][@"vs"];
