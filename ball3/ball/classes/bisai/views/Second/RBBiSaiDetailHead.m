@@ -324,13 +324,7 @@ typedef void (^ChangeHeight)(int height);
     }
     [[NSNotificationCenter defaultCenter]postNotificationName:@"clickfirstToolBarBtn" object:@(btn.tag)];
     self.indicateView.hidden = (btn.tag == 202);
-    [UIView animateWithDuration:durationTime animations:^{
-        if (btn.tag - 200 == 0 || btn.tag - 200 == 3) {
-            self.indicateView.x = self.checkBtn.x;
-        } else if (btn.tag - 200 == 1 || btn.tag - 200  == 4) {
-            self.indicateView.x = self.checkBtn.x + self.checkBtn.width - self.indicateView.width;
-        }
-    }];
+   
     int index = (int)btn.tag - 200;
     self.bigView.hidden = NO;
     self.smallView.hidden = YES;
@@ -346,6 +340,13 @@ typedef void (^ChangeHeight)(int height);
     if (index != 0 && index != 3) {
         [RBChekLogin NotLogin];
     }
+    [UIView animateWithDuration:durationTime animations:^{
+           if (btn.tag - 200 == 0 || btn.tag - 200 == 3) {
+               self.indicateView.x = self.checkBtn.x;
+           } else if (btn.tag - 200 == 1 || btn.tag - 200  == 4) {
+               self.indicateView.x = self.checkBtn.x + self.checkBtn.width - self.indicateView.width;
+           }
+       }];
 }
 
 - (void)setShipingUrl:(NSString *)shipingUrl {

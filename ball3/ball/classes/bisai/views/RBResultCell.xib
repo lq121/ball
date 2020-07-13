@@ -96,11 +96,24 @@
                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </state>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ELp-qL-08M">
+                        <rect key="frame" x="297" y="4" width="28" height="16"/>
+                        <color key="backgroundColor" red="1" green="0.30980392159999998" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="28" id="CnO-1c-mdu"/>
+                            <constraint firstAttribute="height" constant="16" id="tf1-vL-Pdg"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <state key="normal" title="视频">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Jgb-dZ-rDw" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="056-Pb-5iq"/>
                     <constraint firstItem="y70-EU-bXb" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="17L-3q-BtD"/>
                     <constraint firstItem="plJ-br-q1R" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="4vg-vT-A1D"/>
+                    <constraint firstItem="ELp-qL-08M" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="87c-FH-Tx1"/>
                     <constraint firstItem="D1T-9R-vh6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="BJN-fQ-dC0"/>
                     <constraint firstItem="plJ-br-q1R" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="BY5-IO-Exo"/>
                     <constraint firstItem="tDV-p9-wgE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="DA4-mF-Mvb"/>
@@ -116,6 +129,7 @@
                     <constraint firstItem="KnS-fG-Nrz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="jwH-L8-1Hz"/>
                     <constraint firstAttribute="trailing" secondItem="tDV-p9-wgE" secondAttribute="trailing" id="jwg-Oe-bkf"/>
                     <constraint firstAttribute="trailing" secondItem="D1T-9R-vh6" secondAttribute="trailing" constant="16" id="qSJ-yC-2Y3"/>
+                    <constraint firstAttribute="trailing" secondItem="ELp-qL-08M" secondAttribute="trailing" constant="72" id="sBi-Q3-ZWx"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -127,6 +141,7 @@
                 <outlet property="interBtn" destination="deQ-Vs-fOF" id="1A0-EE-JLQ"/>
                 <outlet property="interRight" destination="iYW-VO-1bH" id="yws-8j-t0v"/>
                 <outlet property="scoreLab" destination="y70-EU-bXb" id="4iJ-r5-ijX"/>
+                <outlet property="shipingRight" destination="sBi-Q3-ZWx" id="fGK-R1-8Pr"/>
                 <outlet property="visitTeamLab" destination="5by-hK-Vi8" id="Kft-FT-ts7"/>
             </connections>
             <point key="canvasLocation" x="-135.50724637681159" y="88.392857142857139"/>

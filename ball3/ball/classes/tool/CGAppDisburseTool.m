@@ -289,8 +289,7 @@
     }];
 }
 
-- (void)dealloc
-{
+- (void)dealloc{
     [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
 }
 

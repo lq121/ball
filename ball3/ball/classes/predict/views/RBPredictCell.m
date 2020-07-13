@@ -27,6 +27,7 @@
 
 /// 大小
 @property (nonatomic, strong) UILabel *bigLab;
+@property (nonatomic, strong) UILabel *shipingLab;
 @end
 
 @implementation RBPredictCell
@@ -65,6 +66,15 @@
         infoLab.font = [UIFont boldSystemFontOfSize:10];
         infoLab.textAlignment = NSTextAlignmentCenter;
         [centerView addSubview:infoLab];
+
+        UILabel *shipingLab = [[UILabel alloc]init];
+        self.shipingLab = shipingLab;
+        shipingLab.text = shiping;
+        shipingLab.textColor = [UIColor whiteColor];
+        shipingLab.backgroundColor = [UIColor colorWithSexadeString:@"#FF4F72"];
+        shipingLab.font = [UIFont boldSystemFontOfSize:10];
+        shipingLab.textAlignment = NSTextAlignmentCenter;
+        [centerView addSubview:shipingLab];
 
         UILabel *hostNameLab = [[UILabel alloc]init];
         hostNameLab.numberOfLines = 0;
@@ -132,6 +142,11 @@
     if (isVip != 2) {
         self.infoLab.hidden = YES;
     }
+    if (self.infoLab.hidden) {
+        self.shipingLab.frame = CGRectMake(RBScreenWidth - 52, 4, 28, 16);
+    }else{
+        self.shipingLab.frame = CGRectMake(RBScreenWidth - 84, 4, 28, 16);
+    }
     CGFloat width = (RBScreenWidth - 204) * 0.5;
     self.hostNameLab.frame = CGRectMake(12, 30, width, 36);
     self.hostLogo.frame = CGRectMake(CGRectGetMaxX(self.hostNameLab.frame) + 8, 28, 40, 40);
@@ -182,6 +197,7 @@
         self.scoreLab.textColor = [UIColor colorWithSexadeString:@"#333333" AndAlpha:0.4];
     }
     self.infoLab.hidden = (predictModel.qingbao != 1);
+    self.shipingLab.hidden = !(predictModel.zhibo.count > 0 );
     NSString *teeTimeStr;
     if (predictModel.state == 2) {
         // 上半场
@@ -307,19 +323,19 @@
     if (predictModel.daxiao != nil && predictModel.daxiao.count >= 3 && ![predictModel.daxiao[0] isKindOfClass:[NSNull class]]) {
         self.bigLab.hidden = NO;
         if ([RBFloatOption judgeDivisibleWithFirstNumber:[predictModel.daxiao[1] doubleValue] andSecondNumber:0.5]) {
-                 self.bigLab.text  = [NSString stringWithFormat:@"大小球 %@球", [NSString formatFloat:[predictModel.daxiao[1] doubleValue]]];
-             }else{
-                  CGFloat bigDisCount = [predictModel.daxiao[1] doubleValue];
-                 if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
-                     self.bigLab.text  = [NSString stringWithFormat:@"大小球 %0.0f/%0.0f球", bigDisCount - 0.25, bigDisCount + 0.25];
-                 } else if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && ![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
-                     self.bigLab.text  = [NSString stringWithFormat:@"大小球 %0.0f/%0.1f球", bigDisCount - 0.25, bigDisCount + 0.25];
-                 } else if (![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
-                     self.bigLab.text  = [NSString stringWithFormat:@"大小球 %0.1f/%0.0f球", bigDisCount - 0.25, bigDisCount + 0.25];
-                 } else {
-                    self.bigLab.text  = [NSString stringWithFormat:@"大小球 %0.1f/%0.1f球", bigDisCount - 0.25, bigDisCount + 0.25];
-                 }
-             }
+            self.bigLab.text = [NSString stringWithFormat:@"大小球 %@球", [NSString formatFloat:[predictModel.daxiao[1] doubleValue]]];
+        } else {
+            CGFloat bigDisCount = [predictModel.daxiao[1] doubleValue];
+            if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                self.bigLab.text = [NSString stringWithFormat:@"大小球 %0.0f/%0.0f球", bigDisCount - 0.25, bigDisCount + 0.25];
+            } else if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && ![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                self.bigLab.text = [NSString stringWithFormat:@"大小球 %0.0f/%0.1f球", bigDisCount - 0.25, bigDisCount + 0.25];
+            } else if (![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                self.bigLab.text = [NSString stringWithFormat:@"大小球 %0.1f/%0.0f球", bigDisCount - 0.25, bigDisCount + 0.25];
+            } else {
+                self.bigLab.text = [NSString stringWithFormat:@"大小球 %0.1f/%0.1f球", bigDisCount - 0.25, bigDisCount + 0.25];
+            }
+        }
     } else {
         self.bigLab.hidden = YES;
     }

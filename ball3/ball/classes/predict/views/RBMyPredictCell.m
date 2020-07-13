@@ -447,6 +447,9 @@
         CGFloat w1 = [predictModel.shengps[1]floatValue];
         CGFloat w2 = [predictModel.shengps[2]floatValue];
         NSMutableArray *mutArr = [NSMutableArray arrayWithArray:predictModel.shengps];
+        if (mutArr == nil ||[mutArr isKindOfClass:[NSNull class]]|| mutArr.count == 0) {
+            return;
+        }
         CGFloat max = MAX(MAX(w0, w1), w2);
         CGFloat min = MIN(MIN(w0, w1), w2);
         int m = 0, n = 0;

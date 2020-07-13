@@ -14,7 +14,6 @@
 #import "RBChekLogin.h"
 #import <AVFoundation/AVFoundation.h>
 
-
 @interface RBBiSaiDetailVC ()<UIScrollViewDelegate>
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIButton *backBtn;
@@ -30,7 +29,7 @@
 @property (nonatomic, assign) CGPoint lastContentOffset;
 @property (nonatomic, assign) int hasData;
 @property (nonatomic, assign) int hasBuy;
-@property(nonatomic,copy)NSString *shiPingUrl;
+@property (nonatomic, copy) NSString *shiPingUrl;
 @end
 
 @implementation RBBiSaiDetailVC
@@ -107,7 +106,7 @@
         if (RB_iPhoneX) {
             height = (228 + RBStatusBarH - 24);
         } else {
-            height = (228 + RBStatusBarH+ 20);
+            height = (228 + RBStatusBarH + 20);
         }
     } else {
         height = (228 +  RBStatusBarH + 20);
@@ -115,11 +114,14 @@
     __weak typeof(self) weakSelf = self;
     RBBiSaiDetailHead *biSaiDetailHead = [[RBBiSaiDetailHead alloc]initWithFrame:CGRectMake(0, 0, RBScreenWidth, height) andIndex:self.index andClickBtn:^(int index) {
         [weakSelf.chatVC.textField resignFirstResponder];
+        if(weakSelf.index == index){
+            return;
+        }
         if (index != 0) {
             weakSelf.index = index;
         }
         if (index == 1 || index == 4) {
-            [UIView animateWithDuration:0.25 animations:^{
+            [UIView animateWithDuration:durationTime animations:^{
                 weakSelf.scrollView.contentOffset = CGPointMake(index * RBScreenWidth, -RBStatusBarH);
             }];
         } else {
@@ -205,6 +207,8 @@
             self.liveTabVC.biSaiModel = self.biSaiModel;
             self.aiForecastVC.biSaiModel = self.biSaiModel;
             self.analyzeVC.biSaiModel = self.biSaiModel;
+            [self.biSaiDetailHead clickIndex:self.index];
+           self.scrollView.contentOffset = CGPointMake(self.index * RBScreenWidth, self.scrollView.contentOffset.y);
         }
     }
 }
@@ -286,21 +290,20 @@
     self.hasData = hasData;
     if (index == 1) {
         if (self.biSaiModel.status >= 2 && self.biSaiModel.status <= 4) {
-             [self shareWithType:@"Session" andDes:[NSString stringWithFormat:@"相信数据的力量-全方位预测%@队 VS %@队", self.biSaiModel.hostTeamName, self.biSaiModel.visitingTeamName] andUrlStr:[NSString stringWithFormat:@"%@game/%d", BASESHAREURL, self.biSaiModel.namiId] andImage:@"share logo"];
-        }else if (self.biSaiModel.status == 8){
-             [self shareWithType:@"Session" andDes:[NSString stringWithFormat:@"%@队 VS %@队", self.biSaiModel.hostTeamName, self.biSaiModel.visitingTeamName] andUrlStr:[NSString stringWithFormat:@"%@game/%d", BASESHAREURL, self.biSaiModel.namiId] andImage:@"share logo"];
-        }else {
-             [self shareWithType:@"Session" andDes:[NSString stringWithFormat:@"%@队 VS %@队 赛后全方位分析", self.biSaiModel.hostTeamName, self.biSaiModel.visitingTeamName] andUrlStr:[NSString stringWithFormat:@"%@game/%d", BASESHAREURL, self.biSaiModel.namiId] andImage:@"share logo"];
+            [self shareWithType:@"Session" andDes:[NSString stringWithFormat:@"相信数据的力量-全方位分析%@队 VS %@队", self.biSaiModel.hostTeamName, self.biSaiModel.visitingTeamName] andUrlStr:[NSString stringWithFormat:@"%@game/%d", BASESHAREURL, self.biSaiModel.namiId] andImage:@"share logo"];
+        } else if (self.biSaiModel.status == 8) {
+            [self shareWithType:@"Session" andDes:[NSString stringWithFormat:@"%@队 VS %@队", self.biSaiModel.hostTeamName, self.biSaiModel.visitingTeamName] andUrlStr:[NSString stringWithFormat:@"%@game/%d", BASESHAREURL, self.biSaiModel.namiId] andImage:@"share logo"];
+        } else {
+            [self shareWithType:@"Session" andDes:[NSString stringWithFormat:@"%@队 VS %@队 赛后全方位分析", self.biSaiModel.hostTeamName, self.biSaiModel.visitingTeamName] andUrlStr:[NSString stringWithFormat:@"%@game/%d", BASESHAREURL, self.biSaiModel.namiId] andImage:@"share logo"];
         }
-       
     } else if (index == 2) {
         if (self.biSaiModel.status >= 2 && self.biSaiModel.status <= 4) {
-                    [self shareWithType:@"Timeline" andDes:[NSString stringWithFormat:@"相信数据的力量-全方位预测%@队 VS %@队", self.biSaiModel.hostTeamName, self.biSaiModel.visitingTeamName] andUrlStr:[NSString stringWithFormat:@"%@game/%d", BASESHAREURL, self.biSaiModel.namiId] andImage:@"share logo"];
-               }else if (self.biSaiModel.status == 8){
-                    [self shareWithType:@"Timeline" andDes:[NSString stringWithFormat:@"%@队 VS %@队", self.biSaiModel.hostTeamName, self.biSaiModel.visitingTeamName] andUrlStr:[NSString stringWithFormat:@"%@game/%d", BASESHAREURL, self.biSaiModel.namiId] andImage:@"share logo"];
-               }else {
-                    [self shareWithType:@"Timeline" andDes:[NSString stringWithFormat:@"%@队 VS %@队 赛后全方位分析", self.biSaiModel.hostTeamName, self.biSaiModel.visitingTeamName] andUrlStr:[NSString stringWithFormat:@"%@game/%d", BASESHAREURL, self.biSaiModel.namiId] andImage:@"share logo"];
-               }
+            [self shareWithType:@"Timeline" andDes:[NSString stringWithFormat:@"相信数据的力量-全方位分析%@队 VS %@队", self.biSaiModel.hostTeamName, self.biSaiModel.visitingTeamName] andUrlStr:[NSString stringWithFormat:@"%@game/%d", BASESHAREURL, self.biSaiModel.namiId] andImage:@"share logo"];
+        } else if (self.biSaiModel.status == 8) {
+            [self shareWithType:@"Timeline" andDes:[NSString stringWithFormat:@"%@队 VS %@队", self.biSaiModel.hostTeamName, self.biSaiModel.visitingTeamName] andUrlStr:[NSString stringWithFormat:@"%@game/%d", BASESHAREURL, self.biSaiModel.namiId] andImage:@"share logo"];
+        } else {
+            [self shareWithType:@"Timeline" andDes:[NSString stringWithFormat:@"%@队 VS %@队 赛后全方位分析", self.biSaiModel.hostTeamName, self.biSaiModel.visitingTeamName] andUrlStr:[NSString stringWithFormat:@"%@game/%d", BASESHAREURL, self.biSaiModel.namiId] andImage:@"share logo"];
+        }
     } else {
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
         pasteboard.string = [NSString stringWithFormat:@"%@game/%d", BASESHAREURL, self.biSaiModel.namiId];
@@ -387,7 +390,7 @@
             if (RB_iPhoneX) {
                 height = (228 + RBStatusBarH - 24);
             } else {
-                height = (228 + RBStatusBarH+ 20);
+                height = (228 + RBStatusBarH + 20);
             }
         } else {
             height = (228 +  RBStatusBarH + 20);
@@ -494,10 +497,10 @@
     if (self.biSaiModel.status >= 2 && self.biSaiModel.status <= 4) {
         // 比赛中
         message.description = @"对了么，中了没，take easy，比赛还在进行中，球是圆的，逆转就在一瞬间";
-    } else if(self.biSaiModel.status == 8){
+    } else if (self.biSaiModel.status == 8) {
         message.description = @"事后诸葛亮，赛后看一看。数据捋一捋，下场接着上";
-    }else{
-       message.description = @"比赛前的热度，呼吸加快了速度。啤酒龙虾一起跳舞，不来一起敲响下战鼓";
+    } else {
+        message.description = @"比赛前的热度，呼吸加快了速度。啤酒龙虾一起跳舞，不来一起敲响下战鼓";
     }
     [message setThumbImage:[UIImage imageNamed:@"share logo"]];
     WXWebpageObject *webpageObject = [WXWebpageObject object];

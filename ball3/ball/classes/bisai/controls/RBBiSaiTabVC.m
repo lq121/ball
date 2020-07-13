@@ -189,7 +189,17 @@
 -(void)getgamezhibolist{
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [RBNetworkTool PostDataWithUrlStr:@"try/go/getgamezhibolist"  andParam:dict Success:^(NSDictionary *_Nonnull backData) {
-        NSLog(@"%@",backData);
+        NSArray *array = (NSArray*)backData[@"ok"];
+        for (int i = 0; i< array.count; i++) {
+            NSDictionary *dic = array[i];
+            NSArray *arr = (NSArray*)dic[@"data"];
+            if (arr.count > 0) {
+                RBBiSaiModel *model = [[RBFMDBTool sharedFMDBTool]selectBiSaiModelWithNamiId:[dic[@"id"] intValue]];
+                model.hasShiPing = YES;
+                [[RBFMDBTool sharedFMDBTool]updateBiSaiModel:model];
+            }
+        }
+        [self getLocalBiSaiData];
     }Fail:^(NSError * _Nonnull error) {
         
     }];

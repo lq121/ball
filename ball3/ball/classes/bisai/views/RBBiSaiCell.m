@@ -37,6 +37,7 @@
 @property (nonatomic, strong) UILabel *jifenLab;
 /// 线
 @property (nonatomic, strong) UIView *line;
+@property (nonatomic, strong) UILabel *shipingLab;
 @end
 
 @implementation RBBiSaiCell
@@ -81,6 +82,15 @@
         infoLab.font = [UIFont boldSystemFontOfSize:10];
         infoLab.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:infoLab];
+
+        UILabel *shipingLab = [[UILabel alloc]init];
+        shipingLab.text = shiping;
+        self.shipingLab = shipingLab;
+        shipingLab.textColor = [UIColor whiteColor];
+        shipingLab.backgroundColor = [UIColor colorWithSexadeString:@"#FF4F72"];
+        shipingLab.font = [UIFont boldSystemFontOfSize:10];
+        shipingLab.textAlignment = NSTextAlignmentCenter;
+        [self.contentView addSubview:shipingLab];
 
         UIImageView *attentionView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"shoucang"]];
         self.attentionView = attentionView;
@@ -197,12 +207,14 @@
         [[UIViewController getCurrentVC].navigationController pushViewController:biSaiDeatilVC animated:YES];
     }
 }
--(void)setBiSaiModel:(RBBiSaiModel *)biSaiModel {
+
+- (void)setBiSaiModel:(RBBiSaiModel *)biSaiModel {
     _biSaiModel = biSaiModel;
     self.eventNameLab.text = biSaiModel.eventName;
     self.biSaiTimeLab.text = [NSString getStrWithDateInt:biSaiModel.biSaiTime andFormat:@"HH:mm"];
     self.statLab.text = biSaiModel.TeeTimeStr;
     self.infoLab.hidden = !biSaiModel.hasIntelligence;
+    self.shipingLab.hidden = !biSaiModel.hasShiPing;
     self.scoreLab.text = [NSString stringWithFormat:@"%d:%d", biSaiModel.hostScore, biSaiModel.visitingScore];
     NSString *labStr = @"";
     labStr = [labStr stringByAppendingString:[NSString stringWithFormat:@"半:%d-%d", biSaiModel.hostHalfScore, biSaiModel.visitingHalfScore]];
@@ -348,19 +360,27 @@
         self.statLab.layer.masksToBounds = NO;
         self.statLab.layer.cornerRadius = 0;
     }
-    self.infoLab.frame = CGRectMake(RBScreenWidth - 40, 8, 28, 16);
+    CGFloat rigthW = RBScreenWidth - 8;
+    self.attentionView.hidden = !self.biSaiModel.hasAttention;
+    if(!self.attentionView.hidden){
+        rigthW = RBScreenWidth - 20;
+    }
+    self.attentionView.frame = CGRectMake(rigthW, 8, 16, 15);
     int isVip = [[[NSUserDefaults standardUserDefaults]objectForKey:@"isVip"]intValue];
     if (isVip != 2) {
         self.infoLab.hidden = YES;
     }
-    self.attentionView.frame = CGRectMake(RBScreenWidth - 28, 8, 16, 15);
+    if (!self.infoLab.hidden) {
+         rigthW -= 32;
+    }
+    self.infoLab.frame = CGRectMake(rigthW, 8, 28, 16);
+    if (!self.shipingLab.hidden) {
+        rigthW -= 32;
+    }
+    self.shipingLab.frame = CGRectMake(rigthW, 8, 28, 16);
     self.cornerLab.frame = CGRectMake(0, 71, RBScreenWidth, 12);
     self.yuceBtn.frame = CGRectMake((RBScreenWidth - 91) * 0.5, 91, 96, 28);
     self.weekLab.frame = CGRectMake(12, 96, [self.weekLab.text getLineSizeWithFontSize:12].width, 17);
-    self.attentionView.hidden = !self.biSaiModel.hasAttention;
-    if (!self.attentionView.hidden) {
-        self.infoLab.x = RBScreenWidth - 72;
-    }
     if (self.biSaiModel.stage == nil) {
         self.line.frame = CGRectMake(0, 119, RBScreenWidth, 4);
         self.jifenLab.frame = CGRectZero;

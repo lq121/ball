@@ -9,6 +9,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *interBtn;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *interRight;
 @property (weak, nonatomic) IBOutlet UIButton *attentionBtn;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *shipingRight;
 
 @end
 
@@ -46,6 +47,20 @@
     }else{
         self.interRight.constant = 16;
     }
+    if ( self.attentionBtn.hidden == YES) {
+        if (self.interBtn.hidden == YES) {
+            self.shipingRight.constant = 16;
+        }else{
+            self.shipingRight.constant = 72;
+        }
+    }else{
+        if (self.interBtn.hidden == YES) {
+            self.shipingRight.constant = 40;
+        }else{
+            self.shipingRight.constant = 72;
+        }
+    }
+    
     int isVip = [[[NSUserDefaults standardUserDefaults]objectForKey:@"isVip"]intValue];
     if (isVip != 2) {
         self.interBtn.hidden = YES;

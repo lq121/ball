@@ -109,6 +109,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) int createt;
 @property (nonatomic, assign) BOOL show;
 @property (nonatomic, assign) int Result;
+@property (nonatomic, strong) NSArray *zhibo;
 @end
 
 NS_ASSUME_NONNULL_END
