@@ -196,18 +196,17 @@
 }
 
 - (void)getLvData {
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    [dict setValue:[NSString stringWithFormat:@"%d", self.biSaiModel.namiId] forKey:@"matchId"];
-    [RBNetworkTool PostDataWithUrlStr:@"lav/nanoapigamedetail" andParam:dict Success:^(NSDictionary *_Nonnull backData) {
-        if (backData[@"error"] != nil) {
-            return;
-        }
-        NSData *jsonData = nil;
-        NSError *err;
-        jsonData = [backData[@"ok"] dataUsingEncoding:NSUTF8StringEncoding];
+   NSDictionary *dict = @{ @"matchid": @(self.biSaiModel.namiId) };
+    [RBNetworkTool PostDataWithUrlStr:@"try/go/getfootballdetail" andParam:dict Success:^(NSDictionary *_Nonnull backDataDic) {
+        if (backDataDic.allKeys.count == 0 || backDataDic == nil || [backDataDic isKindOfClass:[NSNull class]] || [[backDataDic allKeys] containsObject:@"message"] || [[backDataDic allKeys] containsObject:@"err"]) return;
+              NSData *jsonData = [backDataDic[@"ok"] dataUsingEncoding:NSUTF8StringEncoding];
+              NSError *err;
+              NSDictionary *backData = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                       options:NSJSONReadingMutableContainers
+                                                                         error:&err];
         [self.liveArr removeAllObjects];
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&err];
-        NSArray *statArr = [RBStatsModel mj_objectArrayWithKeyValuesArray:dic[@"stats"]];
+        NSArray *statArr = [RBStatsModel mj_objectArrayWithKeyValuesArray:backData[@"tlive"]];
         RBStatsModel *jiaoModel, *yellowModel, *redModel;
         NSArray *types = @[@(21), @(22), @(8),@(9), @(23), @(24), @(25)];
         for (int j = 0; j < statArr.count; j++) {

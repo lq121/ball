@@ -121,7 +121,7 @@
         if (jinBiModel.Dealtype == 100) {
             self.jinBiLab.text = @"会员购买";
         } else {
-            self.jinBiLab.text = @"小应预测";
+            self.jinBiLab.text = @"小应分析";
         }
     }
     if (jinBiModel.State >= 2) {

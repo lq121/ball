@@ -7,11 +7,11 @@
 @property (nonatomic, strong) UILabel *biSaiTimeLab;
 /// 球队名
 @property (nonatomic, strong) UILabel *teamNameLab;
-/// 预测view
+/// 分析view
 @property (nonatomic, strong) UIView *predictView;
-/// 预测类型
+/// 分析类型
 @property (nonatomic, strong) UILabel *predictLab;
-/// 预测结果
+/// 分析结果
 @property (nonatomic, strong) UILabel *resultLab;
 @end
 

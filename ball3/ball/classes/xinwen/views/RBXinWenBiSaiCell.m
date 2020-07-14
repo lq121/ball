@@ -42,7 +42,7 @@
         UIButton *yuceBtn = [[UIButton alloc]init];
         [yuceBtn addTarget:self  action:@selector(clickYuceBtn) forControlEvents:UIControlEventTouchUpInside];
         [yuceBtn setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithSexadeString:@"#FFA500"]] forState:UIControlStateNormal];
-        [yuceBtn setTitle:@"小应预测" forState:UIControlStateNormal];
+        [yuceBtn setTitle:@"小应分析" forState:UIControlStateNormal];
         [yuceBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         yuceBtn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
         yuceBtn.layer.masksToBounds = YES;

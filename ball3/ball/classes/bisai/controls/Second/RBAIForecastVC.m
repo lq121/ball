@@ -1,5 +1,5 @@
 #import "RBAIForecastVC.h"
-#import "RBPredictTableVC.h" // 预测
+#import "RBPredictTableVC.h" // 分析
 #import "RBIntelligenceVC.h" // 情报
 #import "RBPlateTabVC.h" // 亚盘
 #import "RBCompensateTabVC.h" // 欧赔

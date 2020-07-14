@@ -82,7 +82,7 @@
         [secondChose setTitleColor:[UIColor colorWithSexadeString:@"#213A4B"] forState:UIControlStateNormal];
         [self addSubview:secondChose];
 
-        self.progress =  [[RBProgress alloc]initWithFrame:CGRectMake(16, 62, RBScreenWidth - 32, 12) andFirst:0 andSecond:0 andTip:@"暂无预测结果" andType:0];
+        self.progress =  [[RBProgress alloc]initWithFrame:CGRectMake(16, 62, RBScreenWidth - 32, 12) andFirst:0 andSecond:0 andTip:@"暂无分析结果" andType:0];
         [self addSubview:self.progress];
 
         UILabel *winLabel = [[UILabel alloc]init];
@@ -376,9 +376,9 @@
     } else {
         self.leftLabe.hidden = YES;
         self.rightLab.hidden = YES;
-        [self.buyBtn setTitle:@"暂无预测" forState:UIControlStateDisabled];
+        [self.buyBtn setTitle:@"暂无分析" forState:UIControlStateDisabled];
         self.buyBtn.enabled = NO;
-        // 暂无预测结果
+        // 暂无分析结果
         self.progress.hidden = YES;
         self.lockView.hidden = NO;
         self.icon.hidden = YES;

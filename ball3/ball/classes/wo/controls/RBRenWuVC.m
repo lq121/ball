@@ -70,9 +70,9 @@
     NSDateComponents *delta = [calend components:NSCalendarUnitWeekOfMonth | NSCalendarUnitYear fromDate:now toDate:calculatedate options:0];
     NSArray *tips;
     if ([delta month] >= 0 && [delta year] >= 0) {
-        tips = @[@"每日签到", @"观看视频", @"每日分享", @"讨论区发表话题或留言", @"消费预测", @"实名认证", @"本月已充值去续费"];
+        tips = @[@"每日签到", @"观看视频", @"每日分享", @"讨论区发表话题或留言", @"消费分析", @"实名认证", @"本月已充值去续费"];
     } else {
-        tips = @[@"每日签到", @"观看视频", @"每日分享", @"讨论区发表话题或留言", @"消费预测", @"实名认证", @"会员充值"];
+        tips = @[@"每日签到", @"观看视频", @"每日分享", @"讨论区发表话题或留言", @"消费分析", @"实名认证", @"会员充值"];
     }
     NSArray *btnTitiles = @[@"去签到", @"去观看", @"去分享", @"去评论", @"去消费", @"去认证", @"去充值"];
     NSArray *Ids = @[@(3), @(1), @(4), @(5), @(7), @(6), @(8)];

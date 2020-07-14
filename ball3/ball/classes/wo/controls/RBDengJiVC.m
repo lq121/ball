@@ -96,7 +96,7 @@
     layout.minimumInteritemSpacing = 0;
 
     NSArray *tips = @[@"每日签到", @"每日分享", @"消费金币", @"充值金币", @"购买会员", @"期待更多..."];
-    NSArray *des = @[@"完成每日签到送送送", @"每次可获得奖励", @"非会员改昵称/购买预测", @"送等额奖励", @"奖励爽翻天", @""];
+    NSArray *des = @[@"完成每日签到送送送", @"每次可获得奖励", @"非会员改昵称/购买分析", @"送等额奖励", @"奖励爽翻天", @""];
     NSArray *icons = @[@"sign", @"gift", @"buy", @"wallet2", @"vip", @""];
     NSMutableArray *models = [NSMutableArray array];
     for (int i = 0; i < tips.count; i++) {

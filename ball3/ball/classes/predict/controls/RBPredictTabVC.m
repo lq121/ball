@@ -60,7 +60,7 @@
     if (self.tableView.contentOffset.y >= 40) {
         UIView *head = [[UIApplication sharedApplication].keyWindow viewWithTag:666];
         if (head != nil) {
-            // 近期预测头部删除
+            // 近期分析头部删除
             head.hidden = NO;
         }
         self.tableView.y = RBNavBarAndStatusBarH + 40;
@@ -89,7 +89,7 @@
     }
 }
 
-/// 获取近期预测
+/// 获取近期分析
 - (void)getJinpredictData {
     NSMutableDictionary *mutDict = [NSMutableDictionary dictionary];
     [mutDict setValue:@(0) forKey:@"p"];
@@ -108,7 +108,7 @@
     }];
 }
 
-/// 获取热门预测
+/// 获取热门分析
 - (void)getHotpredictData {
     NSMutableDictionary *mutDict = [NSMutableDictionary dictionary];
     [mutDict setValue:@(self.currentReP) forKey:@"p"];
@@ -159,7 +159,7 @@
     self.tableView.estimatedSectionFooterHeight = 0;
     self.tableView.estimatedSectionHeaderHeight = 0;
 
-    // 近期预测头部
+    // 近期分析头部
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, RBNavBarAndStatusBarH, RBScreenWidth, 40)];
     view.hidden = YES;
     view.tag = 666;
@@ -169,7 +169,7 @@
     [view addSubview:icon];
 
     UILabel *tipLab = [[UILabel alloc]init];
-    tipLab.text = @"近期预测";
+    tipLab.text = @"近期分析";
     tipLab.frame = CGRectMake(CGRectGetMaxX(icon.frame) + 4, 12, 80, 16);
     tipLab.textColor = [UIColor colorWithSexadeString:@"#333333"];
     tipLab.font = [UIFont boldSystemFontOfSize:16];
@@ -249,7 +249,7 @@
         [view addSubview:icon];
 
         UILabel *tipLab = [[UILabel alloc]init];
-        tipLab.text = @"近期预测";
+        tipLab.text = @"近期分析";
         tipLab.frame = CGRectMake(CGRectGetMaxX(icon.frame) + 4, 12, 80, 16);
         tipLab.textColor = [UIColor colorWithSexadeString:@"#333333"];
         tipLab.font = [UIFont boldSystemFontOfSize:16];
@@ -321,7 +321,7 @@
         [view addSubview:icon];
 
         UILabel *tipLab = [[UILabel alloc]init];
-        tipLab.text = @"热门预测";
+        tipLab.text = @"热门分析";
         tipLab.frame = CGRectMake(CGRectGetMaxX(icon.frame) + 4, 16, 80, 16);
         tipLab.textColor = [UIColor colorWithSexadeString:@"#333333"];
         tipLab.font = [UIFont boldSystemFontOfSize:16];
@@ -345,13 +345,13 @@
         RBPredictModel *predictModel = [self.nearpredictArr firstObject];
         self.tipLab2.text = [NSString stringWithFormat:@"%@ vs %@", predictModel.zhuname[0], predictModel.kename[0]];
         if (predictModel.Result == 1 || predictModel.Result == 2 || predictModel.Result == 3) {
-            [self.predictBtn setTitle:@"预测    准" forState:UIControlStateNormal];
+            [self.predictBtn setTitle:@"分析    准" forState:UIControlStateNormal];
             self.predictBtn.backgroundColor = [UIColor colorWithSexadeString:@"#FA7268"];
         } else if (predictModel.Result == 11) {
-            [self.predictBtn setTitle:@"预测    走" forState:UIControlStateNormal];
+            [self.predictBtn setTitle:@"分析    走" forState:UIControlStateNormal];
             self.predictBtn.backgroundColor = [UIColor colorWithSexadeString:@"#FFA500"];
         } else if (predictModel.Result == 21) {
-            [self.predictBtn setTitle:@"预测    错" forState:UIControlStateNormal];
+            [self.predictBtn setTitle:@"分析    错" forState:UIControlStateNormal];
             self.predictBtn.backgroundColor = [UIColor colorWithSexadeString:@"#FA7268"];
         }
     } else {

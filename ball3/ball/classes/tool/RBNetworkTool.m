@@ -452,10 +452,10 @@
             [RBToast showWithTitle:@"您已经投过票"];
             break;
         case 325:
-            [RBToast showWithTitle:@"没有ai预测数据"];
+            [RBToast showWithTitle:@"没有ai分析数据"];
             break;
         case 326:
-            [RBToast showWithTitle:@"你已经买过预测结果"];
+            [RBToast showWithTitle:@"你已经买过分析结果"];
             break;
         case 327:
             [RBToast showWithTitle:@"金币不够"];

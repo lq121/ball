@@ -69,14 +69,6 @@
     UITextField *textField1 = [self.view viewWithTag:10];
     UITextField *textField2 = [self.view viewWithTag:11];
     UITextField *textField3 = [self.view viewWithTag:12];
-    if (![NSString isVaildUserCard:textField2.text]) {
-        [RBToast showWithTitle:@"请输入合法的身份证号码"];
-        return;
-    }
-    if (![NSString isVaildPhone:textField3.text]) {
-        [RBToast showWithTitle:shuruhefashoujihao];
-        return;
-    }
     if (self.codeTextField.text.length == 0) {
         [RBToast showWithTitle:shuruyanzhengma];
         return;
@@ -182,10 +174,6 @@
 
 - (void)clickGetCodeBtn:(UIButton *)btn {
     UITextField *textField3 = [self.view viewWithTag:12];
-    if (![NSString isVaildPhone:textField3.text]) {
-        [RBToast showWithTitle:shuruhefashoujihao];
-        return;
-    }
     [RBNetworkTool getcodeWithMobile:textField3.text AndType:4 Result:^(NSDictionary *_Nonnull backData, NSError *_Nonnull error) {
         if ([backData[@"ok"]intValue] == 1) {
             btn.enabled = NO;

@@ -38,7 +38,7 @@
         [whiteView addSubview:gayView];
 
         UILabel *tipLab1 = [[UILabel alloc]initWithFrame:CGRectMake(0, 8, RBScreenWidth - 48, 22)];
-        tipLab1.text = @"AI预测 胜负优选";
+        tipLab1.text = @"AI分析 胜负优选";
         tipLab1.textAlignment = NSTextAlignmentCenter;
         tipLab1.font = [UIFont boldSystemFontOfSize:16];
         tipLab1.textColor = [UIColor colorWithSexadeString:@"#333333"];

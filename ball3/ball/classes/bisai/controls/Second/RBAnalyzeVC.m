@@ -119,7 +119,7 @@
         };
         cell = firstCell;
     } else if (indexPath.row == 1) {
-        // 预测
+        // 分析
         cell =   [RBAnalySecondCell createCellByTableView:tableView];
     } else if (indexPath.row == 2) {
         // 进球分布

@@ -18,11 +18,11 @@
 @property (nonatomic, strong) UIImageView *visitLogo;
 /// 比分
 @property (nonatomic, strong) UILabel *scoreLab;
-/// 预测view
+/// 分析view
 @property (nonatomic, strong) UIView *predictView;
-/// 预测类型  亚盘/ 欧盘/大小
+/// 分析类型  亚盘/ 欧盘/大小
 @property (nonatomic, strong) UILabel *predictLab;
-/// 预测结果
+/// 分析结果
 @property (nonatomic, strong) UILabel *resultLab;
 @end
 

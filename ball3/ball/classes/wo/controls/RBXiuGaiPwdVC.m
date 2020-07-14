@@ -95,10 +95,6 @@
 
 - (void)clickGetCodeBtn:(UIButton *)btn {
     UITextField *textField1 = [self.view viewWithTag:10];
-    if (![NSString isVaildPhone:textField1.text]) {
-        [RBToast showWithTitle:shuruhefashoujihao];
-        return;
-    }
     [RBNetworkTool getcodeWithMobile:textField1.text AndType:3 Result:^(NSDictionary *_Nonnull backData, NSError *_Nonnull error) {
         if ([backData[@"ok"]intValue] == 1) {
             btn.enabled = NO;

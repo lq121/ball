@@ -1115,11 +1115,11 @@
 		8430CD5724A837BF00A6F9FC /* Album */ = {
 			isa = PBXGroup;
 			children = (
-				8430CD5824A837BF00A6F9FC /* LYFPhotosManager.h */,
 				8430CD5924A837BF00A6F9FC /* Controller */,
+				8430CD5824A837BF00A6F9FC /* LYFPhotosManager.h */,
+				8430CD6E24A837BF00A6F9FC /* LYFPhotosManager.m */,
 				8430CD5C24A837BF00A6F9FC /* Model */,
 				8430CD6424A837BF00A6F9FC /* View */,
-				8430CD6E24A837BF00A6F9FC /* LYFPhotosManager.m */,
 			);
 			path = Album;
 			sourceTree = "<group>";

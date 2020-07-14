@@ -136,7 +136,7 @@
 
     UILabel *tip2 = [[UILabel alloc]init];
     tip2.textAlignment = NSTextAlignmentLeft;
-    tip2.text = @"购买须知：\n预测的购买仅限于智能预测消费；一经售出不可退还；\n购彩有风险，预测结果可能与最终结果不同；活动解释权归小应体育平台所有。";
+    tip2.text = @"购买须知：\n分析的购买仅限于智能分析消费；一经售出不可退还；\n购彩有风险，分析结果可能与最终结果不同；活动解释权归小应体育平台所有。";
     tip2.font = [UIFont systemFontOfSize:12];
     tip2.numberOfLines = 0;
     tip2.textColor = [UIColor colorWithSexadeString:@"#333333" AndAlpha:0.4];

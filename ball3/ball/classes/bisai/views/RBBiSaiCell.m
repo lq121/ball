@@ -31,7 +31,7 @@
 @property (nonatomic, strong) UILabel *cornerLab;
 /// 星期日期（当场比赛的顺序）
 @property (nonatomic, strong) UILabel *weekLab;
-/// 预测按钮
+/// 分析按钮
 @property (nonatomic, strong) UIButton *yuceBtn;
 ///积分赛名字
 @property (nonatomic, strong) UILabel *jifenLab;
@@ -170,7 +170,7 @@
         [self.contentView addSubview:weekLab];
 
         UIButton *yuceBtn = [[UIButton alloc]init];
-        [yuceBtn setTitle:@"小应预测" forState:UIControlStateNormal];
+        [yuceBtn setTitle:@"小应分析" forState:UIControlStateNormal];
         [yuceBtn addTarget:self action:@selector(clickYuceBtn) forControlEvents:UIControlEventTouchUpInside];
         [yuceBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         yuceBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14];

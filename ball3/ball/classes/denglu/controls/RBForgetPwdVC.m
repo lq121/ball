@@ -123,10 +123,6 @@
 }
 
 - (void)clickGetCodeBtn:(UIButton *)btn {
-    if (![NSString isVaildPhone:self.phoneField.text]) {
-        [RBToast showWithTitle:shuruhefashoujihao];
-        return;
-    }
     [RBNetworkTool getcodeWithMobile:self.phoneField.text AndType:2 Result:^(NSDictionary *_Nonnull backData, NSError *_Nonnull error) {
         if ([backData[@"ok"]intValue] == 1) {
             btn.enabled = NO;

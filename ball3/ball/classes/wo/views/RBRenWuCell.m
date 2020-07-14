@@ -137,7 +137,7 @@
         RBTabBarVC *tabBarVC = (RBTabBarVC *)[[[UIApplication sharedApplication] delegate] window].rootViewController;
         tabBarVC.selectedIndex = 1;
     } else if (self.renWuModel.Id == 4 || self.renWuModel.Id == 7) {
-        // 消费预测，充值会员
+        // 消费分析，充值会员
         [currentVC.navigationController popViewControllerAnimated:NO];
         RBTabBarVC *tabBarVC = (RBTabBarVC *)[[[UIApplication sharedApplication] delegate] window].rootViewController;
         tabBarVC.selectedIndex = 2;

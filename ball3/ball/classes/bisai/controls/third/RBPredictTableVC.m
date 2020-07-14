@@ -37,7 +37,7 @@
 }
 
 - (void)getaiData {
-    // 获取预测数据
+    // 获取分析数据
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     if (self.matchId == 0) return;
     [dict setValue:@(self.matchId) forKey:@"matchid"];
