@@ -84,7 +84,7 @@
     return _attentionHistoryDataArray;
 }
 
-- (void)getLocalBiSaiData {
+- (void)getLoacalData {
     if (self.biSaiType == 0) {
         // 全部
         [self.allDataArray removeAllObjects];
@@ -148,60 +148,84 @@
             [self showData];
         }
         [self.tableView reloadData];
-        if (self.biSaiType == 0) {
-            [self.tableView showDataCount:self.allDataArray.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
-            if (self.allDataArray.count > 0) {
-                self.tableView.tableFooterView = self.footView;
-            }
-            [self getgamezhibolist];
-        } else if (self.biSaiType == 1) {
-            if (self.beginingDataArray.count > 0) {
-                self.tableView.tableFooterView = self.footView;
-            }
-            [self.tableView showDataCount:self.beginingDataArray.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
-            [self getgamezhibolist];
-        } else if (self.biSaiType == 2) {
-            if (self.scheduleDataArray.count > 0) {
-                self.tableView.tableFooterView = self.footView;
-            }
-            [self.tableView showDataCount:self.scheduleDataArray.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
-        } else if (self.biSaiType == 3) {
-            if (self.resultDataArray.count > 0) {
-                self.tableView.tableFooterView = self.footView;
-            }
-            [self.tableView showDataCount:self.resultDataArray.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
-        } else if (self.biSaiType == 4) {
-            if (self.attentionDataArray.count > 0) {
-                self.tableView.tableFooterView = self.footView;
-            }
-            [self.tableView showDataCount:self.attentionDataArray.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183) andType:2 ];
-        } else if (self.biSaiType == 5) {
-            if (self.attentionHistoryDataArray.count > 0) {
-                self.tableView.tableFooterView = self.footView;
-            }
-            [self.tableView showDataCount:self.attentionHistoryDataArray.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183) andType:2];
-        }
     } else {
         [self getBiSaiData];
     }
+    if (self.biSaiType == 0) {
+        [self.tableView showDataCount:self.allDataArray.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
+        if (self.allDataArray.count > 0) {
+            self.tableView.tableFooterView = self.footView;
+        }
+    } else if (self.biSaiType == 1) {
+        if (self.beginingDataArray.count > 0) {
+            self.tableView.tableFooterView = self.footView;
+        }
+        [self.tableView showDataCount:self.beginingDataArray.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
+    } else if (self.biSaiType == 2) {
+        if (self.scheduleDataArray.count > 0) {
+            self.tableView.tableFooterView = self.footView;
+        }
+        [self.tableView showDataCount:self.scheduleDataArray.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
+    } else if (self.biSaiType == 3) {
+        if (self.resultDataArray.count > 0) {
+            self.tableView.tableFooterView = self.footView;
+        }
+        [self.tableView showDataCount:self.resultDataArray.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183)];
+    } else if (self.biSaiType == 4) {
+        if (self.attentionDataArray.count > 0) {
+            self.tableView.tableFooterView = self.footView;
+        }
+        [self.tableView showDataCount:self.attentionDataArray.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183) andType:2 ];
+    } else if (self.biSaiType == 5) {
+        if (self.attentionHistoryDataArray.count > 0) {
+            self.tableView.tableFooterView = self.footView;
+        }
+        [self.tableView showDataCount:self.attentionHistoryDataArray.count andimage:@"nothing" andTitle:meiyourenheshuju andImageSize:CGSizeMake(146, 183) andType:2];
+    }
 }
 
--(void)getgamezhibolist{
+- (void)getLocalBiSaiData {
+    [self getLoacalData];
+    if (self.biSaiType == 0 || self.biSaiType == 1) {
+        [self getgamezhibolist];
+    }
+    [self getgamechupanlist];
+}
+
+- (void)getgamechupanlist {
+    NSString *str =  [NSString getStrWithDate:[NSDate date] andFormat:@"yyyyMMdd"];
+    if (self.date > 0) {
+        str = [NSString getStrWithDateInt:self.date andFormat:@"yyyyMMdd"];
+    }
+    NSDictionary *dict = @{ @"date": str };
+    [RBNetworkTool PostDataWithUrlStr:@"try/go/getchupan"  andParam:dict Success:^(NSDictionary *_Nonnull backData) {
+        NSArray *array = backData[@"ok"];
+        for (int i = 0; i < array.count; i++) {
+            NSDictionary *dic = array[i];
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:0 error:0];
+            NSString *dataStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            [[RBFMDBTool sharedFMDBTool]updateBiSaiModelWithNamiId:[dic[@"id"] intValue] andBallData:dataStr];
+            [[RBFMDBTool sharedFMDBTool]updateAttentionBiSaiModelWithNamiId:[dic[@"id"] intValue] andBallData:dataStr];
+        }
+        [self getLoacalData];
+    } Fail:^(NSError *_Nonnull error) {
+    }];
+}
+
+- (void)getgamezhibolist {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [RBNetworkTool PostDataWithUrlStr:@"try/go/getgamezhibolist"  andParam:dict Success:^(NSDictionary *_Nonnull backData) {
-        NSArray *array = (NSArray*)backData[@"ok"];
-        for (int i = 0; i< array.count; i++) {
+        NSArray *array = (NSArray *)backData[@"ok"];
+        for (int i = 0; i < array.count; i++) {
             NSDictionary *dic = array[i];
-            NSArray *arr = (NSArray*)dic[@"data"];
+            NSArray *arr = (NSArray *)dic[@"data"];
             if (arr.count > 0) {
-                RBBiSaiModel *model = [[RBFMDBTool sharedFMDBTool]selectBiSaiModelWithNamiId:[dic[@"id"] intValue]];
-                model.hasShiPing = YES;
-                [[RBFMDBTool sharedFMDBTool]updateBiSaiModel:model];
+                [[RBFMDBTool sharedFMDBTool]updateBiSaiModelWithNamiId:[dic[@"id"] intValue] andhasShiPing:YES];
+                [[RBFMDBTool sharedFMDBTool]updateAttentionBiSaiModelWithNamiId:[dic[@"id"] intValue] andhasShiPing:YES];
             }
         }
-        [self getLocalBiSaiData];
-    }Fail:^(NSError * _Nonnull error) {
-        
+        [self getLoacalData];
+    } Fail:^(NSError *_Nonnull error) {
     }];
 }
 
@@ -396,7 +420,7 @@
     NSDictionary *dict = @{ @"date": str };
     [RBNetworkTool PostDataWithUrlStr:@"try/go/getfootballmatchlistbydate"  andParam:dict Success:^(NSDictionary *_Nonnull backDataDic) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-       if (backDataDic.allKeys.count == 0 || backDataDic == nil || [backDataDic isKindOfClass:[NSNull class]] || [[backDataDic allKeys] containsObject:@"message"] || [[backDataDic allKeys] containsObject:@"err"]) return;
+        if (backDataDic.allKeys.count == 0 || backDataDic == nil || [backDataDic isKindOfClass:[NSNull class]] || [[backDataDic allKeys] containsObject:@"message"] || [[backDataDic allKeys] containsObject:@"err"]) return;
         NSData *jsonData = [backDataDic[@"ok"] dataUsingEncoding:NSUTF8StringEncoding];
         NSError *err;
         NSDictionary *backData = [NSJSONSerialization JSONObjectWithData:jsonData
@@ -525,7 +549,7 @@
         [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     }
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(gengxinBiSaiModels:) name:@"gengxinBiSaiModels" object:nil];
-    
+
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadData)];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deleteBiSai) name:@"deleteBiSai" object:nil];
 }
@@ -756,7 +780,7 @@
     }
     if (model.status == 2) {
         // 上半场
-        model.TeeTimeStr = [NSString stringWithFormat:@"%@%@",shangbanchang, [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:model.TeeTime]];
+        model.TeeTimeStr = [NSString stringWithFormat:@"%@%@", shangbanchang, [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:model.TeeTime]];
     } else if (model.status == 3) {
         model.TeeTimeStr = @"中";
     } else if (model.status >= 4 && model.status <= 7) {
@@ -764,7 +788,7 @@
         if (timeCount + 45 > 90) {
             model.TeeTimeStr = xiabanchangjia;
         } else {
-            model.TeeTimeStr = [NSString stringWithFormat:@"%@%ld",xiabanchang, timeCount + 45];
+            model.TeeTimeStr = [NSString stringWithFormat:@"%@%ld", xiabanchang, timeCount + 45];
         }
     } else if (model.status  == 8) {
         model.TeeTimeStr = wan;
@@ -785,40 +809,35 @@
         }
     }
     RBBiSaiCell *cell = [RBBiSaiCell createCellByTableView:tableView];
+    __weak typeof(self) weakSelf = self;
+    cell.clickAttentionBtn = ^(BOOL selected) {
+        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:model.biSaiTime];
+        [dict setValue:[NSString getStrWithDate:date andFormat:@"yyyyMMdd"] forKey:@"date"];
+        [dict setValue:[NSNumber numberWithBool:selected] forKey:@"del"];
+        [dict setValue:[NSString stringWithFormat:@"%d", model.namiId] forKey:@"matchid"];
+        [RBNetworkTool PostDataWithUrlStr:@"apis/guanzhu"  andParam:dict Success:^(NSDictionary *_Nonnull backData) {
+            model.hasAttention = selected;
+            [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            if (backData[@"ok"] != nil) {
+                if (selected) {
+                    [[RBFMDBTool sharedFMDBTool]addAttentionBiSaiModel:model];
+                    [[RBFMDBTool sharedFMDBTool]updateBiSaiModelWithNamiId:model.namiId andhasAttention:YES];
+                } else {
+                    [[RBFMDBTool sharedFMDBTool]deleteAttentionBiSaiModelWithId:model.namiId];
+                    [[RBFMDBTool sharedFMDBTool]updateBiSaiModelWithNamiId:model.namiId andhasAttention:NO];
+                }
+            }
+        } Fail:^(NSError *_Nonnull error) {
+        }];
+    };
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.biSaiModel = model;
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    RBBiSaiModel *model;
-    switch (self.biSaiType) {
-        case 0:
-            model =  self.allDataArray[indexPath.row];
-            break;
-        case 1:
-            model =  self.beginingDataArray[indexPath.row];
-            break;
-        case 2:
-            model =  self.scheduleDataArray[indexPath.row];
-            break;
-        case 3:
-            model =   self.resultDataArray[self.resultDataArray.count - indexPath.row - 1];
-            break;
-        case 4: {
-            NSArray *arr = self.attentionDataArray[indexPath.section];
-            model =  arr[indexPath.row + 1];
-            break;
-        }
-        case 5:
-            model =  self.attentionHistoryDataArray[indexPath.row];
-            break;
-    }
-    if (model.stage == nil) {
-        return 123;
-    } else {
-        return 147;
-    }
+    return 111;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

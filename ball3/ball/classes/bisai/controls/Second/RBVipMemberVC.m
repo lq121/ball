@@ -237,7 +237,7 @@
     [dict setValue:backData[@"ok"][@"vip"] forKey:@"vip"];
     self.dict = dict;
     RBTabBarVC *tabVC = (RBTabBarVC *)[UIApplication sharedApplication].keyWindow.rootViewController;
-    RBNavigationVC *nav = tabVC.childViewControllers[4];
+    RBNavigationVC *nav = tabVC.childViewControllers[3];
     RBWoTabVC *woTabVC =  [nav.childViewControllers firstObject];
     [woTabVC getUserInfo];
 

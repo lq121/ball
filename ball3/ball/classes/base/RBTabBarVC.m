@@ -18,27 +18,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addChildWithName:@"RBXinWenTabVC" andTitle:xinwen andImage:@"xinwen" andSelectedImage:@"xinwen_selected"];
-    [self addChildWithName:@"RBShiPingVC" andTitle:shiping andImage:@"shiping" andSelectedImage:@"shiping_selected"];
-    if (IS_IPAD) {
-        NSString *str = @"                           小应预测";
-        CGSize size = [str getLineSizeWithFontSize:10];
-        while (size.width < ((RBScreenWidth / 5) * 0.5 + 41)) {
-            str = [NSString stringWithFormat:@" %@", str];
-            size = [str getLineSizeWithFontSize:10];
-        }
-        [self addChildWithName:@"RBPredictTabVC" andTitle:str andImage:@"" andSelectedImage:@""];
-    } else {
-        [self addChildWithName:@"RBPredictTabVC" andTitle:@"小应预测" andImage:@"" andSelectedImage:@""];
-    }
-
     [self addChildWithName:@"RBBiSaisVC" andTitle:bisaiStr andImage:@"bisai" andSelectedImage:@"bisai_selected"];
+    [self addChildWithName:@"RBShiPingVC" andTitle:shiping andImage:@"shiping" andSelectedImage:@"shiping_selected"];
+    [self addChildWithName:@"RBXinWenTabVC" andTitle:xinwen andImage:@"xinwen" andSelectedImage:@"xinwen_selected"];
     [self addChildWithName:@"RBWoTabVC" andTitle:wode andImage:@"wode" andSelectedImage:@"wode_selected"];
-    [self.tabBar removeFromSuperview];
-    RBTabBar *tabBar = [[RBTabBar alloc] init];
-    tabBar.delegate = self;
-    tabBar.tabBarDelegate = self;
-    [self setValue:tabBar forKey:@"tabBar"];
+
+    [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor colorWithSexadeString:@"#333333"], NSFontAttributeName: [UIFont boldSystemFontOfSize:10] } forState:UIControlStateSelected];
+    [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor colorWithSexadeString:@"#333333"], NSFontAttributeName: [UIFont systemFontOfSize:10] } forState:UIControlStateNormal];
+    self.tabBar.tintColor = [UIColor colorWithSexadeString:@"#333333"];
+
     UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageWithColor:[UIColor whiteColor]]];
     img.frame = CGRectMake(0, 0, self.tabBar.frame.size.width, 60 + RBBottomSafeH);
     img.contentMode = UIViewContentModeScaleToFill;
@@ -51,7 +39,6 @@
     }
     self.tabBar.layer.shadowOpacity = 4;
     self.tabBar.layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.06].CGColor;
-    self.selectedIndex = 2;
 
     __weak typeof(self) weakSelf = self;
     self.timer1 = [NSTimer timerWithTimeInterval:10 target:weakSelf selector:@selector(timerRun) userInfo:nil repeats:YES];
@@ -93,6 +80,7 @@
         for (int i = 0; i < matchs.count; i++) {
             NSArray *arr = matchs[i];
             RBBiSaiModel *model = [RBBiSaiModel getBiSaiModelWithArray:arr andTeams:teams andEvents:events andStages:stages];
+            model.hasAttention = [[RBFMDBTool sharedFMDBTool] selectAttentionBiSaiModelWithId:model.namiId];
             model.index = i + 1;
             [mutArr addObject:model];
         }

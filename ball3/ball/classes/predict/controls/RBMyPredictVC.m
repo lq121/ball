@@ -12,6 +12,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSUserDefaults standardUserDefaults]setValue:[NSNumber numberWithBool:NO] forKey:@"hasgoumai"];
+               [[NSUserDefaults standardUserDefaults]synchronize];
     self.title = @"我购买的比赛";
     self.view.backgroundColor = [UIColor colorWithSexadeString:@"#F8F8F8"];
     NSArray *titles = @[@"未赛", @"已赛"];

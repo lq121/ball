@@ -358,6 +358,8 @@
             [[NSUserDefaults standardUserDefaults]setValue:@(coinCount) forKey:@"coinCount"];
             [[NSUserDefaults standardUserDefaults]synchronize];
             [RBToast showWithTitle:@"购买成功"];
+            [[NSUserDefaults standardUserDefaults]setValue:[NSNumber numberWithBool:YES] forKey:@"hasgoumai"];
+            [[NSUserDefaults standardUserDefaults]synchronize];
             [self.navigationController popViewControllerAnimated:YES];
             return;
         }

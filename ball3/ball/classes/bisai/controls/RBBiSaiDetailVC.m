@@ -364,13 +364,11 @@
             if (backData[@"ok"] != nil) {
                 btn.selected = !btn.selected;
                 if (btn.selected) {
+                    [[RBFMDBTool sharedFMDBTool]updateBiSaiModelWithNamiId:self.biSaiModel.namiId andhasAttention:YES];
                     [[RBFMDBTool sharedFMDBTool]addAttentionBiSaiModel:self.biSaiModel];
-                    self.biSaiModel.hasAttention = YES;
-                    [[RBFMDBTool sharedFMDBTool]updateBiSaiModel:self.biSaiModel];
                 } else {
                     [[RBFMDBTool sharedFMDBTool]deleteAttentionBiSaiModelWithId:self.biSaiModel.namiId];
-                    self.biSaiModel.hasAttention = NO;
-                    [[RBFMDBTool sharedFMDBTool]updateBiSaiModel:self.biSaiModel];
+                     [[RBFMDBTool sharedFMDBTool]updateBiSaiModelWithNamiId:self.biSaiModel.namiId andhasAttention:NO];
                 }
             }
         } Fail:^(NSError *_Nonnull error) {

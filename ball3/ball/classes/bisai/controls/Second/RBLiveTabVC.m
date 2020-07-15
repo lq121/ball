@@ -206,7 +206,7 @@
                                                                          error:&err];
         [self.liveArr removeAllObjects];
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&err];
-        NSArray *statArr = [RBStatsModel mj_objectArrayWithKeyValuesArray:backData[@"tlive"]];
+        NSArray *statArr = [RBStatsModel mj_objectArrayWithKeyValuesArray:backData[@"stats"]];
         RBStatsModel *jiaoModel, *yellowModel, *redModel;
         NSArray *types = @[@(21), @(22), @(8),@(9), @(23), @(24), @(25)];
         for (int j = 0; j < statArr.count; j++) {

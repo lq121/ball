@@ -69,7 +69,7 @@
 
 - (void)createAttentionTab {
     //    PRIMARY KEY AUTOINCREMENT 基键 并且自增
-    [self.fmdb executeUpdate:@"CREATE TABLE IF NOT EXISTS tb_attentionBiSai (namiId integer PRIMARY KEY, id integer,uid varchar(70) NOT NULL,matcheventId integer NOT NULL, hostID integer , visitingID integer ,hostTeamName varchar(50),visitingTeamName varchar(50),biSaiTime integer ,TeeTime integer,eventName varchar(50),eventLongName varchar(100), eventId integer , stageName varchar(100),hostCorner integer , visitingCorner integer , hostHalfScore integer , visitingHalfScore integer,hostPointScore integer, visitingPointScore integer, hostScore integer,visitingScore integer, hostRedCard integer, visitingRedCard integer, hostYellowCard integer, visitingYellowCard integer, hostOvertimeScore integer, visitingOvertimeScore integer, hostPenaltyScore integer, visitingPenaltyScore integer, week varchar(50), status integer, hostLogo varchar(250),visitingLogo varchar(250),hasIntelligence BOOL,stage varchar(500),hasAttention BOOL ,hasshiping BOOL);"];
+    [self.fmdb executeUpdate:@"CREATE TABLE IF NOT EXISTS tb_attentionBiSai (namiId integer PRIMARY KEY, id integer,uid varchar(70) NOT NULL,matcheventId integer NOT NULL, hostID integer , visitingID integer ,hostTeamName varchar(50),visitingTeamName varchar(50),biSaiTime integer ,TeeTime integer,eventName varchar(50),eventLongName varchar(100), eventId integer , stageName varchar(100),hostCorner integer , visitingCorner integer , hostHalfScore integer , visitingHalfScore integer,hostPointScore integer, visitingPointScore integer, hostScore integer,visitingScore integer, hostRedCard integer, visitingRedCard integer, hostYellowCard integer, visitingYellowCard integer, hostOvertimeScore integer, visitingOvertimeScore integer, hostPenaltyScore integer, visitingPenaltyScore integer, week varchar(50), status integer, hostLogo varchar(250),visitingLogo varchar(250),hasIntelligence BOOL,stage varchar(500),hasAttention BOOL ,hasshiping BOOL,ballData varchar(300));"];
 }
 
 - (void)addAttentionBiSaiModel:(RBBiSaiModel *)model {
@@ -82,16 +82,24 @@
     if (uid == nil || [uid isEqualToString:@""]) {
         return;
     }
-    [self.fmdb executeUpdate:@"INSERT INTO tb_attentionBiSai (namiId,id,uid, matcheventId, hostID,visitingID,hostTeamName,visitingTeamName,biSaiTime,TeeTime,eventName,eventLongName, eventId,stageName,hostCorner,visitingCorner,hostHalfScore,visitingHalfScore,hostPointScore,visitingPointScore,hostScore,visitingScore,hostRedCard,visitingRedCard,hostYellowCard,visitingYellowCard,hostOvertimeScore,visitingOvertimeScore,hostPenaltyScore,visitingPenaltyScore,week,status,hostLogo,visitingLogo,hasIntelligence,stage,hasAttention,hasshiping ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", @(model.namiId), @(model.index), uid, @(model.matcheventId), @(model.hostID), @(model.visitingID), model.hostTeamName, model.visitingTeamName, @(model.biSaiTime), @(model.TeeTime), model.eventName, model.eventLongName, @(model.eventId), model.stageName, @(model.hostCorner), @(model.visitingCorner), @(model.hostHalfScore), @(model.visitingHalfScore), @(model.hostPointScore), @(model.visitingPointScore), @(model.hostScore), @(model.visitingScore), @(model.hostRedCard), @(model.visitingRedCard), @(model.hostYellowCard), @(model.visitingYellowCard), @(model.hostOvertimeScore), @(model.visitingOvertimeScore), @(model.hostPenaltyScore), @(model.visitingPenaltyScore), model.week, @(model.status), model.hostLogo, model.visitingLogo, @(model.hasIntelligence), dataStr, @(model.hasAttention),@(model.hasShiPing)];
+    [self.fmdb executeUpdate:@"INSERT INTO tb_attentionBiSai (namiId,id,uid, matcheventId, hostID,visitingID,hostTeamName,visitingTeamName,biSaiTime,TeeTime,eventName,eventLongName, eventId,stageName,hostCorner,visitingCorner,hostHalfScore,visitingHalfScore,hostPointScore,visitingPointScore,hostScore,visitingScore,hostRedCard,visitingRedCard,hostYellowCard,visitingYellowCard,hostOvertimeScore,visitingOvertimeScore,hostPenaltyScore,visitingPenaltyScore,week,status,hostLogo,visitingLogo,hasIntelligence,stage,hasAttention,hasshiping,ballData ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", @(model.namiId), @(model.index), uid, @(model.matcheventId), @(model.hostID), @(model.visitingID), model.hostTeamName, model.visitingTeamName, @(model.biSaiTime), @(model.TeeTime), model.eventName, model.eventLongName, @(model.eventId), model.stageName, @(model.hostCorner), @(model.visitingCorner), @(model.hostHalfScore), @(model.visitingHalfScore), @(model.hostPointScore), @(model.visitingPointScore), @(model.hostScore), @(model.visitingScore), @(model.hostRedCard), @(model.visitingRedCard), @(model.hostYellowCard), @(model.visitingYellowCard), @(model.hostOvertimeScore), @(model.visitingOvertimeScore), @(model.hostPenaltyScore), @(model.visitingPenaltyScore), model.week, @(model.status), model.hostLogo, model.visitingLogo, @(model.hasIntelligence), dataStr, @(model.hasAttention), @(model.hasShiPing),model.ballData];
 }
 
+
+
+- (void)updateAttentionBiSaiModelWithNamiId:(int)namiId andBallData:(NSString *)ballData {
+    [self.fmdb executeUpdate:@"update tb_attentionBiSai set  ballData = ? where namiId = ?", ballData, @(namiId)];
+}
+- (void)updateAttentionBiSaiModelWithNamiId:(int)namiId andhasShiPing:(BOOL)hasShiPing{
+    [self.fmdb executeUpdate:@"update tb_attentionBiSai set  hasshiping = ? where namiId = ?", [NSNumber numberWithBool:hasShiPing], @(namiId)];
+}
 - (void)updateAttentionBiSaiModel:(RBBiSaiModel *)model {
     NSString *dataStr;
     if (model.stage != nil) {
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:model.stage options:0 error:0];
         dataStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     }
-    [self.fmdb executeUpdate:@"update tb_attentionBiSai set  matcheventId = ?, hostID = ?,visitingID = ?,hostTeamName = ?,visitingTeamName = ?,biSaiTime = ?,TeeTime = ?,eventName = ?,eventLongName = ?,eventId = ?,stageName = ?,hostCorner = ?,visitingCorner = ?,hostHalfScore = ?,visitingHalfScore = ?,hostPointScore = ?,visitingPointScore = ?,hostScore = ?,visitingScore = ?,hostRedCard = ?,visitingRedCard = ?,hostYellowCard = ?,visitingYellowCard = ?,hostOvertimeScore = ?,visitingOvertimeScore = ?,hostPenaltyScore = ?,visitingPenaltyScore = ?,week = ?,status = ?,hostLogo = ?,visitingLogo = ?,hasIntelligence = ?,stage = ?,hasAttention = ? hasshiping = ? where namiId = ?", @(model.matcheventId), @(model.hostID), @(model.visitingID), model.hostTeamName, model.visitingTeamName, @(model.biSaiTime), @(model.TeeTime), model.eventName, model.eventLongName, @(model.eventId), model.stageName, @(model.hostCorner), @(model.visitingCorner), @(model.hostHalfScore), @(model.visitingHalfScore), @(model.hostPointScore), @(model.visitingPointScore), @(model.hostScore), @(model.visitingScore), @(model.hostRedCard), @(model.visitingRedCard), @(model.hostYellowCard), @(model.visitingYellowCard), @(model.hostOvertimeScore), @(model.visitingOvertimeScore), @(model.hostPenaltyScore), @(model.visitingPenaltyScore), model.week, @(model.status), model.hostLogo, model.visitingLogo, @(model.hasIntelligence), dataStr, @(model.hasAttention),@(model.hasShiPing), @(model.namiId)];
+    [self.fmdb executeUpdate:@"update tb_attentionBiSai set  matcheventId = ?, hostID = ?,visitingID = ?,hostTeamName = ?,visitingTeamName = ?,biSaiTime = ?,TeeTime = ?,eventName = ?,eventLongName = ?,eventId = ?,stageName = ?,hostCorner = ?,visitingCorner = ?,hostHalfScore = ?,visitingHalfScore = ?,hostPointScore = ?,visitingPointScore = ?,hostScore = ?,visitingScore = ?,hostRedCard = ?,visitingRedCard = ?,hostYellowCard = ?,visitingYellowCard = ?,hostOvertimeScore = ?,visitingOvertimeScore = ?,hostPenaltyScore = ?,visitingPenaltyScore = ?,week = ?,status = ?,hostLogo = ?,visitingLogo = ?,hasIntelligence = ?,stage = ?,hasAttention = ?, hasshiping = ?,ballData=? where namiId = ?", @(model.matcheventId), @(model.hostID), @(model.visitingID), model.hostTeamName, model.visitingTeamName, @(model.biSaiTime), @(model.TeeTime), model.eventName, model.eventLongName, @(model.eventId), model.stageName, @(model.hostCorner), @(model.visitingCorner), @(model.hostHalfScore), @(model.visitingHalfScore), @(model.hostPointScore), @(model.visitingPointScore), @(model.hostScore), @(model.visitingScore), @(model.hostRedCard), @(model.visitingRedCard), @(model.hostYellowCard), @(model.visitingYellowCard), @(model.hostOvertimeScore), @(model.visitingOvertimeScore), @(model.hostPenaltyScore), @(model.visitingPenaltyScore), model.week, @(model.status), model.hostLogo, model.visitingLogo, @(model.hasIntelligence), dataStr, @(model.hasAttention), @(model.hasShiPing),model.ballData, @(model.namiId)];
 }
 
 - (void)deleteLastAttentionData {
@@ -142,6 +150,7 @@
         model.TeeTime = [resultSet intForColumn:@"TeeTime"];
         model.eventName = (NSString *)[resultSet objectForColumnName:@"eventName"];
         model.eventLongName = (NSString *)[resultSet objectForColumnName:@"eventLongName"];
+        model.ballData = (NSString *)[resultSet objectForColumnName:@"ballData"];
         model.eventId = [resultSet intForColumn:@"eventId"];
         model.stageName = (NSString *)[resultSet objectForColumnName:@"stageName"];
         model.hostCorner = [resultSet intForColumn:@"hostCorner"];
@@ -191,8 +200,10 @@
 
 - (void)createBiSaiTab {
     //    PRIMARY KEY AUTOINCREMENT 基键 并且自增
-    [self.fmdb executeUpdate:@"CREATE TABLE IF NOT EXISTS tb_bisai (namiId integer PRIMARY KEY, id integer, matcheventId integer NOT NULL, hostID integer , visitingID integer ,hostTeamName varchar(50),visitingTeamName varchar(50),biSaiTime integer ,TeeTime integer,eventName varchar(50),eventLongName varchar(100), eventId integer , stageName varchar(100),hostCorner integer , visitingCorner integer , hostHalfScore integer , visitingHalfScore integer,hostPointScore integer, visitingPointScore integer, hostScore integer,visitingScore integer, hostRedCard integer, visitingRedCard integer, hostYellowCard integer, visitingYellowCard integer, hostOvertimeScore integer, visitingOvertimeScore integer, hostPenaltyScore integer, visitingPenaltyScore integer, week varchar(50), status integer, hostLogo varchar(250),visitingLogo varchar(250),hasIntelligence BOOL,stage varchar(500),hasAttention BOOL,hasshiping BOOL);"];
+    [self.fmdb executeUpdate:@"CREATE TABLE IF NOT EXISTS tb_bisai (namiId integer PRIMARY KEY, id integer, matcheventId integer NOT NULL, hostID integer , visitingID integer ,hostTeamName varchar(50),visitingTeamName varchar(50),biSaiTime integer ,TeeTime integer,eventName varchar(50),eventLongName varchar(100), eventId integer , stageName varchar(100),hostCorner integer , visitingCorner integer , hostHalfScore integer , visitingHalfScore integer,hostPointScore integer, visitingPointScore integer, hostScore integer,visitingScore integer, hostRedCard integer, visitingRedCard integer, hostYellowCard integer, visitingYellowCard integer, hostOvertimeScore integer, visitingOvertimeScore integer, hostPenaltyScore integer, visitingPenaltyScore integer, week varchar(50), status integer, hostLogo varchar(250),visitingLogo varchar(250),hasIntelligence BOOL,stage varchar(300),hasAttention BOOL,hasshiping BOOL,ballData varchar(300));"];
 }
+
+
 
 - (void)insertBiSaisUseTransaction:(NSArray<RBBiSaiModel *> *)biSais {
     [self.fmdb open];
@@ -205,7 +216,7 @@
                 NSData *jsonData = [NSJSONSerialization dataWithJSONObject:model.stage options:0 error:0];
                 dataStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
             }
-            [self.fmdb executeUpdate:@"INSERT INTO tb_bisai (namiId,id, matcheventId, hostID,visitingID,hostTeamName,visitingTeamName,biSaiTime,TeeTime,eventName,eventLongName,eventId,stageName,hostCorner,visitingCorner,hostHalfScore,visitingHalfScore,hostPointScore,visitingPointScore,hostScore,visitingScore,hostRedCard,visitingRedCard,hostYellowCard,visitingYellowCard,hostOvertimeScore,visitingOvertimeScore,hostPenaltyScore,visitingPenaltyScore,week,status,hostLogo,visitingLogo,hasIntelligence,stage,hasAttention,hasshiping) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", @(model.namiId), @(model.index), @(model.matcheventId), @(model.hostID), @(model.visitingID), model.hostTeamName, model.visitingTeamName, @(model.biSaiTime), @(model.TeeTime), model.eventName, model.eventLongName, @(model.eventId), model.stageName, @(model.hostCorner), @(model.visitingCorner), @(model.hostHalfScore), @(model.visitingHalfScore), @(model.hostPointScore), @(model.visitingPointScore), @(model.hostScore), @(model.visitingScore), @(model.hostRedCard), @(model.visitingRedCard), @(model.hostYellowCard), @(model.visitingYellowCard), @(model.hostOvertimeScore), @(model.visitingOvertimeScore), @(model.hostPenaltyScore), @(model.visitingPenaltyScore), model.week, @(model.status), model.hostLogo, model.visitingLogo, @(model.hasIntelligence), dataStr, @(model.hasAttention),@(model.hasShiPing)];
+            [self.fmdb executeUpdate:@"INSERT INTO tb_bisai (namiId,id, matcheventId, hostID,visitingID,hostTeamName,visitingTeamName,biSaiTime,TeeTime,eventName,eventLongName,eventId,stageName,hostCorner,visitingCorner,hostHalfScore,visitingHalfScore,hostPointScore,visitingPointScore,hostScore,visitingScore,hostRedCard,visitingRedCard,hostYellowCard,visitingYellowCard,hostOvertimeScore,visitingOvertimeScore,hostPenaltyScore,visitingPenaltyScore,week,status,hostLogo,visitingLogo,hasIntelligence,stage,hasAttention,hasshiping,ballData) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", @(model.namiId), @(model.index), @(model.matcheventId), @(model.hostID), @(model.visitingID), model.hostTeamName, model.visitingTeamName, @(model.biSaiTime), @(model.TeeTime), model.eventName, model.eventLongName, @(model.eventId), model.stageName, @(model.hostCorner), @(model.visitingCorner), @(model.hostHalfScore), @(model.visitingHalfScore), @(model.hostPointScore), @(model.visitingPointScore), @(model.hostScore), @(model.visitingScore), @(model.hostRedCard), @(model.visitingRedCard), @(model.hostYellowCard), @(model.visitingYellowCard), @(model.hostOvertimeScore), @(model.visitingOvertimeScore), @(model.hostPenaltyScore), @(model.visitingPenaltyScore), model.week, @(model.status), model.hostLogo, model.visitingLogo, @(model.hasIntelligence), dataStr, @(model.hasAttention), @(model.hasShiPing), model.ballData];
         }
     } @catch (NSException *exception) {
         isRollBack = YES;
@@ -223,7 +234,19 @@
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:model.stage options:0 error:0];
         dataStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     }
-    [self.fmdb executeUpdate:@"INSERT INTO tb_bisai (namiId,id, matcheventId, hostID,visitingID,hostTeamName,visitingTeamName,biSaiTime,TeeTime,eventName,eventLongName,eventId,stageName,hostCorner,visitingCorner,hostHalfScore,visitingHalfScore,hostPointScore,visitingPointScore,hostScore,visitingScore,hostRedCard,visitingRedCard,hostYellowCard,visitingYellowCard,hostOvertimeScore,visitingOvertimeScore,hostPenaltyScore,visitingPenaltyScore,week,status,hostLogo,visitingLogo,hasIntelligence,stage,hasAttention,hasshiping) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", @(model.namiId), @(model.index), @(model.matcheventId), @(model.hostID), @(model.visitingID), model.hostTeamName, model.visitingTeamName, @(model.biSaiTime), @(model.TeeTime), model.eventName, model.eventLongName, @(model.eventId), model.stageName, @(model.hostCorner), @(model.visitingCorner), @(model.hostHalfScore), @(model.visitingHalfScore), @(model.hostPointScore), @(model.visitingPointScore), @(model.hostScore), @(model.visitingScore), @(model.hostRedCard), @(model.visitingRedCard), @(model.hostYellowCard), @(model.visitingYellowCard), @(model.hostOvertimeScore), @(model.visitingOvertimeScore), @(model.hostPenaltyScore), @(model.visitingPenaltyScore), model.week, @(model.status), model.hostLogo, model.visitingLogo, @(model.hasIntelligence), dataStr, @(model.hasAttention),@(model.hasShiPing)];
+    [self.fmdb executeUpdate:@"INSERT INTO tb_bisai (namiId,id, matcheventId, hostID,visitingID,hostTeamName,visitingTeamName,biSaiTime,TeeTime,eventName,eventLongName,eventId,stageName,hostCorner,visitingCorner,hostHalfScore,visitingHalfScore,hostPointScore,visitingPointScore,hostScore,visitingScore,hostRedCard,visitingRedCard,hostYellowCard,visitingYellowCard,hostOvertimeScore,visitingOvertimeScore,hostPenaltyScore,visitingPenaltyScore,week,status,hostLogo,visitingLogo,hasIntelligence,stage,hasAttention,hasshiping,ballData) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", @(model.namiId), @(model.index), @(model.matcheventId), @(model.hostID), @(model.visitingID), model.hostTeamName, model.visitingTeamName, @(model.biSaiTime), @(model.TeeTime), model.eventName, model.eventLongName, @(model.eventId), model.stageName, @(model.hostCorner), @(model.visitingCorner), @(model.hostHalfScore), @(model.visitingHalfScore), @(model.hostPointScore), @(model.visitingPointScore), @(model.hostScore), @(model.visitingScore), @(model.hostRedCard), @(model.visitingRedCard), @(model.hostYellowCard), @(model.visitingYellowCard), @(model.hostOvertimeScore), @(model.visitingOvertimeScore), @(model.hostPenaltyScore), @(model.visitingPenaltyScore), model.week, @(model.status), model.hostLogo, model.visitingLogo, @(model.hasIntelligence), dataStr, @(model.hasAttention), @(model.hasShiPing), model.ballData];
+}
+
+- (void)updateBiSaiModelWithNamiId:(int)namiId andhasAttention:(BOOL)hasAttention {
+    [self.fmdb executeUpdate:@"update tb_bisai set  hasAttention = ? where namiId = ?", [NSNumber numberWithBool:hasAttention], @(namiId)];
+}
+
+- (void)updateBiSaiModelWithNamiId:(int)namiId andBallData:(NSString *)ballData {
+    [self.fmdb executeUpdate:@"update tb_bisai set  ballData = ? where namiId = ?", ballData, @(namiId)];
+}
+
+- (void)updateBiSaiModelWithNamiId:(int)namiId andhasShiPing:(BOOL)hasShiPing {
+    [self.fmdb executeUpdate:@"update tb_bisai set  hasshiping = ? where namiId = ?", [NSNumber numberWithBool:hasShiPing], @(namiId)];
 }
 
 - (void)updateBiSaiModel:(RBBiSaiModel *)model {
@@ -232,7 +255,7 @@
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:model.stage options:0 error:0];
         dataStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     }
-    [self.fmdb executeUpdate:@"update tb_bisai set  matcheventId = ?, hostID = ?,visitingID = ?,hostTeamName = ?,visitingTeamName = ?,biSaiTime = ?,TeeTime = ?,eventName = ?,eventLongName = ?,eventId = ?,stageName = ?,hostCorner = ?,visitingCorner = ?,hostHalfScore = ?,visitingHalfScore = ?,hostPointScore = ?,visitingPointScore = ?,hostScore = ?,visitingScore = ?,hostRedCard = ?,visitingRedCard = ?,hostYellowCard = ?,visitingYellowCard = ?,hostOvertimeScore = ?,visitingOvertimeScore = ?,hostPenaltyScore = ?,visitingPenaltyScore = ?,week = ?,status = ?,hostLogo = ?,visitingLogo = ?,hasIntelligence = ?,stage = ?,hasAttention = ?,hasshiping=? where namiId = ?", @(model.matcheventId), @(model.hostID), @(model.visitingID), model.hostTeamName, model.visitingTeamName, @(model.biSaiTime), @(model.TeeTime), model.eventName, model.eventLongName, @(model.eventId), model.stageName, @(model.hostCorner), @(model.visitingCorner), @(model.hostHalfScore), @(model.visitingHalfScore), @(model.hostPointScore), @(model.visitingPointScore), @(model.hostScore), @(model.visitingScore), @(model.hostRedCard), @(model.visitingRedCard), @(model.hostYellowCard), @(model.visitingYellowCard), @(model.hostOvertimeScore), @(model.visitingOvertimeScore), @(model.hostPenaltyScore), @(model.visitingPenaltyScore), model.week, @(model.status), model.hostLogo, model.visitingLogo, @(model.hasIntelligence), dataStr, @(model.hasAttention),@(model.hasShiPing), @(model.namiId)];
+    [self.fmdb executeUpdate:@"update tb_bisai set  matcheventId = ?, hostID = ?,visitingID = ?,hostTeamName = ?,visitingTeamName = ?,biSaiTime = ?,TeeTime = ?,eventName = ?,eventLongName = ?,eventId = ?,stageName = ?,hostCorner = ?,visitingCorner = ?,hostHalfScore = ?,visitingHalfScore = ?,hostPointScore = ?,visitingPointScore = ?,hostScore = ?,visitingScore = ?,hostRedCard = ?,visitingRedCard = ?,hostYellowCard = ?,visitingYellowCard = ?,hostOvertimeScore = ?,visitingOvertimeScore = ?,hostPenaltyScore = ?,visitingPenaltyScore = ?,week = ?,status = ?,hostLogo = ?,visitingLogo = ?,hasIntelligence = ?,stage = ?,hasAttention = ?,hasshiping=?,ballData=? where namiId = ?", @(model.matcheventId), @(model.hostID), @(model.visitingID), model.hostTeamName, model.visitingTeamName, @(model.biSaiTime), @(model.TeeTime), model.eventName, model.eventLongName, @(model.eventId), model.stageName, @(model.hostCorner), @(model.visitingCorner), @(model.hostHalfScore), @(model.visitingHalfScore), @(model.hostPointScore), @(model.visitingPointScore), @(model.hostScore), @(model.visitingScore), @(model.hostRedCard), @(model.visitingRedCard), @(model.hostYellowCard), @(model.visitingYellowCard), @(model.hostOvertimeScore), @(model.visitingOvertimeScore), @(model.hostPenaltyScore), @(model.visitingPenaltyScore), model.week, @(model.status), model.hostLogo, model.visitingLogo, @(model.hasIntelligence), dataStr, @(model.hasAttention), @(model.hasShiPing), model.ballData, @(model.namiId)];
 }
 
 - (void)deleteLongTimeBiSaiModel {
@@ -284,6 +307,7 @@
         model.TeeTime = [resultSet intForColumn:@"TeeTime"];
         model.eventName = (NSString *)[resultSet objectForColumnName:@"eventName"];
         model.eventLongName = (NSString *)[resultSet objectForColumnName:@"eventLongName"];
+        model.ballData = (NSString *)[resultSet objectForColumnName:@"ballData"];
         model.eventId = [resultSet intForColumn:@"eventId"];
         model.stageName = (NSString *)[resultSet objectForColumnName:@"stageName"];
         model.hostCorner = [resultSet intForColumn:@"hostCorner"];
@@ -306,7 +330,7 @@
         model.status = [resultSet intForColumn:@"status"];
         model.hostLogo = (NSString *)[resultSet objectForColumnName:@"hostLogo"];
         model.hasIntelligence = [resultSet intForColumn:@"hasIntelligence"];
-         model.hasShiPing = [resultSet intForColumn:@"hasshiping"];
+        model.hasShiPing = [resultSet intForColumn:@"hasshiping"];
         model.visitingLogo = (NSString *)[resultSet objectForColumnName:@"visitingLogo"];
         NSString *stage = (NSString *)[resultSet objectForColumnName:@"stage"];
         if (stage != nil && ![stage isKindOfClass:[NSNull class]]) {
@@ -371,6 +395,7 @@
         model.TeeTime = [resultSet intForColumn:@"TeeTime"];
         model.eventName = (NSString *)[resultSet objectForColumnName:@"eventName"];
         model.eventLongName = (NSString *)[resultSet objectForColumnName:@"eventLongName"];
+        model.ballData = (NSString *)[resultSet objectForColumnName:@"ballData"];
         model.eventId = [resultSet intForColumn:@"eventId"];
         model.stageName = (NSString *)[resultSet objectForColumnName:@"stageName"];
         model.hostCorner = [resultSet intForColumn:@"hostCorner"];
@@ -424,6 +449,7 @@
         model.visitingID = [resultSet intForColumn:@"visitingID"];
         model.hostTeamName = (NSString *)([resultSet objectForColumnName:@"hostTeamName"]);
         model.visitingTeamName = (NSString *)[resultSet objectForColumnName:@"visitingTeamName"];
+        model.ballData = (NSString *)[resultSet objectForColumnName:@"ballData"];
         model.biSaiTime = [resultSet intForColumn:@"biSaiTime"];
         model.TeeTime = [resultSet intForColumn:@"TeeTime"];
         model.eventName = (NSString *)[resultSet objectForColumnName:@"eventName"];

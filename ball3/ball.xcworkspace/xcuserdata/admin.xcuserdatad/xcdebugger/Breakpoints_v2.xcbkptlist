@@ -145,8 +145,22 @@
             filePath = "ball/classes/bisai/controls/RBBiSaiDetailVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "617"
-            endingLineNumber = "617">
+            startingLineNumber = "615"
+            endingLineNumber = "615">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "04B27B27-58BD-4169-B87B-654A3BF91C30"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ball/classes/bisai/controls/RBBiSaiTabVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "880"
+            endingLineNumber = "880">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -181,7 +181,7 @@ typedef void (^ChangeHeight)(int height);
         team22.layer.cornerRadius = 16;
         [smallView addSubview:team22];
 
-        NSArray *titles = @[@"直播", @"聊天", @"小应分析", @"分析", @"会员"];
+        NSArray *titles = @[@"直播", @"聊天", xiaoyingfengxi, @"分析", @"会员"];
         UIView *selectView = [[UIView alloc]init];
         self.selectView = selectView;
         [self addSubview:self.selectView];

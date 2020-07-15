@@ -42,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL hasAttention;
 @property (nonatomic, assign) int scoreType;
 @property(nonatomic,assign)BOOL hasShiPing;
+@property(nonatomic,copy)NSString *ballData;
 
 + (instancetype)getBiSaiModelWithArray:(NSArray *)arr andTeams:(NSDictionary *)teams andEvents:(NSDictionary *)events andStages:(NSDictionary *)stages;
 

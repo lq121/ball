@@ -38,7 +38,7 @@
 
         RBCommButton *walletBtn = [[RBCommButton alloc] initWithImage:@"wallet" andHeighImage:@"wallet" andFrame:CGRectMake(CGRectGetMaxX(xiaoXiBtn.frame) + margin, 11, 50, 67) andTitle:@"钱包" andTarget:self andAction:@selector(clickWalletBtn)];
         [view addSubview:walletBtn];
-        RBCommButton *orderBtn = [[RBCommButton alloc] initWithImage:@"dingdan" andHeighImage:@"dingdan" andFrame:CGRectMake(CGRectGetMaxX(walletBtn.frame) + margin, 11, 50, 67) andTitle:@"订单" andTarget:self andAction:@selector(clickOrderBtn)];
+        RBCommButton *orderBtn = [[RBCommButton alloc] initWithImage:@"dingdan" andHeighImage:@"dingdan" andFrame:CGRectMake(CGRectGetMaxX(walletBtn.frame) + margin, 11, 50, 67) andTitle:dingdanStr andTarget:self andAction:@selector(clickOrderBtn)];
         [view addSubview:orderBtn];
 
         RBCommButton *huaTiBtn = [[RBCommButton alloc] initWithImage:@"huati" andHeighImage:@"huati" andFrame:CGRectMake(CGRectGetMaxX(orderBtn.frame) + margin, 11, 50, 67) andTitle:@"互动" andTarget:self andAction:@selector(clickHuatiBtn)];

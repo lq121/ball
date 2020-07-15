@@ -102,4 +102,6 @@
 #define shipingShareDes     @"找不到球赛的地址？看不到赛事的回放？错过了精彩的进球？都不存在的，点击进来，惊喜源源不断奉送给您！！"
 #define xinwenShareTitle    @"比赛是激烈的，文字是有热度的，为你打call"
 #define xinwenShareDes      @"全球最新最全的赛事咨询尽收眼底，只有您想不到，没有您找不到！您就是最懂球的人"
+#define xiaoyingfengxi      @"小应分析"
+#define dingdanStr          @"订单"
 #endif /* strings_pch */

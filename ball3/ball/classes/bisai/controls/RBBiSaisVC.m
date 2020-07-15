@@ -5,6 +5,8 @@
 #import "RBSearchVC.h"
 #import "RBHistoryVC.h"
 #import "RBSelectedVC.h"
+#import "RBChekLogin.h"
+#import "RBMyPredictVC.h"
 
 @interface RBBiSaisVC ()<UIScrollViewDelegate>
 @property (nonatomic, strong) UIButton *checkBtn;
@@ -12,7 +14,8 @@
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *selectView;
 @property (nonatomic, strong) UIButton *rightBtn;
-@property(nonatomic,assign)BOOL needChange;
+@property (nonatomic, assign) BOOL needChange;
+@property (nonatomic, strong) UIView *tip;
 @end
 
 @implementation RBBiSaisVC
@@ -20,6 +23,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
+    self.tip.hidden = ![[[NSUserDefaults standardUserDefaults]objectForKey:@"hasgoumai"]boolValue];
     if (self.needChange) {
         [self clickCheckBtn:self.checkBtn];
     }
@@ -40,25 +44,32 @@
     UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, RBScreenWidth, 84 + RBStatusBarH)];
     headView.backgroundColor = [UIColor colorWithSexadeString:@"#213A4B"];
 
-    UIView *searchBarView = [[UIView alloc]initWithFrame:CGRectMake(12, 4 + RBStatusBarH, RBScreenWidth - 72, 32)];
-    [headView addSubview:searchBarView];
-    searchBarView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.1172];
-    searchBarView.layer.masksToBounds = YES;
-    searchBarView.layer.cornerRadius = 16;
-    UIImageView *searchIcon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"search"]];
-    searchIcon.frame = CGRectMake(12, 8, 16, 16);
-    [searchBarView addSubview:searchIcon];
+    UILabel *label = [[UILabel alloc]init];
+    label.text = @"足球";
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor whiteColor];
+    label.font = [UIFont boldSystemFontOfSize:20];
+    label.frame = CGRectMake((RBScreenWidth - 50) * 0.5, RBStatusBarH, 50, 28);
+    [headView addSubview:label];
 
-    UILabel *searLab = [[UILabel alloc]initWithFrame:CGRectMake(40, 6, 80, 20)];
-    searLab.text = lainsaiqiudui;
-    searLab.textColor = [UIColor colorWithWhite:1 alpha:0.6];
-    searLab.font = [UIFont systemFontOfSize:14];
-    searLab.textAlignment = NSTextAlignmentLeft;
-    [searchBarView addSubview:searLab];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickSearchBar)];
-    [searchBarView addGestureRecognizer:tap];
+    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, RBStatusBarH, 42, 26)];
+    [btn addTarget:self  action:@selector(clickBtn) forControlEvents:UIControlEventTouchUpInside];
+    btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    [btn setTitle:dingdanStr forState:UIControlStateNormal];
+    [headView addSubview:btn];
+    [btn setTitleColor:[UIColor colorWithSexadeString:@"#36C8B9"] forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize:14];
 
-    UIButton *rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(searchBarView.frame) + 6, RBStatusBarH, 42, 40)];
+    UIView *tip = [[UIView alloc]init];
+    self.tip = tip;
+    tip.backgroundColor = [UIColor colorWithSexadeString:@"#FA7268"];
+    tip.frame = CGRectMake(CGRectGetMaxX(btn.frame), RBStatusBarH+3, 6, 6);
+    tip.layer.masksToBounds = true;
+    tip.layer.cornerRadius = 3;
+    [headView addSubview:tip];
+    tip.hidden = YES;
+
+    UIButton *rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(RBScreenWidth - 54, RBStatusBarH, 42, 26)];
     self.rightBtn = rightBtn;
     rightBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [rightBtn setTitle:shuaixuan forState:UIControlStateNormal];
@@ -94,7 +105,7 @@
             [self.scrollView addSubview:view];
         } else if (i == 3) {
             RBResultBiSaiVC *resultBiSaiVC = [[RBResultBiSaiVC alloc]init];
-           
+
             [self addChildViewController:resultBiSaiVC];
             UIView *view = resultBiSaiVC.view;
             view.frame =  CGRectMake(i * RBScreenWidth, 0, RBScreenWidth, self.scrollView.height);
@@ -128,6 +139,14 @@
     self.indicateView.centerX = self.checkBtn.centerX;
     [selectView addSubview:self.indicateView];
     [self.view addSubview:headView];
+}
+
+-(void)clickBtn{
+    if ([RBChekLogin NotLogin]) {
+           return;
+       }
+      RBMyPredictVC *myPredictVC = [[RBMyPredictVC alloc]init];
+       [[UIViewController getCurrentVC].navigationController pushViewController:myPredictVC animated:YES];
 }
 
 /// 点击搜索按钮

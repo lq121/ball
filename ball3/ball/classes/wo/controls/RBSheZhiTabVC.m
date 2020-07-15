@@ -179,6 +179,7 @@
             [[NSUserDefaults standardUserDefaults]setValue:@(0) forKey:@"isVip"];
             [[NSUserDefaults standardUserDefaults]setValue:nil forKey:@"seletmatchArr"];
             [[NSUserDefaults standardUserDefaults]setValue:[NSNumber numberWithBool:NO] forKey:@"notEditPwd"];
+             [[NSUserDefaults standardUserDefaults]setValue:[NSNumber numberWithBool:NO] forKey:@"hasgoumai"];
             [[NSUserDefaults standardUserDefaults]synchronize];
             [self.navigationController popViewControllerAnimated:YES];
         }

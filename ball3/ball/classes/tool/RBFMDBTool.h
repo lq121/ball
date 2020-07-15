@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addAttentionBiSaiModel:(RBBiSaiModel *)model;
 /// 更新关注
 - (void)updateAttentionBiSaiModel:(RBBiSaiModel *)model;
+- (void)updateAttentionBiSaiModelWithNamiId:(int)namiId andBallData:(NSString *)ballData;
+- (void)updateAttentionBiSaiModelWithNamiId:(int)namiId andhasShiPing:(BOOL)hasShiPing;
 /// 删除关注
 - (void)deleteLastAttentionData;
 /// 通过id删除关注
@@ -37,6 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 根据时间查询关注列表
 - (NSMutableArray *)selectAttentionBiSaiModelWithTime:(int)time;
 
+- (void)updateBiSaiModelWithNamiId:(int)namiId andBallData:(NSString *)ballData;
+- (void)updateBiSaiModelWithNamiId:(int)namiId andhasShiPing:(BOOL)hasShiPing;
+- (void)updateBiSaiModelWithNamiId:(int)namiId andhasAttention:(BOOL)hasAttention;
 /// 删除比赛数据表
 - (void)dropBiSaiTab;
 /// 创建比赛数据表

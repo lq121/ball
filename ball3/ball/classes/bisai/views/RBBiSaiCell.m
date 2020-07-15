@@ -1,6 +1,10 @@
 #import "RBBiSaiCell.h"
 #import "RBBiSaiDetailVC.h"
 #import "RBLoginVC.h"
+#import "RBChekLogin.h"
+#import "RBNetworkTool.h"
+#import "RBFMDBTool.h"
+#import "RBFloatOption.h"
 
 @interface RBBiSaiCell ()
 /// 赛事名
@@ -12,7 +16,7 @@
 /// 情报
 @property (nonatomic, strong) UILabel *infoLab;
 /// 关注
-@property (nonatomic, strong) UIImageView *attentionView;
+@property (nonatomic, strong) UIButton *attentionBtn;
 /// 主队黄牌
 @property (nonatomic, strong) UILabel *yellowLab;
 /// 主队红牌
@@ -29,8 +33,6 @@
 @property (nonatomic, strong) UILabel *visitNameLab;
 /// 半球，角球，点球信息
 @property (nonatomic, strong) UILabel *cornerLab;
-/// 星期日期（当场比赛的顺序）
-@property (nonatomic, strong) UILabel *weekLab;
 /// 分析按钮
 @property (nonatomic, strong) UIButton *yuceBtn;
 ///积分赛名字
@@ -38,6 +40,7 @@
 /// 线
 @property (nonatomic, strong) UIView *line;
 @property (nonatomic, strong) UILabel *shipingLab;
+@property (nonatomic, strong) UILabel *dataLab;
 @end
 
 @implementation RBBiSaiCell
@@ -55,14 +58,14 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         UILabel *eventNameLab = [[UILabel alloc]init];
         self.eventNameLab = eventNameLab;
-        eventNameLab.textColor = [UIColor colorWithSexadeString:@"#333333"];
+        eventNameLab.textColor = [UIColor colorWithSexadeString:@"#213A4B" AndAlpha:0.5];
         eventNameLab.font = [UIFont systemFontOfSize:12];
         eventNameLab.textAlignment = NSTextAlignmentLeft;
         [self.contentView addSubview:eventNameLab];
 
         UILabel *biSaiTimeLab = [[UILabel alloc]init];
         self.biSaiTimeLab = biSaiTimeLab;
-        biSaiTimeLab.textColor = [UIColor colorWithSexadeString:@"#333333"];
+        biSaiTimeLab.textColor = [UIColor colorWithSexadeString:@"#213A4B" AndAlpha:0.5];
         biSaiTimeLab.font = [UIFont systemFontOfSize:12];
         biSaiTimeLab.textAlignment = NSTextAlignmentLeft;
         [self.contentView addSubview:biSaiTimeLab];
@@ -92,9 +95,12 @@
         shipingLab.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:shipingLab];
 
-        UIImageView *attentionView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"shoucang"]];
-        self.attentionView = attentionView;
-        [self.contentView addSubview:attentionView];
+        UIButton *attentionBtn = [[UIButton alloc]init];
+        [attentionBtn addTarget:self action:@selector(clickAttentionBtn:) forControlEvents:UIControlEventTouchUpInside];
+        self.attentionBtn = attentionBtn;
+        [attentionBtn setImage:[UIImage imageNamed:@"shoucang2"] forState:UIControlStateNormal];
+        [attentionBtn setImage:[UIImage imageNamed:@"shoucang"] forState:UIControlStateSelected];
+        [self.contentView addSubview:attentionBtn];
 
         UILabel *yellowLab = [[UILabel alloc]init];
         self.yellowLab = yellowLab;
@@ -155,36 +161,35 @@
         [self.contentView addSubview:vredLab];
         vredLab.hidden = YES;
 
+        UILabel *jifenLab = [[UILabel alloc]init];
+        self.jifenLab = jifenLab;
+        jifenLab.textColor = [UIColor colorWithSexadeString:@"#213A4B" AndAlpha:0.5];
+        jifenLab.textAlignment = NSTextAlignmentCenter;
+        jifenLab.font = [UIFont systemFontOfSize:10];
+        [self.contentView addSubview:jifenLab];
+
         UILabel *cornerLab = [[UILabel alloc]init];
         self.cornerLab = cornerLab;
         cornerLab.textColor = [UIColor colorWithSexadeString:@"#333333" AndAlpha:0.4];
-        cornerLab.textAlignment = NSTextAlignmentCenter;
-        cornerLab.font = [UIFont systemFontOfSize:12];
+        cornerLab.textAlignment = NSTextAlignmentLeft;
+        cornerLab.font = [UIFont systemFontOfSize:10];
         [self.contentView addSubview:cornerLab];
 
-        UILabel *weekLab = [[UILabel alloc]init];
-        self.weekLab = weekLab;
-        weekLab.textColor = [UIColor colorWithSexadeString:@"#333333" AndAlpha:0.4];
-        weekLab.textAlignment = NSTextAlignmentCenter;
-        weekLab.font = [UIFont systemFontOfSize:12];
-        [self.contentView addSubview:weekLab];
+        UILabel *dataLab = [[UILabel alloc]init];
+        self.dataLab = dataLab;
+        dataLab.textColor = [UIColor colorWithSexadeString:@"#333333" AndAlpha:0.4];
+        dataLab.textAlignment = NSTextAlignmentRight;
+        dataLab.font = [UIFont systemFontOfSize:10];
+        [self.contentView addSubview:dataLab];
 
         UIButton *yuceBtn = [[UIButton alloc]init];
-        [yuceBtn setTitle:@"小应分析" forState:UIControlStateNormal];
+        [yuceBtn setTitle:xiaoyingfengxi forState:UIControlStateNormal];
         [yuceBtn addTarget:self action:@selector(clickYuceBtn) forControlEvents:UIControlEventTouchUpInside];
         [yuceBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        yuceBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
+        yuceBtn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
         [yuceBtn setBackgroundImage:[UIImage imageNamed:@"btn／in yellow"] forState:UIControlStateNormal];
         self.yuceBtn = yuceBtn;
         [self.contentView addSubview:yuceBtn];
-
-        UILabel *jifenLab = [[UILabel alloc]init];
-        self.jifenLab = jifenLab;
-        jifenLab.backgroundColor = [UIColor colorWithSexadeString:@"#333333" AndAlpha:0.1];
-        jifenLab.textColor = [UIColor colorWithSexadeString:@"#333333" AndAlpha:0.6];
-        jifenLab.textAlignment = NSTextAlignmentCenter;
-        jifenLab.font = [UIFont systemFontOfSize:12];
-        [self.contentView addSubview:jifenLab];
 
         UIView *line = [[UIView alloc]init];
         line.backgroundColor =  [UIColor colorWithSexadeString:@"#F8F8F8"];
@@ -192,6 +197,15 @@
         [self.contentView addSubview:line];
     }
     return self;
+}
+
+- (void)clickAttentionBtn:(UIButton *)btn {
+    if ([RBChekLogin NotLogin]) {
+        return;
+    } else {
+        btn.selected = !btn.selected;
+        self.clickAttentionBtn(btn.selected);
+    }
 }
 
 - (void)clickYuceBtn {
@@ -210,6 +224,8 @@
 
 - (void)setBiSaiModel:(RBBiSaiModel *)biSaiModel {
     _biSaiModel = biSaiModel;
+    self.attentionBtn.selected = biSaiModel.hasAttention;
+    self.attentionBtn.userInteractionEnabled = (biSaiModel.status != 8);
     self.eventNameLab.text = biSaiModel.eventName;
     self.biSaiTimeLab.text = [NSString getStrWithDateInt:biSaiModel.biSaiTime andFormat:@"HH:mm"];
     self.statLab.text = biSaiModel.TeeTimeStr;
@@ -306,7 +322,74 @@
         self.vredLab.frame = CGRectMake(CGRectGetMaxX(self.visitNameLab.frame), 29, 0, 18);
     }
     self.vyellowLab.frame = CGRectMake(CGRectGetMaxX(self.vredLab.frame) + 4, 29, 14, 18);
-
+    if (biSaiModel.ballData != nil && ![biSaiModel.ballData isKindOfClass:[NSNull class]] && biSaiModel.ballData.length > 0) {
+        NSData *jsonData = [biSaiModel.ballData dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *err;
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                            options:NSJSONReadingMutableContainers
+                                                              error:&err];
+        NSArray *D = (NSArray *)dic[@"d"];
+        NSArray *R = (NSArray *)dic[@"r"];
+        NSString *dataStr;
+        if (![R isKindOfClass:[NSNull class]] && R.count >= 3) {
+            CGFloat disCount = [R[1]floatValue];
+            if ([RBFloatOption judgeDivisibleWithFirstNumber:disCount andSecondNumber:0.5]) {
+                if ([RBFloatOption judgeDivisibleWithFirstNumber:disCount andSecondNumber:1]) {
+                    if (disCount > 0) {
+                        dataStr = [NSString stringWithFormat:@"主让 %0.0f", disCount];
+                    } else if (disCount == 0) {
+                        dataStr = [NSString stringWithFormat:@"%0.0f", disCount];
+                    } else {
+                        dataStr = [NSString stringWithFormat:@"客让 %0.0f", -disCount];
+                    }
+                } else {
+                    if (disCount > 0) {
+                        dataStr = [NSString stringWithFormat:@"主让 %0.1f", disCount];
+                    } else if (disCount == 0) {
+                        dataStr = [NSString stringWithFormat:@"%0.1f", disCount];
+                    } else {
+                        dataStr = [NSString stringWithFormat:@"客让 %0.1f", -disCount];
+                    }
+                }
+            } else {
+                CGFloat bigDisCount;
+                NSString *str = @"";
+                if (disCount > 0) {
+                    str = [str stringByAppendingString:@"主让 "];
+                    bigDisCount = disCount;
+                } else {
+                    str = [str stringByAppendingString:@"客让 "];
+                    bigDisCount = -disCount;
+                }
+                if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                    dataStr = [NSString stringWithFormat:@"%@%0.0f/%0.0f", str, bigDisCount - 0.25, bigDisCount + 0.25];
+                } else if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && ![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                    dataStr = [NSString stringWithFormat:@"%@%0.0f/%0.1f", str, bigDisCount - 0.25, bigDisCount + 0.25];
+                } else if (![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                    dataStr = [NSString stringWithFormat:@"%@%0.1f/%0.0f", str, bigDisCount - 0.25, bigDisCount + 0.25];
+                } else {
+                    dataStr = [NSString stringWithFormat:@"%@%0.1f/%0.1f", str, bigDisCount - 0.25, bigDisCount + 0.25];
+                }
+            }
+        }
+        if (![D isKindOfClass:[NSNull class]] && D.count >= 3) {
+            if ([RBFloatOption judgeDivisibleWithFirstNumber:[D[1]floatValue] andSecondNumber:0.5]) {
+                dataStr = [NSString stringWithFormat:@"%@  %@球", dataStr, [NSString formatFloat:[D[1]floatValue]]];
+            } else {
+                CGFloat bigDisCount = [D[1]floatValue];
+                if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                    dataStr = [NSString stringWithFormat:@"%@  %0.0f/%0.0f球", dataStr, bigDisCount - 0.25, bigDisCount + 0.25];
+                } else if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && ![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                    dataStr = [NSString stringWithFormat:@"%@  %0.0f/%0.1f球", dataStr, bigDisCount - 0.25, bigDisCount + 0.25];
+                } else if (![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                    dataStr = [NSString stringWithFormat:@"%@  %0.1f/%0.0f球", dataStr, bigDisCount - 0.25, bigDisCount + 0.25];
+                } else {
+                    dataStr = [NSString stringWithFormat:@"%@  %0.1f/%0.1f球", dataStr, bigDisCount - 0.25, bigDisCount + 0.25];
+                }
+            }
+        }
+        self.dataLab.text = dataStr;
+    }
     if (visitNameSize.height > 17) {
         // 换行
         self.vyellowLab.y = self.visitNameLab.y;
@@ -315,7 +398,6 @@
         self.vyellowLab.centerY = self.visitNameLab.centerY;
         self.vredLab.centerY = self.visitNameLab.centerY;
     }
-    self.weekLab.text = [NSString stringWithFormat:@"%@ %d", biSaiModel.week, biSaiModel.index];
     if (biSaiModel.stage != nil) {
         self.jifenLab.hidden = NO;
         NSString *str;
@@ -340,8 +422,9 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.eventNameLab.frame = CGRectMake(8, 8, 92, 17);
-    self.biSaiTimeLab.frame = CGRectMake(100, 8, 65, 17);
+    self.eventNameLab.frame = CGRectMake(12, 8, 92, 17);
+    [self.eventNameLab sizeToFit];
+    self.biSaiTimeLab.frame = CGRectMake(CGRectGetMaxX(self.eventNameLab.frame) + 8, 6, 65, 17);
     NSString *str = self.statLab.text;
     if (self.biSaiModel.status == 2 || self.biSaiModel.status == 4) {
         if (![str containsString:@"'"]) {
@@ -360,34 +443,24 @@
         self.statLab.layer.masksToBounds = NO;
         self.statLab.layer.cornerRadius = 0;
     }
-    CGFloat rigthW = RBScreenWidth - 8;
-    self.attentionView.hidden = !self.biSaiModel.hasAttention;
-    if(!self.attentionView.hidden){
-        rigthW = RBScreenWidth - 20;
-    }
-    self.attentionView.frame = CGRectMake(rigthW, 8, 16, 15);
+
+    self.attentionBtn.frame = CGRectMake(RBScreenWidth - 32, 4, 24, 24);
     int isVip = [[[NSUserDefaults standardUserDefaults]objectForKey:@"isVip"]intValue];
     if (isVip != 2) {
         self.infoLab.hidden = YES;
     }
+
+    self.infoLab.frame = CGRectMake(RBScreenWidth - 68, 8, 28, 16);
     if (!self.infoLab.hidden) {
-         rigthW -= 32;
-    }
-    self.infoLab.frame = CGRectMake(rigthW, 8, 28, 16);
-    if (!self.shipingLab.hidden) {
-        rigthW -= 32;
-    }
-    self.shipingLab.frame = CGRectMake(rigthW, 8, 28, 16);
-    self.cornerLab.frame = CGRectMake(0, 71, RBScreenWidth, 12);
-    self.yuceBtn.frame = CGRectMake((RBScreenWidth - 91) * 0.5, 91, 96, 28);
-    self.weekLab.frame = CGRectMake(12, 96, [self.weekLab.text getLineSizeWithFontSize:12].width, 17);
-    if (self.biSaiModel.stage == nil) {
-        self.line.frame = CGRectMake(0, 119, RBScreenWidth, 4);
-        self.jifenLab.frame = CGRectZero;
+        self.shipingLab.frame = CGRectMake(RBScreenWidth - 100, 8, 28, 16);
     } else {
-        self.line.frame = CGRectMake(0, 143, RBScreenWidth, 4);
-        self.jifenLab.frame = CGRectMake(0, 119, RBScreenWidth, 24);
+        self.shipingLab.frame = CGRectMake(RBScreenWidth - 68, 8, 28, 16);
     }
+    self.cornerLab.frame = CGRectMake(12, 88, (RBScreenWidth - 95) * 0.5, 12);
+    self.dataLab.frame = CGRectMake((RBScreenWidth + 71) * 0.5, 88, (RBScreenWidth - 95) * 0.5, 12);
+    self.jifenLab.frame = CGRectMake(0, 67, RBScreenWidth, 12);
+    self.yuceBtn.frame = CGRectMake((RBScreenWidth - 71) * 0.5, 87, 71, 20);
+    self.line.frame = CGRectMake(0, 107, RBScreenWidth, 4);
 }
 
 @end

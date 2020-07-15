@@ -69,10 +69,10 @@
         UIButton *moreBtn = [[UIButton alloc]init];
         [moreBtn addTarget:self  action:@selector(clickMoreBtn) forControlEvents:UIControlEventTouchUpInside];
         moreBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        [moreBtn setTitle:@"查看更多" forState:UIControlStateNormal];
+         [moreBtn setImage:[UIImage imageNamed:@"next"] forState:UIControlStateNormal];
         [moreBtn setTitleColor:[UIColor colorWithSexadeString:@"#333333" AndAlpha:0.4] forState:UIControlStateNormal];
         moreBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-        moreBtn.frame = CGRectMake(RBScreenWidth - 62, 5, 50, 40);
+        moreBtn.frame = CGRectMake(RBScreenWidth - 52, 5, 40, 40);
         [titleView addSubview:moreBtn];
         [self addSubview:titleView];
 

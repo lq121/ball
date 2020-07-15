@@ -176,7 +176,7 @@
 - (void)getUserInfo {
     // 获取个人信息
     RBTabBarVC *tabBarVC = (RBTabBarVC *)[UIApplication sharedApplication].keyWindow.rootViewController;
-    RBNavigationVC *nav = tabBarVC.childViewControllers[4];
+    RBNavigationVC *nav = tabBarVC.childViewControllers[3];
     RBWoTabVC *woTabVC =  [nav.childViewControllers firstObject];
     [woTabVC getUserInfo];
 }
