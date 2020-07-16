@@ -163,5 +163,117 @@
             endingLineNumber = "880">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F118DB53-27A4-466F-A484-ADFAD65BDA6C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ball/classes/bisai/controls/RBBiSaiDetailVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "363"
+            endingLineNumber = "363"
+            landmarkName = "-clickAttentionBtn:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F118DB53-27A4-466F-A484-ADFAD65BDA6C - 23d678ac49fc707c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[RBBiSaiDetailVC clickAttentionBtn:]"
+                  moduleName = "&#x5c0f;&#x5e94;&#x4f53;&#x80b2;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/admin/Desktop/balls/ball3/ball/classes/bisai/controls/RBBiSaiDetailVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "363"
+                  endingLineNumber = "363"
+                  offsetFromSymbolStart = "845">
+               </Location>
+               <Location
+                  uuid = "F118DB53-27A4-466F-A484-ADFAD65BDA6C - ea4807007132876a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__37-[RBBiSaiDetailVC clickAttentionBtn:]_block_invoke"
+                  moduleName = "&#x5c0f;&#x5e94;&#x4f53;&#x80b2;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/admin/Desktop/balls/ball3/ball/classes/bisai/controls/RBBiSaiDetailVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "364"
+                  endingLineNumber = "364"
+                  offsetFromSymbolStart = "54">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A84777CC-2B41-4FD9-85D1-FEF54E6102E9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ball/classes/bisai/controls/RBBiSaiTabVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "822"
+            endingLineNumber = "822"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EBB00C87-11F6-474E-B5A5-A00F70AFA4B0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ball/classes/bisai/controls/RBBiSaiTabVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "819"
+            endingLineNumber = "819"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "EBB00C87-11F6-474E-B5A5-A00F70AFA4B0 - da8c9058b8f197d2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__48-[RBBiSaiTabVC tableView:cellForRowAtIndexPath:]_block_invoke"
+                  moduleName = "&#x5c0f;&#x5e94;&#x4f53;&#x80b2;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/admin/Desktop/balls/ball3/ball/classes/bisai/controls/RBBiSaiTabVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "819"
+                  endingLineNumber = "819"
+                  offsetFromSymbolStart = "546">
+               </Location>
+               <Location
+                  uuid = "EBB00C87-11F6-474E-B5A5-A00F70AFA4B0 - 54aef01a555e5ae5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__48-[RBBiSaiTabVC tableView:cellForRowAtIndexPath:]_block_invoke_2"
+                  moduleName = "&#x5c0f;&#x5e94;&#x4f53;&#x80b2;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/admin/Desktop/balls/ball3/ball/classes/bisai/controls/RBBiSaiTabVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "819"
+                  endingLineNumber = "819"
+                  offsetFromSymbolStart = "29">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

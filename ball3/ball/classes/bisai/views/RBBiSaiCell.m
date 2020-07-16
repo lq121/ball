@@ -203,8 +203,7 @@
     if ([RBChekLogin NotLogin]) {
         return;
     } else {
-        btn.selected = !btn.selected;
-        self.clickAttentionBtn(btn.selected);
+        self.clickAttentionBtn(self.biSaiModel.hasAttention);
     }
 }
 

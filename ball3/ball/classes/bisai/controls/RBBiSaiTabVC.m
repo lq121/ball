@@ -820,7 +820,7 @@
             model.hasAttention = selected;
             [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
             if (backData[@"ok"] != nil) {
-                if (selected) {
+                if (!selected) {
                     [[RBFMDBTool sharedFMDBTool]addAttentionBiSaiModel:model];
                     [[RBFMDBTool sharedFMDBTool]updateBiSaiModelWithNamiId:model.namiId andhasAttention:YES];
                 } else {
