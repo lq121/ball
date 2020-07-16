@@ -116,7 +116,7 @@
             [self.nearpredictArr removeAllObjects];
         }
         [self.nearpredictArr addObjectsFromArray:arr];
-        [self.tableView reloadData];
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:2]] withRowAnimation:UITableViewRowAnimationNone];
     } Fail:^(NSError *_Nonnull error) {
     }];
 }
