@@ -72,8 +72,7 @@
         self.scoreLab.textColor = [UIColor colorWithSexadeString:@"#333333"];
     }
     if (biSaiModel.status == 2) {
-        // 上半场
-        biSaiModel.TeeTimeStr =   [NSString stringWithFormat:@"%@%@",shangbanchang, [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:biSaiModel.TeeTime]];
+        biSaiModel.TeeTimeStr =   [NSString stringWithFormat:@"%@", [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:biSaiModel.TeeTime]];
     } else if (biSaiModel.status == 3) {
         biSaiModel.TeeTimeStr = @"中";
     } else if (biSaiModel.status >= 4 && biSaiModel.status <= 7) {
@@ -81,7 +80,7 @@
         if (timeCount + 45 > 90) {
             biSaiModel.TeeTimeStr = xiabanchangjia;
         } else {
-            biSaiModel.TeeTimeStr = [NSString stringWithFormat:@"%@%ld",xiabanchang, timeCount + 45];
+            biSaiModel.TeeTimeStr = [NSString stringWithFormat:@"%ld", timeCount + 45];
         }
     } else if (biSaiModel.status  == 8) {
         biSaiModel.TeeTimeStr = wan;

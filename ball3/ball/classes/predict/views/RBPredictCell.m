@@ -200,8 +200,7 @@
     self.shipingLab.hidden = !(predictModel.zhibo.count > 0 );
     NSString *teeTimeStr;
     if (predictModel.state == 2) {
-        // 上半场
-        teeTimeStr = [NSString stringWithFormat:@"%@%@", shangbanchang, [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:predictModel.startballt]];
+        teeTimeStr = [NSString stringWithFormat:@"%@", [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:predictModel.startballt]];
     } else if (predictModel.state == 3) {
         teeTimeStr = @"中";
     } else if (predictModel.state >= 4 && predictModel.state <= 7) {
@@ -209,7 +208,7 @@
         if (timeCount + 45 > 90) {
             teeTimeStr = xiabanchangjia;
         } else {
-            teeTimeStr = [NSString stringWithFormat:@"%@%ld", xiabanchang, timeCount + 45];
+            teeTimeStr = [NSString stringWithFormat:@"%ld", timeCount + 45];
         }
     } else if (predictModel.state   == 8) {
         teeTimeStr = wan;

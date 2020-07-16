@@ -436,14 +436,14 @@ typedef void (^ChangeHeight)(int height);
     NSString *str = [[NSString alloc]init];
     if (self.biSaiModel.status == 2 || self.biSaiModel.status == 4) {
         if (self.biSaiModel.status   == 2) {
-            str = [NSString stringWithFormat:@"%@%@", shangbanchang, [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:self.biSaiModel.TeeTime]];
+            str = [NSString stringWithFormat:@"%@", [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:self.biSaiModel.TeeTime]];
         }
         if (self.biSaiModel.status   >= 4 && self.biSaiModel.status   <= 7) {
             long timeCount =  (long)[[NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:self.biSaiModel.TeeTime] longLongValue];
             if (timeCount + 45 > 90) {
                 str = xiabanchangjia;
             } else {
-                str = [NSString stringWithFormat:@"%@%ld", xiabanchang, timeCount + 45];
+                str = [NSString stringWithFormat:@"%ld", timeCount + 45];
             }
         }
         if (self.show) {
@@ -565,14 +565,14 @@ typedef void (^ChangeHeight)(int height);
         self.biSaiTimeLabel.textAlignment = NSTextAlignmentLeft;
         self.biSaiTimeLabel2.textAlignment = NSTextAlignmentLeft;
         if (self.biSaiModel.status   == 2) {
-            str = [NSString stringWithFormat:@"%@%@", shangbanchang, [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:self.biSaiModel.TeeTime]];
+            str = [NSString stringWithFormat:@"%@", [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:self.biSaiModel.TeeTime]];
         }
         if (self.biSaiModel.status   >= 4 && self.biSaiModel.status   <= 7) {
             long timeCount =  (long)[[NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:biSaiModel.TeeTime] longLongValue];
             if (timeCount + 45 > 90) {
                 str = xiabanchangjia;
             } else {
-                str = [NSString stringWithFormat:@"%@%ld", xiabanchang, timeCount + 45];
+                str = [NSString stringWithFormat:@"%ld", timeCount + 45];
             }
         }
         if (self.show) {

@@ -62,6 +62,10 @@
 - (void)setDataWith:(NSDictionary *)backData {
     [self.dataArr removeAllObjects];
     NSDictionary *ok = backData[@"ok"];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:ok options:0 error:0];
+    NSString *dataStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    [[RBFMDBTool sharedFMDBTool]updateBiSaiModelWithNamiId:self.biSaiModel.namiId andBallData:dataStr];
+    [[RBFMDBTool sharedFMDBTool]updateAttentionBiSaiModelWithNamiId:self.biSaiModel.namiId andBallData:dataStr];
     NSMutableArray *buy = [NSMutableArray array]; // 购买信息
     [buy addObject:ok[@"Sbuy"]];
     [buy addObject:ok[@"Rbuy"]];
@@ -130,8 +134,8 @@
         } else if (i == 2 && ![D isKindOfClass:[NSNull class]] && D.count >= 3) {
             if ([RBFloatOption judgeDivisibleWithFirstNumber:[D[1]floatValue] andSecondNumber:0.5]) {
                 model.desTitle = [NSString stringWithFormat:@"%@球", [NSString formatFloat:[D[1]floatValue]]];
-            }else{
-                 CGFloat bigDisCount = [D[1]floatValue];
+            } else {
+                CGFloat bigDisCount = [D[1]floatValue];
                 if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
                     model.desTitle = [NSString stringWithFormat:@"%0.0f/%0.0f球", bigDisCount - 0.25, bigDisCount + 0.25];
                 } else if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && ![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
@@ -141,7 +145,7 @@
                 } else {
                     model.desTitle = [NSString stringWithFormat:@"%0.1f/%0.1f球", bigDisCount - 0.25, bigDisCount + 0.25];
                 }
-            }  
+            }
         }
 
         if ([buy[i] intValue] == 0 && self.biSaiModel.status != 8) { // 是否有购买或者已完赛

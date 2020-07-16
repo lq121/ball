@@ -410,7 +410,45 @@
         } else if (predictModel.rqresult == 3) {
             self.img.image = [UIImage imageNamed:@"wrong"];
         }
-        self.topLabel.text = @"";
+        CGFloat disCount = [predictModel.rangqiuArr[1] doubleValue];
+        if ([RBFloatOption judgeDivisibleWithFirstNumber:disCount andSecondNumber:0.5]) {
+            if ([RBFloatOption judgeDivisibleWithFirstNumber:disCount andSecondNumber:1]) {
+                if (disCount > 0) {
+                    self.topLabel.text = [NSString stringWithFormat:@"主让 %0.0f", disCount];
+                } else if (disCount == 0) {
+                    self.topLabel.text = [NSString stringWithFormat:@"%0.0f", disCount];
+                } else {
+                    self.topLabel.text = [NSString stringWithFormat:@"客让 %0.0f", -disCount];
+                }
+            } else {
+                if (disCount > 0) {
+                    self.topLabel.text = [NSString stringWithFormat:@"主让 %0.1f", disCount];
+                } else if (disCount == 0) {
+                    self.topLabel.text = [NSString stringWithFormat:@"%0.1f", disCount];
+                } else {
+                    self.topLabel.text = [NSString stringWithFormat:@"客让 %0.1f", -disCount];
+                }
+            }
+        } else {
+            CGFloat bigDisCount;
+            NSString *str = @"";
+            if (disCount > 0) {
+                str = [str stringByAppendingString:@"主让 "];
+                bigDisCount = disCount;
+            } else {
+                str = [str stringByAppendingString:@"客让 "];
+                bigDisCount = -disCount;
+            }
+            if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                self.topLabel.text = [NSString stringWithFormat:@"%@%0.0f/%0.0f", str, bigDisCount - 0.25, bigDisCount + 0.25];
+            } else if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && ![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                self.topLabel.text = [NSString stringWithFormat:@"%@%0.0f/%0.1f", str, bigDisCount - 0.25, bigDisCount + 0.25];
+            } else if (![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
+                self.topLabel.text = [NSString stringWithFormat:@"%@%0.1f/%0.0f", str, bigDisCount - 0.25, bigDisCount + 0.25];
+            } else {
+                self.topLabel.text = [NSString stringWithFormat:@"%@%0.1f/%0.1f", str, bigDisCount - 0.25, bigDisCount + 0.25];
+            }
+        }
         int negative = ([predictModel.rangqiuArr[0]floatValue] * 100) / (([predictModel.rangqiuArr[0]floatValue] + [predictModel.rangqiuArr[2]floatValue]) * 100) * 100;
         int win = 100 - negative;
         if (win == 50) {
@@ -447,7 +485,7 @@
         CGFloat w1 = [predictModel.shengps[1]floatValue];
         CGFloat w2 = [predictModel.shengps[2]floatValue];
         NSMutableArray *mutArr = [NSMutableArray arrayWithArray:predictModel.shengps];
-        if (mutArr == nil ||[mutArr isKindOfClass:[NSNull class]]|| mutArr.count == 0) {
+        if (mutArr == nil || [mutArr isKindOfClass:[NSNull class]] || mutArr.count == 0) {
             return;
         }
         CGFloat max = MAX(MAX(w0, w1), w2);
@@ -509,45 +547,7 @@
         [AttributedStr3 addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:14] range:NSMakeRange(self.negativeLabel.text.length - 1, 1)];
         self.negativeLabel.attributedText = AttributedStr3;
         self.titleLabel.text = shengpingfu;
-        CGFloat disCount = [predictModel.shengps[1] doubleValue];
-        if ([RBFloatOption judgeDivisibleWithFirstNumber:disCount andSecondNumber:0.5]) {
-            if ([RBFloatOption judgeDivisibleWithFirstNumber:disCount andSecondNumber:1]) {
-                if (disCount > 0) {
-                    self.topLabel.text = [NSString stringWithFormat:@"主让 %0.0f", disCount];
-                } else if (disCount == 0) {
-                    self.topLabel.text = [NSString stringWithFormat:@"%0.0f", disCount];
-                } else {
-                    self.topLabel.text = [NSString stringWithFormat:@"客让 %0.0f", -disCount];
-                }
-            } else {
-                if (disCount > 0) {
-                    self.topLabel.text = [NSString stringWithFormat:@"主让 %0.1f", disCount];
-                } else if (disCount == 0) {
-                    self.topLabel.text = [NSString stringWithFormat:@"%0.1f", disCount];
-                } else {
-                    self.topLabel.text = [NSString stringWithFormat:@"客让 %0.1f", -disCount];
-                }
-            }
-        } else {
-            CGFloat bigDisCount;
-            NSString *str = @"";
-            if (disCount > 0) {
-                str = [str stringByAppendingString:@"主让 "];
-                bigDisCount = disCount;
-            } else {
-                str = [str stringByAppendingString:@"客让 "];
-                bigDisCount = -disCount;
-            }
-            if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
-                self.topLabel.text = [NSString stringWithFormat:@"%@%0.0f/%0.0f", str, bigDisCount - 0.25, bigDisCount + 0.25];
-            } else if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && ![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
-                self.topLabel.text = [NSString stringWithFormat:@"%@%0.0f/%0.1f", str, bigDisCount - 0.25, bigDisCount + 0.25];
-            } else if (![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
-                self.topLabel.text = [NSString stringWithFormat:@"%@%0.1f/%0.0f", str, bigDisCount - 0.25, bigDisCount + 0.25];
-            } else {
-                self.topLabel.text = [NSString stringWithFormat:@"%@%0.1f/%0.1f", str, bigDisCount - 0.25, bigDisCount + 0.25];
-            }
-        }
+        self.topLabel.text = @"";
     } else {
         int negative = ([predictModel.daxiao[0]floatValue] * 100) / (([predictModel.daxiao[0]floatValue] + [predictModel.daxiao[2]floatValue]) * 100) * 100;
         int win = 100 - negative;
@@ -579,17 +579,17 @@
         self.negativeLabel.attributedText = AttributedStr2;
         self.titleLabel.text = daxiaoqiu;
         if ([RBFloatOption judgeDivisibleWithFirstNumber:[predictModel.daxiao[1] doubleValue] andSecondNumber:0.5]) {
-            self.topLabel.text = [NSString stringWithFormat:@"大小球 %@球", [NSString formatFloat:[predictModel.daxiao[1] doubleValue]]];
+            self.topLabel.text = [NSString stringWithFormat:@"%@球", [NSString formatFloat:[predictModel.daxiao[1] doubleValue]]];
         } else {
             CGFloat bigDisCount = [predictModel.daxiao[1] doubleValue];
             if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
-                self.topLabel.text = [NSString stringWithFormat:@"大小球 %0.0f/%0.0f球", bigDisCount - 0.25, bigDisCount + 0.25];
+                self.topLabel.text = [NSString stringWithFormat:@"%0.0f/%0.0f球", bigDisCount - 0.25, bigDisCount + 0.25];
             } else if ([RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && ![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
-                self.topLabel.text = [NSString stringWithFormat:@"大小球 %0.0f/%0.1f球", bigDisCount - 0.25, bigDisCount + 0.25];
+                self.topLabel.text = [NSString stringWithFormat:@"%0.0f/%0.1f球", bigDisCount - 0.25, bigDisCount + 0.25];
             } else if (![RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount - 0.25 andSecondNumber:1] && [RBFloatOption judgeDivisibleWithFirstNumber:bigDisCount + 0.25 andSecondNumber:1]) {
-                self.topLabel.text = [NSString stringWithFormat:@"大小球 %0.1f/%0.0f球", bigDisCount - 0.25, bigDisCount + 0.25];
+                self.topLabel.text = [NSString stringWithFormat:@"%0.1f/%0.0f球", bigDisCount - 0.25, bigDisCount + 0.25];
             } else {
-                self.topLabel.text = [NSString stringWithFormat:@"大小球 %0.1f/%0.1f球", bigDisCount - 0.25, bigDisCount + 0.25];
+                self.topLabel.text = [NSString stringWithFormat:@"%0.1f/%0.1f球", bigDisCount - 0.25, bigDisCount + 0.25];
             }
         }
     }

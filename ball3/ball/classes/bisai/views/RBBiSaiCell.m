@@ -329,8 +329,9 @@
                                                               error:&err];
         NSArray *D = (NSArray *)dic[@"d"];
         NSArray *R = (NSArray *)dic[@"r"];
+
         NSString *dataStr;
-        if (![R isKindOfClass:[NSNull class]] && R.count >= 3) {
+        if (![R isKindOfClass:[NSNull class]] && R != nil  && R != NULL && R.count >= 3) {
             CGFloat disCount = [R[1]floatValue];
             if ([RBFloatOption judgeDivisibleWithFirstNumber:disCount andSecondNumber:0.5]) {
                 if ([RBFloatOption judgeDivisibleWithFirstNumber:disCount andSecondNumber:1]) {
@@ -371,7 +372,10 @@
                 }
             }
         }
-        if (![D isKindOfClass:[NSNull class]] && D.count >= 3) {
+        if (![D isKindOfClass:[NSNull class]] && D != nil  && D != NULL && D.count >= 3) {
+            if (dataStr.length == 0) {
+                dataStr = @"";
+            }
             if ([RBFloatOption judgeDivisibleWithFirstNumber:[D[1]floatValue] andSecondNumber:0.5]) {
                 dataStr = [NSString stringWithFormat:@"%@  %@球", dataStr, [NSString formatFloat:[D[1]floatValue]]];
             } else {
@@ -386,6 +390,7 @@
                     dataStr = [NSString stringWithFormat:@"%@  %0.1f/%0.1f球", dataStr, bigDisCount - 0.25, bigDisCount + 0.25];
                 }
             }
+           
         }
         self.dataLab.text = dataStr;
     }

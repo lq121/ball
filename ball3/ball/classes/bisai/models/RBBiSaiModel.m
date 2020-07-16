@@ -45,8 +45,7 @@
     model.stage = stages[[NSString stringWithFormat:@"%d", stageId] ];
     model.TeeTime = [arr[4]intValue];
     if (model.status == 2) {
-        // 上半场
-        model.TeeTimeStr = [NSString stringWithFormat:@"%@%@",shangbanchang, [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:[arr[4]intValue]]];
+        model.TeeTimeStr = [NSString stringWithFormat:@"%@", [NSString comperTime:[[NSDate date] timeIntervalSince1970] andToTime:[arr[4]intValue]]];
     } else if (model.status == 3) {
         model.TeeTimeStr = @"中";
     } else if (model.status >= 4 && model.status <= 7) {
@@ -54,7 +53,7 @@
         if (timeCount + 45 > 90) {
             model.TeeTimeStr = xiabanchangjia;
         } else {
-            model.TeeTimeStr = [NSString stringWithFormat:@"%@%ld",xiabanchang, timeCount + 45];
+            model.TeeTimeStr = [NSString stringWithFormat:@"%ld", timeCount + 45];
         }
     } else if (model.status  == 8) {
         model.TeeTimeStr = wan;

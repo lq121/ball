@@ -135,7 +135,7 @@
         NSArray *dataArr = [RBXinWenModel mj_objectArrayWithKeyValuesArray:array];
         [self.xinWenDataArr removeAllObjects];
         [self.xinWenDataArr addObjectsFromArray:dataArr];
-        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:2]] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:3]] withRowAnimation:UITableViewRowAnimationNone];
     } Fail:^(NSError *_Nonnull error) {
         if ([self.tableView.mj_footer isRefreshing]) {
             [self.tableView.mj_footer endRefreshing];

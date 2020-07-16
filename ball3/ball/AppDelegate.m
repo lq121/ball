@@ -181,7 +181,7 @@
            [application endBackgroundTask: background_task];
            background_task = UIBackgroundTaskInvalid;
        }];
-       dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+       dispatch_async(dispatch_get_main_queue(), ^{
            while(true){
                 sleep(1000);
                 if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
