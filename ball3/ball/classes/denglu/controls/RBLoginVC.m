@@ -135,6 +135,7 @@
     req.state = @"123";
     //第三方向微信终端发送一个SendAuthReq消息结构
     [WXApi sendReq:req completion:^(BOOL success) {
+        
     }];
 }
 

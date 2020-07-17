@@ -206,6 +206,7 @@
         cell = xinwenBisaiViewCell;
     } else if (indexPath.section == 2) {
         UITableViewCell *cell = [[UITableViewCell alloc]init];
+      
         UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, RBScreenWidth, 40)];
         view.backgroundColor = [UIColor whiteColor];
         UIImageView *icon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"guo"]];
@@ -230,7 +231,6 @@
         moreBtn.frame = CGRectMake(RBScreenWidth - 52, 0, 40, 40);
         [view addSubview:moreBtn];
         [cell.contentView addSubview:view];
-        cell.backgroundColor = [UIColor whiteColor];
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         RBNearCollectionView *collectionView = [[RBNearCollectionView alloc]initWithFrame:CGRectMake(10, 40, RBScreenWidth - 10, 97) collectionViewLayout:layout andmodels:self.nearpredictArr andClickItem:^(NSInteger index) {
@@ -246,6 +246,9 @@
 
         [cell addSubview:collectionView];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, 149, RBScreenWidth, 8)];
+        line.backgroundColor = [UIColor colorWithSexadeString:@"#F8F8F8"];
+        [cell.contentView addSubview:line];
         return cell;
     } else {
         RBXinWenCell *xinWenCell =  [RBXinWenCell createCellByTableView:tableView];
@@ -306,7 +309,7 @@
             return 3 * 60 + 87;
         }
     } else if (indexPath.section == 2) {
-        return 149;
+        return 157;
     } else if (indexPath.section == 3) {
         CGFloat height = 0;
         int bigNum = (int)(self.xinWenDataArr.count - 4) / 4;

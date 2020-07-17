@@ -7,7 +7,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
-            uuid = "96E4C4A2-CA8D-4B61-AE19-86E6628187E7"
+            uuid = "68BA4F16-BF76-471E-B57B-36B18D440EB2"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -19,92 +19,66 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "128F495D-A548-41FA-8A05-DA1C318BC875"
-            shouldBeEnabled = "No"
+            uuid = "C8C71560-21CF-474F-9F56-A47E5FE33D79"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ball/AppDelegate.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "-checkre"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.RuntimeIssueBreakpoint">
-         <BreakpointContent
-            uuid = "A5970EC5-DCF6-42AA-A75E-D37F906C7CF1"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            breakpointStackSelectionBehavior = "1"
-            type = "65535">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2E264D8A-0013-42DB-98A7-23E76A5DEDD3"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ball/classes/tool/SocketRocketUtility.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "197"
-            endingLineNumber = "197"
-            landmarkName = "-dealloc"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
+            landmarkName = "-onResp:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "AA462987-E540-4B51-AD0D-327E00A774CB"
+            uuid = "31D919F7-F37C-4004-9C14-B421B4ACD70F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ball/classes/shiping/views/RBPlayer.m"
+            filePath = "ball/AppDelegate.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "440"
-            endingLineNumber = "440"
-            landmarkName = "-smallWindowPlay"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
+            landmarkName = "-onResp:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "AA462987-E540-4B51-AD0D-327E00A774CB - c9095302825b55"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[RBPlayer smallWindowPlay]"
-                  moduleName = "&#x5c0f;&#x5e94;&#x4f53;&#x80b2;"
-                  usesParentBreakpointCondition = "Yes"
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9C99DCAA-8B36-4C27-AA76-181215A67E84"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ball/classes/denglu/controls/RBLoginVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
+            landmarkName = "-wxLogin:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8CF62D95-3542-4A74-8928-C822ECA0BC96"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ball/classes/denglu/controls/RBLoginVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
+            landmarkName = "-clickWXBtn"
+            landmarkType = "7">
                   urlString = "file:///Users/admin/Desktop/balls/ball3/ball/classes/shiping/views/RBPlayer.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "440"
-                  endingLineNumber = "440"
-                  offsetFromSymbolStart = "816">
-               </Location>
-               <Location
-                  uuid = "AA462987-E540-4B51-AD0D-327E00A774CB - 1af373baec3348c8"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__27-[RBPlayer smallWindowPlay]_block_invoke"
-                  moduleName = "&#x5c0f;&#x5e94;&#x4f53;&#x80b2;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Desktop/balls/ball3/ball/classes/shiping/views/RBPlayer.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "441"
-                  endingLineNumber = "441"
-                  offsetFromSymbolStart = "24">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

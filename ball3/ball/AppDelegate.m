@@ -165,11 +165,7 @@
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application {
-    [RBNetworkTool refreshTokenSuccess:^(NSDictionary *_Nonnull backData) {
-    } Fail:^(NSError *_Nonnull error) {
-    } ];
-}
+
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     //重置应用的角标
@@ -181,7 +177,7 @@
            [application endBackgroundTask: background_task];
            background_task = UIBackgroundTaskInvalid;
        }];
-       dispatch_async(dispatch_get_main_queue(), ^{
+       dispatch_async(dispatch_get_global_queue(0, 0), ^{
            while(true){
                 sleep(1000);
                 if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
