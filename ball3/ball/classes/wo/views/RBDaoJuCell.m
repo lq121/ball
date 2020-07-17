@@ -23,7 +23,7 @@
 
         UILabel *anchorName = [[UILabel alloc]init];
         self.anchorName = anchorName;
-        anchorName.textAlignment = NSTextAlignmentRight;
+        anchorName.textAlignment = NSTextAlignmentCenter;
         anchorName.textColor = [UIColor colorWithSexadeString:@"#333333"];
         anchorName.font = [UIFont systemFontOfSize:12];
         [self addSubview:anchorName];

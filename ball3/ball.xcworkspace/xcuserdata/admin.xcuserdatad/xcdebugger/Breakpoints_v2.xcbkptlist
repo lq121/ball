@@ -87,7 +87,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "440"
                   endingLineNumber = "440"
-                  offsetFromSymbolStart = "1056">
+                  offsetFromSymbolStart = "816">
                </Location>
                <Location
                   uuid = "AA462987-E540-4B51-AD0D-327E00A774CB - 1af373baec3348c8"
@@ -100,9 +100,9 @@
                   urlString = "file:///Users/admin/Desktop/balls/ball3/ball/classes/shiping/views/RBPlayer.m"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "440"
-                  endingLineNumber = "440"
-                  offsetFromSymbolStart = "15">
+                  startingLineNumber = "441"
+                  endingLineNumber = "441"
+                  offsetFromSymbolStart = "24">
                </Location>
             </Locations>
          </BreakpointContent>

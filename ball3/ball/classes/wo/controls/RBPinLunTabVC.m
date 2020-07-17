@@ -138,7 +138,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RBPinLunCell *cell = [RBPinLunCell createCellByTableView:tableView];
     if (self.type == 1) {
-        RBHuaTiHuiFuModel *huiFuModel = self.dataArr[indexPath.row];
+        RBHuaTiHuiFuModel *huiFuModel = self.dataArr2[indexPath.row];
         huiFuModel.type = 1;
         cell.huiFuModel = huiFuModel;
     } else {
